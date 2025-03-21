@@ -12,6 +12,10 @@ namespace NT
         [SerializeField] float sprintingSpeed = 6f;
         [SerializeField] float rotationSpeed = 15f;
 
+        [Header("Player Actions Costs")]
+        [SerializeField] float rollDodgeStaminaCost = 15f;
+        [SerializeField] float backstepDodgeStaminaCost = 12f;
+
         protected override void Awake()
         {
             base.Awake();
@@ -30,16 +34,20 @@ namespace NT
             if (!player.canMove)
                 return;
 
-            Vector3 playerMoveDirection = Vector3.zero;
+            characterMoveDirection = Vector3.zero;
 
-            playerMoveDirection = PlayerCameraManager.instance.playerCameraTransform.transform.forward * PlayerInputManager.instance.vertical_Input;
-            playerMoveDirection += PlayerCameraManager.instance.playerCameraTransform.transform.right * PlayerInputManager.instance.horizontal_Input;
-            playerMoveDirection.Normalize();
-            playerMoveDirection.y = 0f;
+            characterMoveDirection = PlayerCameraManager.instance.playerCameraTransform.transform.forward * PlayerInputManager.instance.vertical_Input;
+            characterMoveDirection += PlayerCameraManager.instance.playerCameraTransform.transform.right * PlayerInputManager.instance.horizontal_Input;
+            characterMoveDirection.Normalize();
+            characterMoveDirection.y = 0f;
 
-            player.characterController.Move(playerMoveDirection * runningSpeed * Time.deltaTime);
+            if (player.isSprinting)
+                player.characterController.Move(characterMoveDirection * sprintingSpeed * Time.deltaTime);
+            else
+                player.characterController.Move(characterMoveDirection * runningSpeed * Time.deltaTime);
 
-            player.playerAnimationManager.ProcessCharacterMovementAnimation(0, PlayerInputManager.instance.moveAmount);
+            player.playerAnimationManager.ProcessCharacterMovementAnimation
+                (0, PlayerInputManager.instance.moveAmount, player.isSprinting);
         }
 
         private void HandlePlayerRotationTowardsCameraLookDirection()
@@ -60,6 +68,42 @@ namespace NT
             Quaternion rotateTowardsCamera = Quaternion.LookRotation(rotationDirection);
             Quaternion finalRotationDirection = Quaternion.Slerp(player.transform.rotation, rotateTowardsCamera, rotationSpeed * Time.deltaTime);
             player.transform.rotation = finalRotationDirection;
+        }
+
+        public void PerformPlayerDodging()
+        {
+            if (player.isPerformingAction)
+                return;
+
+            characterMoveDirection = Vector3.zero;
+
+            if (player.isRolling)
+            {
+                characterMoveDirection = PlayerCameraManager.instance.playerCameraTransform.transform.forward * PlayerInputManager.instance.vertical_Input;
+                characterMoveDirection += PlayerCameraManager.instance.playerCameraTransform.transform.right * PlayerInputManager.instance.horizontal_Input;
+                characterMoveDirection.Normalize();
+                characterMoveDirection.y = 0f;
+
+                if (PlayerInputManager.instance.moveAmount > 0f)
+                {
+                    player.playerAnimationManager.CharacterPlayAnimation("Roll (Forward)", true);
+
+                    Quaternion rollRotateDirection = Quaternion.LookRotation(characterMoveDirection);
+                    player.transform.rotation = rollRotateDirection;
+
+                    //  SET STAMINA ON GUI
+                    PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                        (player.playerStatusManager.characterCurrentStamina - rollDodgeStaminaCost);
+                }
+                else
+                {
+                    player.playerAnimationManager.CharacterPlayAnimation("Back_Step_01", true);
+
+                    //  SET STAMINA ON GUI
+                    PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                        (player.playerStatusManager.characterCurrentStamina - backstepDodgeStaminaCost);
+                }
+            }
         }
     }
 }

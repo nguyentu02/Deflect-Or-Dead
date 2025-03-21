@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae11e98c21536549bb724d98473fd55, type: 3}
+  m_Name: Normal_Katana_01
+  m_EditorClassIdentifier: 
+  itemModelPrefab: {fileID: 4222302584944153269, guid: 5ec390e1cf0e59b4e8a5fcca00b38c8c, type: 3}
+  itemIcon: {fileID: 21300000, guid: 9a83187ccb0eb9a4884fbcfde52e8549, type: 3}
+  itemName: Normal Katana
+  itemID: 0
+  weaponAnimator: {fileID: 22100000, guid: b5a49401189bbd64c9b8ad1d05a2c7fd, type: 2}
+  weaponClass: 3
+  weaponType: 0
+  oh_Light_Attack_01: straight_sword_main_light_attack_01
+  oh_Light_Attack_02: straight_sword_main_light_attack_02
+  oh_Light_Attack_03: straight_sword_main_light_attack_03
+  oh_Heavy_Attack_01: straight_sword_main_charged_attack_01_charge
+  oh_Heavy_Attack_02: straight_sword_main_charged_attack_02_charge
+  oh_Heavy_Attack_03: straight_sword_main_charged_attack_03_charge
+  baseStaminaCost: 10
+  oh_Light_Attack_01_Stamina_Multiplier: 1
+  oh_Light_Attack_02_Stamina_Multiplier: 1.15
+  oh_Light_Attack_03_Stamina_Multiplier: 1.3
+  oh_Heavy_Attack_01_Stamina_multiplier: 1.5
+  oh_Heavy_Attack_02_Stamina_multiplier: 1.7
+  oh_Heavy_Attack_03_Stamina_multiplier: 1.9

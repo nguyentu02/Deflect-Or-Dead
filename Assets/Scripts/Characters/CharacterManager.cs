@@ -10,10 +10,21 @@ namespace NT
 
         public CharacterMovementManager characterMovementManager;
         public CharacterAnimationManager characterAnimationManager;
+        public CharacterEquipmentManager characterEquipmentManager;
+        public CharacterCombatManager characterCombatManager;
+        public CharacterStatusManager characterStatusManager;
+        public CharacterDamageReceiverManager characterDamageReceiverManager;
 
         [Header("Character Status")]
+        public bool isGrounded = true;
         public bool canMove = true;
         public bool canRotate = true;
+        public bool isPerformingAction = false;
+        public bool isRolling = false;
+        public bool isSprinting = false;
+        public bool isChargingAttack = false;
+        public bool canDoComboAttack = false;
+        public bool isAttacking = false;
 
         protected virtual void Awake()
         {
@@ -23,6 +34,10 @@ namespace NT
 
             characterAnimationManager = GetComponent<CharacterAnimationManager>();
             characterMovementManager = GetComponent<CharacterMovementManager>();
+            characterEquipmentManager = GetComponent<CharacterEquipmentManager>();
+            characterCombatManager = GetComponent<CharacterCombatManager>();
+            characterStatusManager = GetComponent<CharacterStatusManager>();
+            characterDamageReceiverManager = GetComponent<CharacterDamageReceiverManager>();
         }
 
         protected virtual void Start()
@@ -32,7 +47,11 @@ namespace NT
 
         protected virtual void Update()
         {
+            characterMovementManager.HandleGroundCheck();
+            characterAnimationManager.TrackingCharacterAnimatorParameters();
 
+            //  DEBUG FOR ANIMATION
+            characterAnimationManager.UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand();
         }
 
         protected virtual void FixedUpdate()
