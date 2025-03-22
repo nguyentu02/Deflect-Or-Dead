@@ -12,6 +12,8 @@ namespace NT
         public PlayerCombatManager playerCombatManager;
         public PlayerStatusManager playerStatusManager;
         public PlayerDamageReceiverManager playerDamageReceiverManager;
+        public PlayerInteractionManager playerInteractionManager;
+        public PlayerInventoryManager playerInventoryManager;
 
         protected override void Awake()
         {
@@ -33,9 +35,12 @@ namespace NT
             playerCombatManager = GetComponent<PlayerCombatManager>();
             playerStatusManager = GetComponent<PlayerStatusManager>();
             playerDamageReceiverManager = GetComponent<PlayerDamageReceiverManager>();
+            playerInteractionManager = GetComponent<PlayerInteractionManager>();
+            playerInventoryManager = GetComponent<PlayerInventoryManager>();
 
             PlayerCameraManager.instance.player = this;
             PlayerInputManager.instance.player = this;
+            PlayerCanvasManager.instance.player = this;
         }
 
         protected override void Update()
@@ -45,6 +50,10 @@ namespace NT
             PlayerInputManager.instance.HandleUpdateAllPlayerInput();
 
             playerMovementManager.HandleAllPlayerMovements();
+
+            playerInteractionManager.CheckForPlayerInteractionProcess();
+
+            PlayerCanvasManager.instance.UpdatePlayerAlertMessageIfPlayerCanInteract_GUI();
         }
 
         protected override void FixedUpdate()

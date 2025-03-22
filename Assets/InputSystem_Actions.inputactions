@@ -38,14 +38,14 @@
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -126,6 +126,15 @@
                     "name": "Switch Left Weapon",
                     "type": "Button",
                     "id": "abdf8ae1-f84a-41d0-bd2d-f0afea8215fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Open Options",
+                    "type": "Button",
+                    "id": "24b12adf-d0ab-4bfc-ac75-31c7357d987c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -526,6 +535,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Switch Left Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5cbbbb6d-1d9b-4945-9807-d01599d0b5aa",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Options",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

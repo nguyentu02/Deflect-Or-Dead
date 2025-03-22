@@ -31,6 +31,9 @@ namespace NT
         [SerializeField] private bool rightArrow_Input = false;
         [SerializeField] private bool leftArrow_Input = false;
 
+        [SerializeField] private bool e_Input = false;
+        [SerializeField] private bool esc_Input = false;
+
         private void Awake()
         {
             if (instance == null)
@@ -63,6 +66,8 @@ namespace NT
 
                 //  PLAYER ACTIONS
                 inputActions.Player.Dodge.performed += i => space_Input = true;
+                inputActions.Player.Interact.performed += i => e_Input = true;
+                inputActions.Player.OpenOptions.performed += i => esc_Input = true;
 
                 //  PLAYER ATTACKS
                 inputActions.Player.Attack.performed += i => leftMouse_Input = true;
@@ -94,6 +99,8 @@ namespace NT
             HandlePlayerHeavyAttackInput();
             HandlePlayerChargeAttackInput();
             HandlePlayerSwitchWeaponInHandsInput();
+            HandlePlayerInteractInput();
+            HandlePlayerOpenMenuOptionsInput();
         }
 
         private void HandlePlayerMovementInput()
@@ -198,6 +205,58 @@ namespace NT
                 leftArrow_Input = false;
 
                 player.playerEquipmentManager.CharacterSwitchOffHandWeapon();
+            }
+        }
+
+        private void HandlePlayerInteractInput()
+        {
+            if (e_Input)
+            {
+                e_Input = false;
+
+                if (PlayerCanvasManager.instance.isNewItemAlert)
+                {
+                    PlayerCanvasManager.instance.ResetAllGUIGameObject_GUI();
+                    return;
+                }
+
+                if (player.playerInteractionManager.interactableObjects.Count <= 0)
+                    return;
+
+                //  IF WE ALREADY HAVE THAT ITEM, JUST SHOW SIMPLE POP UP
+                //if (player.playerInventoryManager.playerInventories.Contains())
+                //{
+
+                //}
+                //  OTHERWISE, WE SHOW LARGE POP UP TO MAKE SURE PLAYER DON'T MISTAKE
+                //else
+                //{
+
+                //}
+
+                PlayerCanvasManager.instance.ShowAlertToPlayerWhenPickUpAnWeaponNeverHaveBefore_GUI();
+
+                player.playerInteractionManager.interactableObjects[0].InteractWithAnObject(player);
+            }
+        }
+
+        private void HandlePlayerOpenMenuOptionsInput()
+        {
+            if (esc_Input)
+            {
+                esc_Input = false;
+
+                PlayerCanvasManager.instance.isPlayerOpenMenuOption = !PlayerCanvasManager.instance.isPlayerOpenMenuOption;
+
+                if (PlayerCanvasManager.instance.isPlayerOpenMenuOption)
+                {
+                    PlayerCanvasManager.instance.ShowMenuOptionToPlayer_GUI();
+                    PlayerCanvasManager.instance.UpdatePlayerWeaponInventoryWhenPlayerOpenMenuOptions_GUI();
+                }
+                else
+                {
+                    PlayerCanvasManager.instance.ResetAllGUIGameObject_GUI();
+                }
             }
         }
     }
