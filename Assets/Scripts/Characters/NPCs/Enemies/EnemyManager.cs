@@ -2,21 +2,37 @@ using UnityEngine;
 
 namespace NT
 {
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager : CharacterManager
     {
         [Header("Debug Testing")]
+        public Transform lockOnTransform;
         [SerializeField] Animator animator;
         [SerializeField] int maxHealth = 1000;
         [SerializeField] float currentHealth = 0f;
 
-        private void Awake()
+        protected override void Awake()
         {
             animator = GetComponent<Animator>();
         }
 
-        private void Start()
+        protected override void Start()
         {
             currentHealth = maxHealth;
+        }
+
+        protected override void Update()
+        {
+            
+        }
+
+        protected override void FixedUpdate()
+        {
+            
+        }
+
+        protected override void LateUpdate()
+        {
+           
         }
 
         public void EnemyDamageReceiver(float damage)

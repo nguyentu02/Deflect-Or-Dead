@@ -34,6 +34,8 @@ namespace NT
         [SerializeField] private bool e_Input = false;
         [SerializeField] private bool esc_Input = false;
 
+        [SerializeField] private bool q_Input = false;
+
         private void Awake()
         {
             if (instance == null)
@@ -68,6 +70,7 @@ namespace NT
                 inputActions.Player.Dodge.performed += i => space_Input = true;
                 inputActions.Player.Interact.performed += i => e_Input = true;
                 inputActions.Player.OpenOptions.performed += i => esc_Input = true;
+                inputActions.Player.LockOnTarget.performed += i => q_Input = true;
 
                 //  PLAYER ATTACKS
                 inputActions.Player.Attack.performed += i => leftMouse_Input = true;
@@ -101,6 +104,7 @@ namespace NT
             HandlePlayerSwitchWeaponInHandsInput();
             HandlePlayerInteractInput();
             HandlePlayerOpenMenuOptionsInput();
+            HandlePlayerLockOnTargetInput();
         }
 
         private void HandlePlayerMovementInput()
@@ -257,6 +261,33 @@ namespace NT
                 {
                     PlayerCanvasManager.instance.ResetAllGUIGameObject_GUI();
                 }
+            }
+        }
+
+        private void HandlePlayerLockOnTargetInput()
+        {
+            if (q_Input && !player.isLockedOn)
+            {
+                q_Input = false;
+
+                //  DEBUG
+                PlayerCameraManager.instance.ClearAllLockedOnTargets();
+
+                PlayerCameraManager.instance.HandleCameraLockOnTarget();
+
+                if (PlayerCameraManager.instance.nearestLockOnTarget != null)
+                {
+                    player.playerCombatManager.currentLockedOnTargetTransform = PlayerCameraManager.instance.nearestLockOnTarget;
+                    player.isLockedOn = true;
+                }
+            }
+            else if (q_Input && player.isLockedOn)
+            {
+                q_Input = false;
+                player.isLockedOn = false;
+
+                //  CLEAR LOCK ON TARGETS
+                PlayerCameraManager.instance.ClearAllLockedOnTargets();
             }
         }
     }

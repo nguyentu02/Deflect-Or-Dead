@@ -139,6 +139,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Lock On Target",
+                    "type": "Button",
+                    "id": "f6a2e8b1-a183-43ef-8c4f-1ed1772c67ff",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -546,6 +555,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Open Options",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a166ca3a-846f-404b-8d24-ddd0d7c64928",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lock On Target",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -25,6 +25,7 @@ namespace NT
         public bool isChargingAttack = false;
         public bool canDoComboAttack = false;
         public bool isAttacking = false;
+        public bool isLockedOn = false;
 
         protected virtual void Awake()
         {

@@ -225,6 +225,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lock On Target"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6a2e8b1-a183-43ef-8c4f-1ed1772c67ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -632,6 +641,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Open Options"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a166ca3a-846f-404b-8d24-ddd0d7c64928"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock On Target"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1234,6 +1254,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_SwitchRightWeapon = m_Player.FindAction("Switch Right Weapon", throwIfNotFound: true);
         m_Player_SwitchLeftWeapon = m_Player.FindAction("Switch Left Weapon", throwIfNotFound: true);
         m_Player_OpenOptions = m_Player.FindAction("Open Options", throwIfNotFound: true);
+        m_Player_LockOnTarget = m_Player.FindAction("Lock On Target", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1342,6 +1363,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwitchRightWeapon;
     private readonly InputAction m_Player_SwitchLeftWeapon;
     private readonly InputAction m_Player_OpenOptions;
+    private readonly InputAction m_Player_LockOnTarget;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1414,6 +1436,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @OpenOptions => m_Wrapper.m_Player_OpenOptions;
         /// <summary>
+        /// Provides access to the underlying input action "Player/LockOnTarget".
+        /// </summary>
+        public InputAction @LockOnTarget => m_Wrapper.m_Player_LockOnTarget;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1484,6 +1510,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @OpenOptions.started += instance.OnOpenOptions;
             @OpenOptions.performed += instance.OnOpenOptions;
             @OpenOptions.canceled += instance.OnOpenOptions;
+            @LockOnTarget.started += instance.OnLockOnTarget;
+            @LockOnTarget.performed += instance.OnLockOnTarget;
+            @LockOnTarget.canceled += instance.OnLockOnTarget;
         }
 
         /// <summary>
@@ -1540,6 +1569,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @OpenOptions.started -= instance.OnOpenOptions;
             @OpenOptions.performed -= instance.OnOpenOptions;
             @OpenOptions.canceled -= instance.OnOpenOptions;
+            @LockOnTarget.started -= instance.OnLockOnTarget;
+            @LockOnTarget.performed -= instance.OnLockOnTarget;
+            @LockOnTarget.canceled -= instance.OnLockOnTarget;
         }
 
         /// <summary>
@@ -1945,6 +1977,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenOptions(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Lock On Target" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLockOnTarget(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

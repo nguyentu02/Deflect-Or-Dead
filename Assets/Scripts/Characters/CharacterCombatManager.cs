@@ -6,6 +6,10 @@ namespace NT
     {
         private CharacterManager character;
 
+        [Header("Character Lock On Transform")]
+        public CharacterManager currentLockedOnTargetTransform;
+        public Transform lockOnTransform;
+
         [Header("Character Weapon Being Used For Attack")]
         public WeaponItem_SO currentWeaponCharacterUsingForAttack;
 

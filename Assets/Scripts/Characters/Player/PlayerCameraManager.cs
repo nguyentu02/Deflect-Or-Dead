@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace NT
@@ -8,6 +9,10 @@ namespace NT
 
         [Header("Target Object")]
         public PlayerManager player;
+
+        [SerializeField] private float maximumLockOnDistance = 30f;
+        [SerializeField] private List<CharacterManager> availableCharactersCanTarget = new List<CharacterManager>();
+        public CharacterManager nearestLockOnTarget;
 
         [Header("Camera Settings")]
         [SerializeField] private LayerMask cameraCollisionLayer;
@@ -72,22 +77,44 @@ namespace NT
 
         private void HandleCameraRotateLookAround()
         {
-            Vector3 rotateAround;
-            Quaternion rotateCameraLookAroundBasedOnMouse;
+            if (!player.isLockedOn && player.playerCombatManager.currentLockedOnTargetTransform == null)
+            {
+                Vector3 rotateAround;
+                Quaternion rotateCameraLookAroundBasedOnMouse;
 
-            cameraLeftAndRightAngle += (PlayerInputManager.instance.mouseX_Input * cameraLookLeftAndRightSpeed) * Time.deltaTime;
-            cameraUpAndDownAngle -= (PlayerInputManager.instance.mouseY_Input * cameraLookUpAndDownSpeed) * Time.deltaTime;
-            cameraUpAndDownAngle = Mathf.Clamp(cameraUpAndDownAngle, cameraMinimumLookDown, cameraMaximumLookUp);
+                cameraLeftAndRightAngle += (PlayerInputManager.instance.mouseX_Input * cameraLookLeftAndRightSpeed) * Time.deltaTime;
+                cameraUpAndDownAngle -= (PlayerInputManager.instance.mouseY_Input * cameraLookUpAndDownSpeed) * Time.deltaTime;
+                cameraUpAndDownAngle = Mathf.Clamp(cameraUpAndDownAngle, cameraMinimumLookDown, cameraMaximumLookUp);
 
-            rotateAround = Vector3.zero;
-            rotateAround.y = cameraLeftAndRightAngle;
-            rotateCameraLookAroundBasedOnMouse = Quaternion.Euler(rotateAround);
-            transform.rotation = rotateCameraLookAroundBasedOnMouse;
+                rotateAround = Vector3.zero;
+                rotateAround.y = cameraLeftAndRightAngle;
+                rotateCameraLookAroundBasedOnMouse = Quaternion.Euler(rotateAround);
+                transform.rotation = rotateCameraLookAroundBasedOnMouse;
 
-            rotateAround = Vector3.zero;
-            rotateAround.x = cameraUpAndDownAngle;
-            rotateCameraLookAroundBasedOnMouse = Quaternion.Euler(rotateAround);
-            playerCameraPivotTransform.localRotation = rotateCameraLookAroundBasedOnMouse;
+                rotateAround = Vector3.zero;
+                rotateAround.x = cameraUpAndDownAngle;
+                rotateCameraLookAroundBasedOnMouse = Quaternion.Euler(rotateAround);
+                playerCameraPivotTransform.localRotation = rotateCameraLookAroundBasedOnMouse;
+            }
+            else
+            {
+                float velocity = 0f;
+
+                Vector3 direction = player.playerCombatManager.currentLockedOnTargetTransform.transform.position - transform.position;
+                direction.Normalize();
+                direction.y = 0f;
+
+                Quaternion cameraRotation = Quaternion.LookRotation(direction);
+                transform.rotation = cameraRotation;
+
+                direction = player.playerCombatManager.currentLockedOnTargetTransform.transform.position - playerCameraPivotTransform.position;
+                direction.Normalize();
+
+                cameraRotation = Quaternion.LookRotation(direction);
+                Vector3 eulerAngles = cameraRotation.eulerAngles;
+                eulerAngles.y = 0f;
+                playerCameraPivotTransform.localEulerAngles = eulerAngles;
+            }
         }
 
         private void HandleCameraCollisionWithAnyObjects()
@@ -112,6 +139,53 @@ namespace NT
             playerCameraPosition.z = Mathf.Lerp
                 (playerCameraTransform.localPosition.z, cameraTargetPosition, cameraCollisionWithAnyObjectsSpeed * Time.deltaTime);
             playerCameraTransform.localPosition = playerCameraPosition;
+        }
+
+        //  DEBUG
+        public void HandleCameraLockOnTarget()
+        {
+            float shortestDistance = Mathf.Infinity;
+
+            Collider[] colliders = Physics.OverlapSphere(player.transform.position, maximumLockOnDistance);
+
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                CharacterManager characterTargeted = colliders[i].GetComponent<CharacterManager>();
+
+                if (characterTargeted != null)
+                {
+                    Vector3 lockOnTargetDirection = characterTargeted.transform.position - player.transform.position;
+                    float distanceFromTarget = Vector3.Distance(player.transform.position, characterTargeted.transform.position);
+                    float viewableAngle = Vector3.Angle(lockOnTargetDirection, playerCameraTransform.forward);
+
+                    if (characterTargeted.transform.root != player.transform.root &&
+                        viewableAngle > -50f && viewableAngle < 50f && 
+                        distanceFromTarget <= maximumLockOnDistance)
+                    {
+                        availableCharactersCanTarget.Add(characterTargeted);
+                    }
+                }
+            }
+
+            for (int j = 0; j < availableCharactersCanTarget.Count; j++)
+            {
+                float distanceFromTarget = Vector3.Distance
+                    (player.transform.position, availableCharactersCanTarget[j].transform.position);
+
+                if (distanceFromTarget < shortestDistance)
+                {
+                    shortestDistance = distanceFromTarget;
+                    nearestLockOnTarget = availableCharactersCanTarget[j];
+                }
+            }
+        }
+
+        //  DEBUG
+        public void ClearAllLockedOnTargets()
+        {
+            availableCharactersCanTarget.Clear();
+            nearestLockOnTarget = null;
+            player.playerCombatManager.currentLockedOnTargetTransform = null;
         }
     }
 }

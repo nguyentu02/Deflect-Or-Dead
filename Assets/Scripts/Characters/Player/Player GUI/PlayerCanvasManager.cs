@@ -10,6 +10,8 @@ namespace NT
 
         public PlayerManager player;
 
+        private PlayerWeaponEquipment_GUI playerWeaponEquipment;
+
         [SerializeField] GameObject playerMenuOptionGameObject;
 
         [Header("Player Is Open Any GUI")]
@@ -58,6 +60,8 @@ namespace NT
                 Destroy(gameObject);
                 return;
             }
+
+            playerWeaponEquipment = GetComponentInChildren<PlayerWeaponEquipment_GUI>(true);
         }
 
         private void Start()
