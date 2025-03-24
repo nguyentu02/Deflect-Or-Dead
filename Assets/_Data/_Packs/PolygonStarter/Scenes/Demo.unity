@@ -12432,6 +12432,9 @@ MonoBehaviour:
   canDoComboAttack: 0
   isAttacking: 0
   isLockedOn: 0
+  isTwoHanding: 0
+  isTwoHanding_MainWeapon: 0
+  isTwoHanding_OffWeapon: 0
   lockOnTransform: {fileID: 0}
   animator: {fileID: 0}
   maxHealth: 1000
@@ -14924,6 +14927,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4124369588495422, guid: a76742b3f592d834ca1e03ad08301998, type: 3}
   m_PrefabInstance: {fileID: 967159857}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &967580913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 967580914}
+  - component: {fileID: 967580915}
+  m_Layer: 10
+  m_Name: Back Slot (For Weapon)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &967580914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967580913}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.2078847, y: -0.594439, z: -0.069035694, w: 0.7737314}
+  m_LocalPosition: {x: -0.33343196, y: 0.23450872, z: 0.08805253}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 481486883}
+  m_LocalEulerAnglesHint: {x: 13.864, y: -77.698, z: -21.383}
+--- !u!114 &967580915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967580913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInstantiateSlot: 2
+  weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1001 &972246021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21433,7 +21482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainHand: 0
+  weaponInstantiateSlot: 1
   weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1001 &1448469261
 PrefabInstance:
@@ -24720,6 +24769,9 @@ MonoBehaviour:
   canDoComboAttack: 0
   isAttacking: 0
   isLockedOn: 0
+  isTwoHanding: 0
+  isTwoHanding_MainWeapon: 0
+  isTwoHanding_OffWeapon: 0
   playerMovementManager: {fileID: 0}
   playerAnimationManager: {fileID: 0}
   playerEquipmentManager: {fileID: 0}
@@ -24741,6 +24793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unarmed_No_Weapon: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  currentTwoHandingWeapon: {fileID: 0}
   currentWeaponHoldInMainHand: {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
   currentWeaponHoldInOffHand: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
   weaponsInMainHandQuickSlots:
@@ -31387,6 +31440,9 @@ MonoBehaviour:
   canDoComboAttack: 0
   isAttacking: 0
   isLockedOn: 0
+  isTwoHanding: 0
+  isTwoHanding_MainWeapon: 0
+  isTwoHanding_OffWeapon: 0
   lockOnTransform: {fileID: 0}
   animator: {fileID: 0}
   maxHealth: 1000
@@ -50604,6 +50660,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6000123092641550732, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       insertIndex: -1
       addedObject: {fileID: 453157919}
+    - targetCorrespondingSourceObject: {fileID: 6000123092641550732, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 967580914}
     - targetCorrespondingSourceObject: {fileID: 3369386070823584522, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1447618513}
@@ -50667,7 +50726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainHand: 1
+  weaponInstantiateSlot: 0
   weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1001 &9002698330281453579
 PrefabInstance:

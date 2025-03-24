@@ -9,6 +9,7 @@ namespace NT
         public WeaponItem_SO unarmed_No_Weapon;
 
         [Header("Character Current Weapon Hold In Hands")]
+        public WeaponItem_SO currentTwoHandingWeapon;
         public WeaponItem_SO currentWeaponHoldInMainHand;
         public WeaponItem_SO currentWeaponHoldInOffHand;
 
@@ -22,6 +23,8 @@ namespace NT
         [Header("Character Equipment Hand Slots")]
         protected WeaponInstantiateTransformWhenEquipped characterMainHand;
         protected WeaponInstantiateTransformWhenEquipped characterOffHand;
+        protected WeaponInstantiateTransformWhenEquipped characterBack;
+        //  HIPS SLOT
 
         //  JUST DEBUG TEST DAMAGE COLLIDERS
         private DamageMasterCollider mainHandWeaponDamageCollider;
@@ -49,10 +52,20 @@ namespace NT
 
             foreach (var equipmentSlot in equipmentSlots)
             {
-                if (equipmentSlot.isMainHand)
-                    characterMainHand = equipmentSlot;
-                else if (!equipmentSlot.isMainHand)
-                    characterOffHand = equipmentSlot;
+                switch (equipmentSlot.weaponInstantiateSlot)
+                {
+                    case WeaponInstantiateSlot.MainHandSlot:
+                        characterMainHand = equipmentSlot;
+                        break;
+                    case WeaponInstantiateSlot.OffHandSlot:
+                        characterOffHand = equipmentSlot;
+                        break;
+                    case WeaponInstantiateSlot.BackSlot:
+                        characterBack = equipmentSlot;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -118,6 +131,53 @@ namespace NT
             }
         }
 
+        public virtual void CharacterTwoHandingMainWeapon()
+        {
+            if (!character.isTwoHanding)
+                return;
+
+            character.isTwoHanding_MainWeapon = true;
+
+            currentTwoHandingWeapon = currentWeaponHoldInMainHand;
+
+            characterOffHand.UnloadWeaponPrefab();
+            characterMainHand.LoadWeaponPrefabModelInCharacterHand(currentTwoHandingWeapon);
+
+            LoadDamageColliderOfCharacterMainHandWeapon();
+
+            WhichSlotToMoveCharacterAnOtherWeaponAfterPickAnWeaponForTwoHandingStyle
+                (currentWeaponHoldInOffHand, true);
+        }
+
+        public virtual void CharacterTwoHandingOffWeapon()
+        {
+            if (!character.isTwoHanding)
+                return;
+
+            character.isTwoHanding_OffWeapon = true;
+
+            currentTwoHandingWeapon = currentWeaponHoldInOffHand;
+
+            characterOffHand.UnloadWeaponPrefab();
+            characterMainHand.LoadWeaponPrefabModelInCharacterHand(currentTwoHandingWeapon);
+
+            LoadDamageColliderOfCharacterMainHandWeapon();
+
+            WhichSlotToMoveCharacterAnOtherWeaponAfterPickAnWeaponForTwoHandingStyle
+                (currentWeaponHoldInMainHand, true);
+        }
+
+        public virtual void CharacterUnTwoHandingWeapon()
+        {
+            character.isTwoHanding = false;
+            character.isTwoHanding_MainWeapon = false;
+            character.isTwoHanding_OffWeapon = false;
+
+            characterBack.UnloadWeaponPrefab();
+            WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInMainHand, true);
+            WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInMainHand, false);
+        }
+
         public virtual void WhichCharacterHandWeWantToLoadWeaponIn(WeaponItem_SO weapon, bool isMainHand)
         {
             if (isMainHand)
@@ -129,6 +189,15 @@ namespace NT
             {
                 characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
                 LoadDamageColliderOfCharacterOffHandWeapon();
+            }
+        }
+
+        public virtual void WhichSlotToMoveCharacterAnOtherWeaponAfterPickAnWeaponForTwoHandingStyle
+            (WeaponItem_SO weapon, bool isBack)
+        {
+            if (isBack)
+            {
+                characterBack.LoadWeaponPrefabModelInCharacterHand(weapon);
             }
         }
 

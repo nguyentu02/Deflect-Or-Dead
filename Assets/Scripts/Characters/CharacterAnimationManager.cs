@@ -96,6 +96,7 @@ namespace NT
             character.characterAnimator.SetBool("isPerformingAction", character.isPerformingAction);
             character.characterAnimator.SetBool("isChargingAttack", character.isChargingAttack);
             character.characterAnimator.SetBool("canDoComboAttack", character.canDoComboAttack);
+            character.characterAnimator.SetBool("isTwoHandingWeapon", character.isTwoHanding);
 
             //  FLOATS
             character.characterAnimator.SetFloat("inAirTimer", character.characterMovementManager.inAirTimer);

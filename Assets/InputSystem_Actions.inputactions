@@ -166,6 +166,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Two Handing",
+                    "type": "PassThrough",
+                    "id": "6faf9320-297f-40c5-a459-a240dae706e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Two Handing Main Weapon",
+                    "type": "Button",
+                    "id": "849eb675-c9bb-4898-94f6-ed28cdee531b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Two Handing Off Weapon",
+                    "type": "Button",
+                    "id": "e98cabcf-ad79-471b-8b9f-91b825ac5aca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -606,6 +633,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Switch Right Locked On Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5006c70e-7037-4a0a-9731-865fc04c64b1",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Two Handing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e30b824-b4ab-42fa-8596-239670c07255",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Two Handing Main Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85cf5a37-2e15-4497-8840-1dd7e0893017",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Two Handing Off Weapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

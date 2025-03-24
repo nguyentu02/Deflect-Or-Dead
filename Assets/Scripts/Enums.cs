@@ -7,6 +7,14 @@ namespace NT
 
     }
 
+    public enum WeaponInstantiateSlot
+    {
+        MainHandSlot,
+        OffHandSlot,
+        BackSlot,
+        HipsSlot
+    }
+
     public enum WeaponType
     {
         Melee_Weapon,

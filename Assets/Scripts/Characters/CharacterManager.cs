@@ -26,6 +26,9 @@ namespace NT
         public bool canDoComboAttack = false;
         public bool isAttacking = false;
         public bool isLockedOn = false;
+        public bool isTwoHanding = false;
+        public bool isTwoHanding_MainWeapon = false;
+        public bool isTwoHanding_OffWeapon = false;
 
         protected virtual void Awake()
         {

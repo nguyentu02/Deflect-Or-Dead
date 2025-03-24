@@ -4,8 +4,8 @@ namespace NT
 {
     public class WeaponInstantiateTransformWhenEquipped : MonoBehaviour
     {
-        [Header("What Hand?")]
-        public bool isMainHand;
+        [Header("What Slot?")]
+        public WeaponInstantiateSlot weaponInstantiateSlot;
 
         [Header("Weapon Prefab Instantiated")]
         public GameObject weaponPrefabInstantiatedInThisHand;

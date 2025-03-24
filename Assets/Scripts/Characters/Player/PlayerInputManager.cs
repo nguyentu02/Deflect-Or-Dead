@@ -39,6 +39,10 @@ namespace NT
         [SerializeField] private bool number1_Input = false;
         [SerializeField] private bool number2_Input = false;
 
+        [SerializeField] private bool twoHanding_Input = false;
+        [SerializeField] private bool twoHanding_MainWeapon_Input = false;
+        [SerializeField] private bool twoHanding_OffWeapon_Input = false;
+
         private void Awake()
         {
             if (instance == null)
@@ -77,6 +81,11 @@ namespace NT
                 inputActions.Player.SwitchLeftLockedOnTarget.performed += i => number1_Input = true;
                 inputActions.Player.SwitchRightLockedOnTarget.performed += i => number2_Input = true;
 
+                inputActions.Player.TwoHanding.performed += i => twoHanding_Input = true;
+                inputActions.Player.TwoHanding.canceled += i => twoHanding_Input = false;
+                inputActions.Player.TwoHandingMainWeapon.performed += i => twoHanding_MainWeapon_Input = true;
+                inputActions.Player.TwoHandingOffWeapon.performed += i => twoHanding_OffWeapon_Input = true;
+
                 //  PLAYER ATTACKS
                 inputActions.Player.Attack.performed += i => leftMouse_Input = true;
 
@@ -110,6 +119,7 @@ namespace NT
             HandlePlayerInteractInput();
             HandlePlayerOpenMenuOptionsInput();
             HandlePlayerLockOnTargetInput();
+            HandlePlayerTwoHandingInput();
         }
 
         private void HandlePlayerMovementInput()
@@ -150,9 +160,19 @@ namespace NT
 
         private void HandlePlayerLightAttackInput()
         {
+            //  DEBUG ATTACK INPUT
+            if (twoHanding_Input)
+            {
+                leftMouse_Input = false;
+                return;
+            }
+
             if (leftMouse_Input)
             {
                 leftMouse_Input = false;
+
+                if (PlayerCanvasManager.instance.isPlayerOpenMenuOption)
+                    return;
 
                 if (player.canDoComboAttack)
                 {
@@ -172,9 +192,19 @@ namespace NT
 
         private void HandlePlayerHeavyAttackInput()
         {
+            //  DEBUG ATTACK INPUT
+            if (twoHanding_Input)
+            {
+                leftMouse_Input = false;
+                return;
+            }
+
             if (leftMouse_Hold_Input)
             {
                 leftMouse_Hold_Input = false;
+
+                if (PlayerCanvasManager.instance.isPlayerOpenMenuOption)
+                    return;
 
                 if (player.canDoComboAttack)
                 {
@@ -316,6 +346,45 @@ namespace NT
                     player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.rightNearestLockOnTarget;
                     player.isLockedOn = true;
                 }
+            }
+        }
+
+        //  DEBUG
+        private void HandlePlayerTwoHandingInput()
+        {
+            if (!twoHanding_Input)
+                return;
+
+            if (twoHanding_MainWeapon_Input)
+            {
+                twoHanding_MainWeapon_Input = false;
+                leftMouse_Input = false;
+
+                if (player.isTwoHanding)
+                {
+                    player.isTwoHanding = false;
+                    player.playerEquipmentManager.CharacterUnTwoHandingWeapon();
+                    return;
+                }
+
+                player.isTwoHanding = true;
+                player.playerEquipmentManager.CharacterTwoHandingMainWeapon();
+            }
+
+            if (twoHanding_OffWeapon_Input)
+            {
+                twoHanding_OffWeapon_Input = false;
+                //  DEBUG RIGHT MOUSE INPUT (IF HAVE) 
+
+                if (player.isTwoHanding)
+                {
+                    player.isTwoHanding = false;
+                    player.playerEquipmentManager.CharacterUnTwoHandingWeapon();
+                    return;
+                }
+
+                player.isTwoHanding = true;
+                player.playerEquipmentManager.CharacterTwoHandingOffWeapon();
             }
         }
     }

@@ -252,6 +252,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Two Handing"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""6faf9320-297f-40c5-a459-a240dae706e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Two Handing Main Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""849eb675-c9bb-4898-94f6-ed28cdee531b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Two Handing Off Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""e98cabcf-ad79-471b-8b9f-91b825ac5aca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -692,6 +719,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Switch Right Locked On Target"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5006c70e-7037-4a0a-9731-865fc04c64b1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Two Handing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e30b824-b4ab-42fa-8596-239670c07255"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Two Handing Main Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85cf5a37-2e15-4497-8840-1dd7e0893017"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Two Handing Off Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1297,6 +1357,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_LockOnTarget = m_Player.FindAction("Lock On Target", throwIfNotFound: true);
         m_Player_SwitchLeftLockedOnTarget = m_Player.FindAction("Switch Left Locked On Target", throwIfNotFound: true);
         m_Player_SwitchRightLockedOnTarget = m_Player.FindAction("Switch Right Locked On Target", throwIfNotFound: true);
+        m_Player_TwoHanding = m_Player.FindAction("Two Handing", throwIfNotFound: true);
+        m_Player_TwoHandingMainWeapon = m_Player.FindAction("Two Handing Main Weapon", throwIfNotFound: true);
+        m_Player_TwoHandingOffWeapon = m_Player.FindAction("Two Handing Off Weapon", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1408,6 +1471,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LockOnTarget;
     private readonly InputAction m_Player_SwitchLeftLockedOnTarget;
     private readonly InputAction m_Player_SwitchRightLockedOnTarget;
+    private readonly InputAction m_Player_TwoHanding;
+    private readonly InputAction m_Player_TwoHandingMainWeapon;
+    private readonly InputAction m_Player_TwoHandingOffWeapon;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1492,6 +1558,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @SwitchRightLockedOnTarget => m_Wrapper.m_Player_SwitchRightLockedOnTarget;
         /// <summary>
+        /// Provides access to the underlying input action "Player/TwoHanding".
+        /// </summary>
+        public InputAction @TwoHanding => m_Wrapper.m_Player_TwoHanding;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/TwoHandingMainWeapon".
+        /// </summary>
+        public InputAction @TwoHandingMainWeapon => m_Wrapper.m_Player_TwoHandingMainWeapon;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/TwoHandingOffWeapon".
+        /// </summary>
+        public InputAction @TwoHandingOffWeapon => m_Wrapper.m_Player_TwoHandingOffWeapon;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1571,6 +1649,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SwitchRightLockedOnTarget.started += instance.OnSwitchRightLockedOnTarget;
             @SwitchRightLockedOnTarget.performed += instance.OnSwitchRightLockedOnTarget;
             @SwitchRightLockedOnTarget.canceled += instance.OnSwitchRightLockedOnTarget;
+            @TwoHanding.started += instance.OnTwoHanding;
+            @TwoHanding.performed += instance.OnTwoHanding;
+            @TwoHanding.canceled += instance.OnTwoHanding;
+            @TwoHandingMainWeapon.started += instance.OnTwoHandingMainWeapon;
+            @TwoHandingMainWeapon.performed += instance.OnTwoHandingMainWeapon;
+            @TwoHandingMainWeapon.canceled += instance.OnTwoHandingMainWeapon;
+            @TwoHandingOffWeapon.started += instance.OnTwoHandingOffWeapon;
+            @TwoHandingOffWeapon.performed += instance.OnTwoHandingOffWeapon;
+            @TwoHandingOffWeapon.canceled += instance.OnTwoHandingOffWeapon;
         }
 
         /// <summary>
@@ -1636,6 +1723,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SwitchRightLockedOnTarget.started -= instance.OnSwitchRightLockedOnTarget;
             @SwitchRightLockedOnTarget.performed -= instance.OnSwitchRightLockedOnTarget;
             @SwitchRightLockedOnTarget.canceled -= instance.OnSwitchRightLockedOnTarget;
+            @TwoHanding.started -= instance.OnTwoHanding;
+            @TwoHanding.performed -= instance.OnTwoHanding;
+            @TwoHanding.canceled -= instance.OnTwoHanding;
+            @TwoHandingMainWeapon.started -= instance.OnTwoHandingMainWeapon;
+            @TwoHandingMainWeapon.performed -= instance.OnTwoHandingMainWeapon;
+            @TwoHandingMainWeapon.canceled -= instance.OnTwoHandingMainWeapon;
+            @TwoHandingOffWeapon.started -= instance.OnTwoHandingOffWeapon;
+            @TwoHandingOffWeapon.performed -= instance.OnTwoHandingOffWeapon;
+            @TwoHandingOffWeapon.canceled -= instance.OnTwoHandingOffWeapon;
         }
 
         /// <summary>
@@ -2062,6 +2158,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSwitchRightLockedOnTarget(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Two Handing" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTwoHanding(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Two Handing Main Weapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTwoHandingMainWeapon(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Two Handing Off Weapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTwoHandingOffWeapon(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
