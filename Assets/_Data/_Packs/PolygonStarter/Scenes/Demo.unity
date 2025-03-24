@@ -42179,15 +42179,15 @@ PrefabInstance:
       objectReference: {fileID: 872865325}
     - target: {fileID: 2586418890427672055, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2586418890427672055, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2586418890427672055, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3475531052009150993, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: m_Pivot.x

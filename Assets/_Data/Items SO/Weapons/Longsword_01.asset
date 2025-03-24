@@ -25,6 +25,12 @@ MonoBehaviour:
   oh_Heavy_Attack_01: straight_sword_main_charged_attack_01_charge
   oh_Heavy_Attack_02: straight_sword_main_charged_attack_02_charge
   oh_Heavy_Attack_03: straight_sword_main_charged_attack_03_charge
+  th_Light_Attack_01: straight_sword_th_light_attack_01
+  th_Light_Attack_02: straight_sword_th_light_attack_02
+  th_Light_Attack_03: straight_sword_th_light_attack_03
+  th_Heavy_Attack_01: straight_sword_th_charged_attack_01_charge
+  th_Heavy_Attack_02: straight_sword_th_charged_attack_02_charge
+  th_Heavy_Attack_03: straight_sword_th_charged_attack_01_charge
   baseStaminaCost: 10
   oh_Light_Attack_01_Stamina_Multiplier: 1
   oh_Light_Attack_02_Stamina_Multiplier: 1.15
@@ -32,3 +38,6 @@ MonoBehaviour:
   oh_Heavy_Attack_01_Stamina_multiplier: 1.5
   oh_Heavy_Attack_02_Stamina_multiplier: 1.7
   oh_Heavy_Attack_03_Stamina_multiplier: 1.9
+  oh_Charge_Attack_01_Stamina_multiplier: 2
+  oh_Charge_Attack_02_Stamina_multiplier: 2.25
+  oh_Charge_Attack_03_Stamina_multiplier: 2.5

@@ -37,5 +37,8 @@ namespace NT
         HeavyAttack01,
         HeavyAttack02,
         HeavyAttack03,
+        ChargeAttack01,
+        ChargeAttack02,
+        ChargeAttack03,
     }
 }

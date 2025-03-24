@@ -40,47 +40,101 @@ namespace NT
 
         public virtual void CharacterPerformLightAttack(WeaponItem_SO weapon)
         {
-            character.characterAnimationManager.CharacterPlayAttackAnimation
-                (weapon.oh_Light_Attack_01,weapon, CharacterAttackType.LightAttack01, true, true);
-            lastAttackAimationCharacterPerformed = weapon.oh_Light_Attack_01;
+            if (character.isTwoHanding)
+            {
+                character.characterAnimationManager.CharacterPlayAttackAnimation
+                    (weapon.th_Light_Attack_01, weapon, CharacterAttackType.LightAttack01, true, true);
+                lastAttackAimationCharacterPerformed = weapon.th_Light_Attack_01;
+            }
+            else
+            {
+                character.characterAnimationManager.CharacterPlayAttackAnimation
+                    (weapon.oh_Light_Attack_01, weapon, CharacterAttackType.LightAttack01, true, true);
+                lastAttackAimationCharacterPerformed = weapon.oh_Light_Attack_01;
+            }
         }
 
         public virtual void CharacterPerformHeavyAttack(WeaponItem_SO weapon)
         {
-            character.characterAnimationManager.CharacterPlayAttackAnimation
-                (weapon.oh_Heavy_Attack_01, weapon, CharacterAttackType.HeavyAttack01, true, true);
-            lastAttackAimationCharacterPerformed = weapon.oh_Heavy_Attack_01;
+            if (character.isTwoHanding)
+            {
+                character.characterAnimationManager.CharacterPlayAttackAnimation
+                    (weapon.th_Heavy_Attack_01, weapon, CharacterAttackType.HeavyAttack01, true, true);
+                lastAttackAimationCharacterPerformed = weapon.th_Heavy_Attack_01;
+            }
+            else
+            {
+                character.characterAnimationManager.CharacterPlayAttackAnimation
+                    (weapon.oh_Heavy_Attack_01, weapon, CharacterAttackType.HeavyAttack01, true, true);
+                lastAttackAimationCharacterPerformed = weapon.oh_Heavy_Attack_01;
+            }
         }
 
         public virtual void CharacterPerformLightAttackCombo(WeaponItem_SO weapon)
         {
-            if (lastAttackAimationCharacterPerformed == weapon.oh_Light_Attack_01)
+            if (character.isTwoHanding)
             {
-                character.characterAnimationManager.CharacterPlayAttackAnimation
-                    (weapon.oh_Light_Attack_02, weapon, CharacterAttackType.LightAttack02, true, true);
-                lastAttackAimationCharacterPerformed = weapon.oh_Light_Attack_02;
+                if (lastAttackAimationCharacterPerformed == weapon.th_Light_Attack_01)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.th_Light_Attack_02, weapon, CharacterAttackType.LightAttack02, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.th_Light_Attack_02;
+                }
+                else if (lastAttackAimationCharacterPerformed == weapon.th_Light_Attack_02)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.th_Light_Attack_03, weapon, CharacterAttackType.LightAttack03, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.th_Light_Attack_03;
+                }
             }
-            else if (lastAttackAimationCharacterPerformed == weapon.oh_Light_Attack_02)
+            else
             {
-                character.characterAnimationManager.CharacterPlayAttackAnimation
-                    (weapon.oh_Light_Attack_03, weapon, CharacterAttackType.LightAttack03, true, true);
-                lastAttackAimationCharacterPerformed = weapon.oh_Light_Attack_03;
+                if (lastAttackAimationCharacterPerformed == weapon.oh_Light_Attack_01)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.oh_Light_Attack_02, weapon, CharacterAttackType.LightAttack02, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.oh_Light_Attack_02;
+                }
+                else if (lastAttackAimationCharacterPerformed == weapon.oh_Light_Attack_02)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.oh_Light_Attack_03, weapon, CharacterAttackType.LightAttack03, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.oh_Light_Attack_03;
+                }
             }
         }
 
         public virtual void CharacterPerformHeavyAttackCombo(WeaponItem_SO weapon)
         {
-            if (lastAttackAimationCharacterPerformed == weapon.oh_Heavy_Attack_01)
+            if (character.isTwoHanding)
             {
-                character.characterAnimationManager.CharacterPlayAttackAnimation
-                    (weapon.oh_Heavy_Attack_02, weapon, CharacterAttackType.HeavyAttack02, true, true);
-                lastAttackAimationCharacterPerformed = weapon.oh_Heavy_Attack_02;
+                if (lastAttackAimationCharacterPerformed == weapon.th_Heavy_Attack_01)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.th_Heavy_Attack_02, weapon, CharacterAttackType.HeavyAttack02, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.th_Heavy_Attack_02;
+                }
+                else if (lastAttackAimationCharacterPerformed == weapon.th_Heavy_Attack_02)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.th_Heavy_Attack_03, weapon, CharacterAttackType.HeavyAttack03, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.th_Heavy_Attack_03;
+                }
             }
-            else if (lastAttackAimationCharacterPerformed == weapon.oh_Heavy_Attack_02)
+            else
             {
-                character.characterAnimationManager.CharacterPlayAttackAnimation
-                    (weapon.oh_Heavy_Attack_03, weapon, CharacterAttackType.HeavyAttack03, true, true);
-                lastAttackAimationCharacterPerformed = weapon.oh_Heavy_Attack_03;
+                if (lastAttackAimationCharacterPerformed == weapon.oh_Heavy_Attack_01)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.oh_Heavy_Attack_02, weapon, CharacterAttackType.HeavyAttack02, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.oh_Heavy_Attack_02;
+                }
+                else if (lastAttackAimationCharacterPerformed == weapon.oh_Heavy_Attack_02)
+                {
+                    character.characterAnimationManager.CharacterPlayAttackAnimation
+                        (weapon.oh_Heavy_Attack_03, weapon, CharacterAttackType.HeavyAttack03, true, true);
+                    lastAttackAimationCharacterPerformed = weapon.oh_Heavy_Attack_03;
+                }
             }
         }
 
@@ -138,6 +192,27 @@ namespace NT
                     character.characterStatusManager.characterCurrentStamina -=
                         (currentWeaponCharacterUsingForAttack.baseStaminaCost *
                         currentWeaponCharacterUsingForAttack.oh_Heavy_Attack_03_Stamina_multiplier);
+
+                    break;
+                case CharacterAttackType.ChargeAttack01:
+
+                    character.characterStatusManager.characterCurrentStamina -=
+                        (currentWeaponCharacterUsingForAttack.baseStaminaCost *
+                        currentWeaponCharacterUsingForAttack.oh_Charge_Attack_01_Stamina_multiplier);
+
+                    break;
+                case CharacterAttackType.ChargeAttack02:
+
+                    character.characterStatusManager.characterCurrentStamina -=
+                        (currentWeaponCharacterUsingForAttack.baseStaminaCost *
+                        currentWeaponCharacterUsingForAttack.oh_Charge_Attack_02_Stamina_multiplier);
+
+                    break;
+                case CharacterAttackType.ChargeAttack03:
+
+                    character.characterStatusManager.characterCurrentStamina -=
+                        (currentWeaponCharacterUsingForAttack.baseStaminaCost *
+                        currentWeaponCharacterUsingForAttack.oh_Charge_Attack_03_Stamina_multiplier);
 
                     break;
                 default:
