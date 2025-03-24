@@ -13,6 +13,8 @@ namespace NT
         [SerializeField] private float maximumLockOnDistance = 30f;
         [SerializeField] private List<CharacterManager> availableCharactersCanTarget = new List<CharacterManager>();
         public CharacterManager nearestLockOnTarget;
+        public CharacterManager leftNearestLockOnTarget;
+        public CharacterManager rightNearestLockOnTarget;
 
         [Header("Camera Settings")]
         [SerializeField] private LayerMask cameraCollisionLayer;
@@ -25,6 +27,8 @@ namespace NT
         public float cameraSphereCheckRadius = 0.2f;
         public float cameraCollisionOffset = 0.2f;
         public float cameraMinimumCollisionOffset = 0.2f;
+        public float cameraLockedOnHeight = 2.0f;
+        public float cameraDefaultHeight = 1.65f;
 
         public Transform playerCameraTransform;
         public Transform playerCameraPivotTransform;
@@ -77,7 +81,7 @@ namespace NT
 
         private void HandleCameraRotateLookAround()
         {
-            if (!player.isLockedOn && player.playerCombatManager.currentLockedOnTargetTransform == null)
+            if (!player.isLockedOn && player.playerCombatManager.currentLockedOnTarget == null)
             {
                 Vector3 rotateAround;
                 Quaternion rotateCameraLookAroundBasedOnMouse;
@@ -100,14 +104,14 @@ namespace NT
             {
                 float velocity = 0f;
 
-                Vector3 direction = player.playerCombatManager.currentLockedOnTargetTransform.transform.position - transform.position;
+                Vector3 direction = player.playerCombatManager.currentLockedOnTarget.transform.position - transform.position;
                 direction.Normalize();
                 direction.y = 0f;
 
                 Quaternion cameraRotation = Quaternion.LookRotation(direction);
                 transform.rotation = cameraRotation;
 
-                direction = player.playerCombatManager.currentLockedOnTargetTransform.transform.position - playerCameraPivotTransform.position;
+                direction = player.playerCombatManager.currentLockedOnTarget.transform.position - playerCameraPivotTransform.position;
                 direction.Normalize();
 
                 cameraRotation = Quaternion.LookRotation(direction);
@@ -145,6 +149,8 @@ namespace NT
         public void HandleCameraLockOnTarget()
         {
             float shortestDistance = Mathf.Infinity;
+            float shortestDistanceOfLeftTarget = -Mathf.Infinity;
+            float shortestDistanceOfRightTarget = Mathf.Infinity;
 
             Collider[] colliders = Physics.OverlapSphere(player.transform.position, maximumLockOnDistance);
 
@@ -177,6 +183,28 @@ namespace NT
                     shortestDistance = distanceFromTarget;
                     nearestLockOnTarget = availableCharactersCanTarget[j];
                 }
+
+                if (player.isLockedOn)
+                {
+                    Vector3 relativeEnemyPosition =
+                        player.transform.InverseTransformPoint(availableCharactersCanTarget[j].transform.position);
+                    var distanceFromLeftTarget = -relativeEnemyPosition.x;
+                    var distanceFromRightTarget = relativeEnemyPosition.x;
+
+                    if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget && 
+                        availableCharactersCanTarget[j] != player.playerCombatManager.currentLockedOnTarget)
+                    {
+                        shortestDistanceOfLeftTarget = distanceFromLeftTarget;
+                        leftNearestLockOnTarget = availableCharactersCanTarget[j];
+                    }
+
+                    if (relativeEnemyPosition.x >= 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget && 
+                        availableCharactersCanTarget[j] != player.playerCombatManager.currentLockedOnTarget)
+                    {
+                        shortestDistanceOfRightTarget = distanceFromRightTarget;
+                        rightNearestLockOnTarget = availableCharactersCanTarget[j];
+                    }
+                }
             }
         }
 
@@ -185,7 +213,27 @@ namespace NT
         {
             availableCharactersCanTarget.Clear();
             nearestLockOnTarget = null;
-            player.playerCombatManager.currentLockedOnTargetTransform = null;
+            player.playerCombatManager.currentLockedOnTarget = null;
+        }
+
+        public void SetCameraHeight()
+        {
+            Vector3 velocity = Vector3.zero;
+            Vector3 newCameraHeightLockedOn = new Vector3(0, cameraLockedOnHeight);
+            Vector3 defaultCameraHeightUnlocked = new Vector3(0, cameraDefaultHeight);
+
+            if (player.playerCombatManager.currentLockedOnTarget != null)
+            {
+                playerCameraPivotTransform.transform.localPosition = Vector3.SmoothDamp
+                    (playerCameraPivotTransform.transform.localPosition, newCameraHeightLockedOn, 
+                    ref velocity, Time.deltaTime);
+            }
+            else
+            {
+                playerCameraPivotTransform.transform.localPosition = Vector3.SmoothDamp
+                    (playerCameraPivotTransform.transform.localPosition, defaultCameraHeightUnlocked, 
+                    ref velocity, Time.deltaTime);
+            }
         }
     }
 }

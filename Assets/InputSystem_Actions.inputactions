@@ -148,6 +148,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Switch Left Locked On Target",
+                    "type": "Button",
+                    "id": "97decf53-4aa8-4c5e-b5cb-f828700bae03",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Switch Right Locked On Target",
+                    "type": "Button",
+                    "id": "ecfea68f-9d21-4dbf-be88-fe5e897f022f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -566,6 +584,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lock On Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a8d0886-77a2-42a6-b768-902f33849b24",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Left Locked On Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "748aa5f9-9296-44d5-8c7d-9e5b037abef2",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch Right Locked On Target",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

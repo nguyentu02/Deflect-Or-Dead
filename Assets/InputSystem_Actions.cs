@@ -234,6 +234,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch Left Locked On Target"",
+                    ""type"": ""Button"",
+                    ""id"": ""97decf53-4aa8-4c5e-b5cb-f828700bae03"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch Right Locked On Target"",
+                    ""type"": ""Button"",
+                    ""id"": ""ecfea68f-9d21-4dbf-be88-fe5e897f022f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -652,6 +670,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Lock On Target"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a8d0886-77a2-42a6-b768-902f33849b24"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Left Locked On Target"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""748aa5f9-9296-44d5-8c7d-9e5b037abef2"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch Right Locked On Target"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1255,6 +1295,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_SwitchLeftWeapon = m_Player.FindAction("Switch Left Weapon", throwIfNotFound: true);
         m_Player_OpenOptions = m_Player.FindAction("Open Options", throwIfNotFound: true);
         m_Player_LockOnTarget = m_Player.FindAction("Lock On Target", throwIfNotFound: true);
+        m_Player_SwitchLeftLockedOnTarget = m_Player.FindAction("Switch Left Locked On Target", throwIfNotFound: true);
+        m_Player_SwitchRightLockedOnTarget = m_Player.FindAction("Switch Right Locked On Target", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1364,6 +1406,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwitchLeftWeapon;
     private readonly InputAction m_Player_OpenOptions;
     private readonly InputAction m_Player_LockOnTarget;
+    private readonly InputAction m_Player_SwitchLeftLockedOnTarget;
+    private readonly InputAction m_Player_SwitchRightLockedOnTarget;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1440,6 +1484,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @LockOnTarget => m_Wrapper.m_Player_LockOnTarget;
         /// <summary>
+        /// Provides access to the underlying input action "Player/SwitchLeftLockedOnTarget".
+        /// </summary>
+        public InputAction @SwitchLeftLockedOnTarget => m_Wrapper.m_Player_SwitchLeftLockedOnTarget;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SwitchRightLockedOnTarget".
+        /// </summary>
+        public InputAction @SwitchRightLockedOnTarget => m_Wrapper.m_Player_SwitchRightLockedOnTarget;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1513,6 +1565,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LockOnTarget.started += instance.OnLockOnTarget;
             @LockOnTarget.performed += instance.OnLockOnTarget;
             @LockOnTarget.canceled += instance.OnLockOnTarget;
+            @SwitchLeftLockedOnTarget.started += instance.OnSwitchLeftLockedOnTarget;
+            @SwitchLeftLockedOnTarget.performed += instance.OnSwitchLeftLockedOnTarget;
+            @SwitchLeftLockedOnTarget.canceled += instance.OnSwitchLeftLockedOnTarget;
+            @SwitchRightLockedOnTarget.started += instance.OnSwitchRightLockedOnTarget;
+            @SwitchRightLockedOnTarget.performed += instance.OnSwitchRightLockedOnTarget;
+            @SwitchRightLockedOnTarget.canceled += instance.OnSwitchRightLockedOnTarget;
         }
 
         /// <summary>
@@ -1572,6 +1630,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LockOnTarget.started -= instance.OnLockOnTarget;
             @LockOnTarget.performed -= instance.OnLockOnTarget;
             @LockOnTarget.canceled -= instance.OnLockOnTarget;
+            @SwitchLeftLockedOnTarget.started -= instance.OnSwitchLeftLockedOnTarget;
+            @SwitchLeftLockedOnTarget.performed -= instance.OnSwitchLeftLockedOnTarget;
+            @SwitchLeftLockedOnTarget.canceled -= instance.OnSwitchLeftLockedOnTarget;
+            @SwitchRightLockedOnTarget.started -= instance.OnSwitchRightLockedOnTarget;
+            @SwitchRightLockedOnTarget.performed -= instance.OnSwitchRightLockedOnTarget;
+            @SwitchRightLockedOnTarget.canceled -= instance.OnSwitchRightLockedOnTarget;
         }
 
         /// <summary>
@@ -1984,6 +2048,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLockOnTarget(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Switch Left Locked On Target" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSwitchLeftLockedOnTarget(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Switch Right Locked On Target" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSwitchRightLockedOnTarget(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

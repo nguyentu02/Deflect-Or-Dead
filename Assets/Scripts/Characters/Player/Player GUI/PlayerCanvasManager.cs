@@ -10,7 +10,7 @@ namespace NT
 
         public PlayerManager player;
 
-        private PlayerWeaponEquipment_GUI playerWeaponEquipment;
+        public PlayerWeaponEquipment_GUI playerWeaponEquipment;
 
         [SerializeField] GameObject playerMenuOptionGameObject;
 
@@ -48,6 +48,9 @@ namespace NT
 
         //  DEBUG HERE.
         [SerializeField] PlayerInventorySlots_GUI[] playerWeaponInventorySlots;
+
+        [Header("Player Equipment GUI")]
+        [SerializeField] GameObject playerEquipmentGameObject;
 
         private void Awake()
         {
@@ -190,6 +193,7 @@ namespace NT
             playerAlertMessageGameObject.SetActive(false);
             playerNewItemAlertGameObject.SetActive(false);
             playerWeaponInventory.SetActive(false);
+            playerEquipmentGameObject.SetActive(false);
         }
 
         //  DEBUG SET OF MESSAGE

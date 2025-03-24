@@ -1,4 +1,5 @@
 using UnityEngine;
+using static TreeEditor.TreeGroup;
 
 namespace NT
 {
@@ -35,6 +36,8 @@ namespace NT
         [SerializeField] private bool esc_Input = false;
 
         [SerializeField] private bool q_Input = false;
+        [SerializeField] private bool number1_Input = false;
+        [SerializeField] private bool number2_Input = false;
 
         private void Awake()
         {
@@ -71,6 +74,8 @@ namespace NT
                 inputActions.Player.Interact.performed += i => e_Input = true;
                 inputActions.Player.OpenOptions.performed += i => esc_Input = true;
                 inputActions.Player.LockOnTarget.performed += i => q_Input = true;
+                inputActions.Player.SwitchLeftLockedOnTarget.performed += i => number1_Input = true;
+                inputActions.Player.SwitchRightLockedOnTarget.performed += i => number2_Input = true;
 
                 //  PLAYER ATTACKS
                 inputActions.Player.Attack.performed += i => leftMouse_Input = true;
@@ -270,14 +275,11 @@ namespace NT
             {
                 q_Input = false;
 
-                //  DEBUG
-                PlayerCameraManager.instance.ClearAllLockedOnTargets();
-
                 PlayerCameraManager.instance.HandleCameraLockOnTarget();
 
                 if (PlayerCameraManager.instance.nearestLockOnTarget != null)
                 {
-                    player.playerCombatManager.currentLockedOnTargetTransform = PlayerCameraManager.instance.nearestLockOnTarget;
+                    player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.nearestLockOnTarget;
                     player.isLockedOn = true;
                 }
             }
@@ -288,6 +290,32 @@ namespace NT
 
                 //  CLEAR LOCK ON TARGETS
                 PlayerCameraManager.instance.ClearAllLockedOnTargets();
+            }
+
+            if (player.isLockedOn && number1_Input)
+            {
+                number1_Input = false;
+
+                PlayerCameraManager.instance.HandleCameraLockOnTarget();
+
+                if (PlayerCameraManager.instance.leftNearestLockOnTarget != null)
+                {
+                    player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.leftNearestLockOnTarget;
+                    player.isLockedOn = true;
+                }
+            }
+
+            if (player.isLockedOn && number2_Input)
+            {
+                number2_Input = false;
+
+                PlayerCameraManager.instance.HandleCameraLockOnTarget();
+
+                if (PlayerCameraManager.instance.rightNearestLockOnTarget != null)
+                {
+                    player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.rightNearestLockOnTarget;
+                    player.isLockedOn = true;
+                }
             }
         }
     }

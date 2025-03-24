@@ -12333,6 +12333,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fb36e270ad0b045a4c6966be810ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  characterAnimator: {fileID: 0}
+  characterRigidbody: {fileID: 0}
+  characterMovementManager: {fileID: 0}
+  characterAnimationManager: {fileID: 0}
+  characterEquipmentManager: {fileID: 0}
+  characterCombatManager: {fileID: 0}
+  characterStatusManager: {fileID: 0}
+  characterDamageReceiverManager: {fileID: 0}
+  isGrounded: 1
+  canMove: 1
+  canRotate: 1
+  isPerformingAction: 0
+  isRolling: 0
+  isSprinting: 0
+  isChargingAttack: 0
+  canDoComboAttack: 0
+  isAttacking: 0
+  isLockedOn: 0
   lockOnTransform: {fileID: 0}
   animator: {fileID: 0}
   maxHealth: 1000
@@ -24501,7 +24520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fed244c47a99643a959e5962504198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLockedOnTargetTransform: {fileID: 0}
+  currentLockedOnTarget: {fileID: 0}
   lockOnTransform: {fileID: 0}
   currentWeaponCharacterUsingForAttack: {fileID: 0}
   attackType: 0
@@ -31030,6 +31049,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fb36e270ad0b045a4c6966be810ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  characterAnimator: {fileID: 0}
+  characterRigidbody: {fileID: 0}
+  characterMovementManager: {fileID: 0}
+  characterAnimationManager: {fileID: 0}
+  characterEquipmentManager: {fileID: 0}
+  characterCombatManager: {fileID: 0}
+  characterStatusManager: {fileID: 0}
+  characterDamageReceiverManager: {fileID: 0}
+  isGrounded: 1
+  canMove: 1
+  canRotate: 1
+  isPerformingAction: 0
+  isRolling: 0
+  isSprinting: 0
+  isChargingAttack: 0
+  canDoComboAttack: 0
+  isAttacking: 0
+  isLockedOn: 0
   lockOnTransform: {fileID: 0}
   animator: {fileID: 0}
   maxHealth: 1000
@@ -41632,6 +41670,10 @@ PrefabInstance:
       propertyPath: playerStaminaPointsBar
       value: 
       objectReference: {fileID: 1954060818}
+    - target: {fileID: 1427493909468322631, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
+      propertyPath: playerEquipmentGameObject
+      value: 
+      objectReference: {fileID: 685712266}
     - target: {fileID: 1427493909468322631, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: playerInventorySlotPrefab
       value: 

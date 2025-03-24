@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace NT
 {
@@ -55,19 +56,53 @@ namespace NT
             if (!player.canRotate)
                 return;
 
-            Vector3 rotationDirection = Vector3.zero;
+            if (player.isLockedOn)
+            {
+                if (player.isSprinting || player.isRolling)
+                {
+                    Vector3 rotationDirection = Vector3.zero;
 
-            rotationDirection = PlayerCameraManager.instance.playerCameraTransform.transform.forward * PlayerInputManager.instance.vertical_Input;
-            rotationDirection += PlayerCameraManager.instance.playerCameraTransform.transform.right * PlayerInputManager.instance.horizontal_Input;
-            rotationDirection.Normalize();
-            rotationDirection.y = 0f;
+                    rotationDirection = PlayerCameraManager.instance.playerCameraTransform.transform.forward * PlayerInputManager.instance.vertical_Input;
+                    rotationDirection += PlayerCameraManager.instance.playerCameraTransform.transform.right * PlayerInputManager.instance.horizontal_Input;
+                    rotationDirection.Normalize();
+                    rotationDirection.y = 0f;
 
-            if (rotationDirection == Vector3.zero)
-                rotationDirection = player.transform.forward;
+                    if (rotationDirection == Vector3.zero)
+                        rotationDirection = player.transform.forward;
 
-            Quaternion rotateTowardsCamera = Quaternion.LookRotation(rotationDirection);
-            Quaternion finalRotationDirection = Quaternion.Slerp(player.transform.rotation, rotateTowardsCamera, rotationSpeed * Time.deltaTime);
-            player.transform.rotation = finalRotationDirection;
+                    Quaternion rotateTowardsCamera = Quaternion.LookRotation(rotationDirection);
+                    Quaternion finalRotationDirection = Quaternion.Slerp(player.transform.rotation, rotateTowardsCamera, rotationSpeed * Time.deltaTime);
+                    player.transform.rotation = finalRotationDirection;
+                }
+                else
+                {
+                    Vector3 rotationDirection = characterMoveDirection;
+                    rotationDirection = player.playerCombatManager.currentLockedOnTarget.transform.position - transform.position;
+                    rotationDirection.y = 0;
+                    rotationDirection.Normalize();
+
+                    Quaternion rotation = Quaternion.LookRotation(rotationDirection);
+                    Quaternion finalRotation = Quaternion.Slerp
+                        (transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+                    transform.rotation = finalRotation;
+                }
+            }
+            else
+            {
+                Vector3 rotationDirection = Vector3.zero;
+
+                rotationDirection = PlayerCameraManager.instance.playerCameraTransform.transform.forward * PlayerInputManager.instance.vertical_Input;
+                rotationDirection += PlayerCameraManager.instance.playerCameraTransform.transform.right * PlayerInputManager.instance.horizontal_Input;
+                rotationDirection.Normalize();
+                rotationDirection.y = 0f;
+
+                if (rotationDirection == Vector3.zero)
+                    rotationDirection = player.transform.forward;
+
+                Quaternion rotateTowardsCamera = Quaternion.LookRotation(rotationDirection);
+                Quaternion finalRotationDirection = Quaternion.Slerp(player.transform.rotation, rotateTowardsCamera, rotationSpeed * Time.deltaTime);
+                player.transform.rotation = finalRotationDirection;
+            }
         }
 
         public void PerformPlayerDodging()
