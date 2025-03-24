@@ -52,6 +52,12 @@ namespace NT
         [Header("Player Equipment GUI")]
         [SerializeField] GameObject playerEquipmentGameObject;
 
+        public bool playerRightWeaponSlot_01_Selected = false;
+        public bool playerRightWeaponSlot_02_Selected = false;
+
+        public bool playerLeftWeaponSlot_01_Selected = false;
+        public bool playerLeftWeaponSlot_02_Selected = false;
+
         private void Awake()
         {
             if (instance == null)
@@ -186,6 +192,8 @@ namespace NT
 
         public void ResetAllGUIGameObject_GUI()
         {
+            ResetAllWeaponEquipmentSlotsSelect();
+
             isNewItemAlert = false;
 
             playerMenuOptionGameObject.SetActive(false);
@@ -200,6 +208,15 @@ namespace NT
         public void DEBUG_TurnOffMessageAlertPopUp()
         {
             playerAlertMessageGameObject.SetActive(false);
+        }
+
+        public void ResetAllWeaponEquipmentSlotsSelect()
+        {
+            playerRightWeaponSlot_01_Selected = false;
+            playerRightWeaponSlot_02_Selected = false;
+
+            playerLeftWeaponSlot_01_Selected = false;
+            playerLeftWeaponSlot_02_Selected = false;
         }
     }
 }

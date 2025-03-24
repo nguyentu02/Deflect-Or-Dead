@@ -16,8 +16,8 @@ namespace NT
         public WeaponItem_SO[] weaponsInMainHandQuickSlots;
         public WeaponItem_SO[] weaponsInOffHandQuickSlots;
 
-        [SerializeField] private int currentWeaponInMainHandIndex = 0;
-        [SerializeField] private int currentWeaponInOffHandIndex = 0;
+        public int currentWeaponInMainHandIndex = 0;
+        public int currentWeaponInOffHandIndex = 0;
 
         [Header("Character Equipment Hand Slots")]
         protected WeaponInstantiateTransformWhenEquipped characterMainHand;
@@ -36,8 +36,11 @@ namespace NT
 
         protected virtual void Start()
         {
-            currentWeaponHoldInMainHand = unarmed_No_Weapon;
-            currentWeaponHoldInOffHand = unarmed_No_Weapon;
+            currentWeaponInMainHandIndex = 0;
+            currentWeaponInOffHandIndex = 0;
+
+            currentWeaponHoldInMainHand = weaponsInMainHandQuickSlots[currentWeaponInMainHandIndex];
+            currentWeaponHoldInOffHand = weaponsInOffHandQuickSlots[currentWeaponInOffHandIndex];
         }
 
         public virtual void GetCharacterEquipmentSlotAtStart()

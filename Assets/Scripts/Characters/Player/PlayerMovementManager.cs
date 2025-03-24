@@ -47,8 +47,19 @@ namespace NT
             else
                 player.characterController.Move(characterMoveDirection * runningSpeed * Time.deltaTime);
 
-            player.playerAnimationManager.ProcessCharacterMovementAnimation
-                (0, PlayerInputManager.instance.moveAmount, player.isSprinting);
+
+            if (player.isLockedOn && !player.isSprinting)
+            {
+                player.playerAnimationManager.ProcessCharacterMovementAnimation
+                    (PlayerInputManager.instance.horizontal_Input, 
+                    PlayerInputManager.instance.vertical_Input, 
+                    player.isSprinting);
+            }
+            else
+            {
+                player.playerAnimationManager.ProcessCharacterMovementAnimation
+                    (0, PlayerInputManager.instance.moveAmount, player.isSprinting);
+            }
         }
 
         private void HandlePlayerRotationTowardsCameraLookDirection()

@@ -35,5 +35,25 @@ namespace NT
             itemIcon.enabled = false;
             gameObject.SetActive(false);
         }
+
+        public void PlayerSelectThisSlot()
+        {
+            if (rightHandEquipSlot_01)
+            {
+                PlayerCanvasManager.instance.playerRightWeaponSlot_01_Selected = rightHandEquipSlot_01;
+            }
+            else if (rightHandEquipSlot_02)
+            {
+                PlayerCanvasManager.instance.playerRightWeaponSlot_02_Selected = rightHandEquipSlot_02;
+            }
+            else if (leftHandEquipSlot_01)
+            {
+                PlayerCanvasManager.instance.playerLeftWeaponSlot_01_Selected = leftHandEquipSlot_01;
+            }
+            else
+            {
+                PlayerCanvasManager.instance.playerLeftWeaponSlot_02_Selected = leftHandEquipSlot_02;
+            }
+        }
     }
 }
