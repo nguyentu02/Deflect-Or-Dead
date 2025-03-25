@@ -22,11 +22,12 @@ namespace NT
 
         private void OnTriggerEnter(Collider other)
         {
-            EnemyManager enemyDamaged = other.GetComponent<EnemyManager>();
+            CharacterManager characterDamaged = other.GetComponent<CharacterManager>();
 
-            if (enemyDamaged != null)
+            //  DEBUG DAMAGE COLLIDER
+            if (characterDamaged != null)
             {
-                enemyDamaged.EnemyDamageReceiver(weaponDamageTest);
+                characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver(weaponDamageTest);
             }
         }
 

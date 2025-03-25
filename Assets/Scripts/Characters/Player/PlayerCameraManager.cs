@@ -81,7 +81,7 @@ namespace NT
 
         private void HandleCameraRotateLookAround()
         {
-            if (!player.isLockedOn && player.playerCombatManager.currentLockedOnTarget == null)
+            if (!player.isLockedOn && player.playerCombatManager.currentTargetCharacter == null)
             {
                 Vector3 rotateAround;
                 Quaternion rotateCameraLookAroundBasedOnMouse;
@@ -104,14 +104,14 @@ namespace NT
             {
                 float velocity = 0f;
 
-                Vector3 direction = player.playerCombatManager.currentLockedOnTarget.transform.position - transform.position;
+                Vector3 direction = player.playerCombatManager.currentTargetCharacter.transform.position - transform.position;
                 direction.Normalize();
                 direction.y = 0f;
 
                 Quaternion cameraRotation = Quaternion.LookRotation(direction);
                 transform.rotation = cameraRotation;
 
-                direction = player.playerCombatManager.currentLockedOnTarget.transform.position - playerCameraPivotTransform.position;
+                direction = player.playerCombatManager.currentTargetCharacter.transform.position - playerCameraPivotTransform.position;
                 direction.Normalize();
 
                 cameraRotation = Quaternion.LookRotation(direction);
@@ -192,14 +192,14 @@ namespace NT
                     var distanceFromRightTarget = relativeEnemyPosition.x;
 
                     if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget && 
-                        availableCharactersCanTarget[j] != player.playerCombatManager.currentLockedOnTarget)
+                        availableCharactersCanTarget[j] != player.playerCombatManager.currentTargetCharacter)
                     {
                         shortestDistanceOfLeftTarget = distanceFromLeftTarget;
                         leftNearestLockOnTarget = availableCharactersCanTarget[j];
                     }
 
                     if (relativeEnemyPosition.x >= 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget && 
-                        availableCharactersCanTarget[j] != player.playerCombatManager.currentLockedOnTarget)
+                        availableCharactersCanTarget[j] != player.playerCombatManager.currentTargetCharacter)
                     {
                         shortestDistanceOfRightTarget = distanceFromRightTarget;
                         rightNearestLockOnTarget = availableCharactersCanTarget[j];
@@ -213,7 +213,7 @@ namespace NT
         {
             availableCharactersCanTarget.Clear();
             nearestLockOnTarget = null;
-            player.playerCombatManager.currentLockedOnTarget = null;
+            player.playerCombatManager.currentTargetCharacter = null;
         }
 
         public void SetCameraHeight()
@@ -222,7 +222,7 @@ namespace NT
             Vector3 newCameraHeightLockedOn = new Vector3(0, cameraLockedOnHeight);
             Vector3 defaultCameraHeightUnlocked = new Vector3(0, cameraDefaultHeight);
 
-            if (player.playerCombatManager.currentLockedOnTarget != null)
+            if (player.playerCombatManager.currentTargetCharacter != null)
             {
                 playerCameraPivotTransform.transform.localPosition = Vector3.SmoothDamp
                     (playerCameraPivotTransform.transform.localPosition, newCameraHeightLockedOn, 

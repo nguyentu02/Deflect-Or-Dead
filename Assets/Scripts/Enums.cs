@@ -7,6 +7,12 @@ namespace NT
 
     }
 
+    public enum TeamID
+    {
+        Team01, //  TEAM PLAYER
+        Team02, //  TEAM ENEMY
+    }
+
     public enum WeaponInstantiateSlot
     {
         MainHandSlot,

@@ -88,7 +88,7 @@ namespace NT
                 else
                 {
                     Vector3 rotationDirection = characterMoveDirection;
-                    rotationDirection = player.playerCombatManager.currentLockedOnTarget.transform.position - transform.position;
+                    rotationDirection = player.playerCombatManager.currentTargetCharacter.transform.position - transform.position;
                     rotationDirection.y = 0;
                     rotationDirection.Normalize();
 

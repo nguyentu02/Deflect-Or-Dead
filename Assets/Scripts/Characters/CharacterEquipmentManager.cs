@@ -44,6 +44,12 @@ namespace NT
 
             currentWeaponHoldInMainHand = weaponsInMainHandQuickSlots[currentWeaponInMainHandIndex];
             currentWeaponHoldInOffHand = weaponsInOffHandQuickSlots[currentWeaponInOffHandIndex];
+
+            //  LOAD WEAPON INTO RIGHT HAND
+            WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInMainHand, true);
+
+            //  LOAD WEAPON INTO LEFT HAND
+            WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInOffHand, false);
         }
 
         public virtual void GetCharacterEquipmentSlotAtStart()

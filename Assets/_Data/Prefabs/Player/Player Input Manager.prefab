@@ -44,8 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa2ff9e3a30efd429b1d13dcf62c194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   horizontal_Input: 0
   vertical_Input: 0
   moveAmount: 0
   mouseX_Input: 0
   mouseY_Input: 0
+  space_Input: 0
+  space_Hold_Input: 0
+  leftShift_Input: 0
+  leftMouse_Input: 0
+  leftMouse_Hold_Input: 0
+  leftMouse_Hold_For_Charge_Attack: 0
+  rightArrow_Input: 0
+  leftArrow_Input: 0
+  e_Input: 0
+  esc_Input: 0
+  q_Input: 0
+  number1_Input: 0
+  number2_Input: 0
+  twoHanding_Input: 0
+  twoHanding_MainWeapon_Input: 0
+  twoHanding_OffWeapon_Input: 0

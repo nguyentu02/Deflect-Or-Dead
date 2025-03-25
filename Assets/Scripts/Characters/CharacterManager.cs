@@ -15,6 +15,9 @@ namespace NT
         public CharacterStatusManager characterStatusManager;
         public CharacterDamageReceiverManager characterDamageReceiverManager;
 
+        [Header("Character Team I.D")]
+        public TeamID characterTeamID;
+
         [Header("Character Status")]
         public bool isGrounded = true;
         public bool canMove = true;

@@ -1,52 +1,114 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace NT
 {
     public class EnemyManager : CharacterManager
     {
-        [Header("Debug Testing")]
-        public Transform lockOnTransform;
-        [SerializeField] Animator animator;
-        [SerializeField] int maxHealth = 1000;
-        [SerializeField] float currentHealth = 0f;
+        public NavMeshAgent navMeshAgent;
+
+        public EnemyAnimationManager enemyAnimationManager;
+        public EnemyCombatManager enemyCombatManager;
+
+        [Header("Enemy Current State")]
+        public AISate enemyCurrentState;
+
+        [Header("Enemy Finite State Machine")]
+        public AIIdleState enemyIdleState;
+        public AIChasingState enemyChasingState;
+        public AICombatStanceState enemyCombatStanceState;
+        public AIAttackTargetState enemyAttackTargetState;
+
+        //  DEBUG COOL DOWN AFTER ATTACK (USED TO TRACK WHEN WE CAN ATTACK AGAIN)
+        public float timeToNextAttack;
+
+        //  DEBUG ROTATION SPEED
+        public float DEBUG_enemyRotationSpeed = 15f;
 
         protected override void Awake()
         {
-            animator = GetComponent<Animator>();
+            base.Awake();
+
+            navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+
+            enemyAnimationManager = GetComponent<EnemyAnimationManager>();
+            enemyCombatManager = GetComponent<EnemyCombatManager>();
+
+
+            enemyIdleState = GetComponentInChildren<AIIdleState>();
+            enemyChasingState = GetComponentInChildren<AIChasingState>();
+            enemyCombatStanceState = GetComponentInChildren<AICombatStanceState>();
+            enemyAttackTargetState = GetComponentInChildren<AIAttackTargetState>();
+
+            enemyCurrentState = enemyIdleState;
         }
 
         protected override void Start()
         {
-            currentHealth = maxHealth;
+            base.Start();
         }
 
         protected override void Update()
         {
-            
+            base.Update();
+
+            HandleEnemyCharacterStates();
+
+            DEBUG_HandleCoolDownUntilEnemyCanAttackTargetAgain();
         }
 
         protected override void FixedUpdate()
         {
-            
+            base.FixedUpdate();
+
+            DEBUG_StitchNavmeshIntoEnemyGameObject();
         }
 
         protected override void LateUpdate()
         {
-           
+            base.LateUpdate();
         }
 
-        public void EnemyDamageReceiver(float damage)
+        protected virtual void HandleEnemyCharacterStates()
         {
-            currentHealth -= damage;
-
-            animator.Play("core_main_hit_reaction_medium_f_01");
-
-            if (currentHealth <= 0f)
+            if (enemyCurrentState != null)
             {
-                currentHealth = 0f;
+                AISate nextState = enemyCurrentState.SwitchToState(this);
 
-                animator.Play("straight_sword_main_death_01");
+                if (nextState != null)
+                    enemyCurrentState = nextState;
             }
+        }
+
+        private void DEBUG_HandleCoolDownUntilEnemyCanAttackTargetAgain()
+        {
+            if (timeToNextAttack > 0)
+                timeToNextAttack -= Time.deltaTime;
+        }
+
+        //  DEBUG NAVMESH AGENT
+        protected virtual void DEBUG_EnemyNavmeshRotateTowardsTarget()
+        {
+            transform.rotation = navMeshAgent.transform.rotation;
+        }
+
+        protected void DEBUG_StitchNavmeshIntoEnemyGameObject()
+        {
+            navMeshAgent.transform.localPosition = Vector3.zero;
+            navMeshAgent.transform.localRotation = Quaternion.identity;
+        }
+
+        public void DEBUG_EnemyManuallyRotateTowardsTarget()
+        {
+            Vector3 direction = characterCombatManager.currentTargetCharacter.transform.position - transform.position;
+            direction.y = 0;
+            direction.Normalize();
+
+            if (direction == Vector3.zero)
+                direction = transform.forward;
+
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DEBUG_enemyRotationSpeed * Time.deltaTime);
         }
     }
 }

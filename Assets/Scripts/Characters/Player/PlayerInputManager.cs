@@ -309,7 +309,7 @@ namespace NT
 
                 if (PlayerCameraManager.instance.nearestLockOnTarget != null)
                 {
-                    player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.nearestLockOnTarget;
+                    player.playerCombatManager.currentTargetCharacter = PlayerCameraManager.instance.nearestLockOnTarget;
                     player.isLockedOn = true;
                 }
             }
@@ -330,7 +330,7 @@ namespace NT
 
                 if (PlayerCameraManager.instance.leftNearestLockOnTarget != null)
                 {
-                    player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.leftNearestLockOnTarget;
+                    player.playerCombatManager.currentTargetCharacter = PlayerCameraManager.instance.leftNearestLockOnTarget;
                     player.isLockedOn = true;
                 }
             }
@@ -343,7 +343,7 @@ namespace NT
 
                 if (PlayerCameraManager.instance.rightNearestLockOnTarget != null)
                 {
-                    player.playerCombatManager.currentLockedOnTarget = PlayerCameraManager.instance.rightNearestLockOnTarget;
+                    player.playerCombatManager.currentTargetCharacter = PlayerCameraManager.instance.rightNearestLockOnTarget;
                     player.isLockedOn = true;
                 }
             }

@@ -7,7 +7,7 @@ namespace NT
         private CharacterManager character;
 
         [Header("Character Lock On Transform")]
-        public CharacterManager currentLockedOnTarget;
+        public CharacterManager currentTargetCharacter;
         public Transform lockOnTransform;
 
         [Header("Character Weapon Being Used For Attack")]
