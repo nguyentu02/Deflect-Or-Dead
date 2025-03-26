@@ -7,34 +7,32 @@ namespace NT
         [Header("Enemy Attack Actions List")]
         public EnemyAction enemyCurrentAttackAction;
         public EnemyAction[] enemyAttackActions;
-        public float distanceToTarget;
 
         public override AISate SwitchToState(CharacterManager character)
         {
             EnemyManager enemy = character as EnemyManager;
 
-            Vector3 targetsDirection = character.characterCombatManager.currentTargetCharacter.transform.position - transform.position;
-            distanceToTarget = Vector3.Distance(character.characterCombatManager.currentTargetCharacter.transform.position, transform.position);
-            float viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
-
             if (enemy.isPerformingAction)
+            {
+                enemy.enemyAnimationManager.ProcessCharacterMovementAnimation(0f, 0f, false);
                 return this;
+            }
 
             if (enemyCurrentAttackAction != null)
             {
                 EnemyAttackAction enemyAttackAction = enemyCurrentAttackAction as EnemyAttackAction;
 
                 //  IF SELECTED ATTACK IS NOT ABLE TO USE (BAD ANGLE, BAD DISTANCE) CHOOSE THE NEW ONE
-                if (viewableAngles > enemyAttackAction.maximumAttackAngle &&
-                    viewableAngles < enemyAttackAction.minimumAttackAngle)
+                if (enemy.viewableAngles > enemyAttackAction.maximumAttackAngle &&
+                    enemy.viewableAngles < enemyAttackAction.minimumAttackAngle)
                 {
                     enemy.DEBUG_EnemyManuallyRotateTowardsTarget();
                     enemyCurrentAttackAction = null;
                     return this;
                 }
                 //  IF POSSIBLE, STADING AND ATTACK OUR TARGET
-                else if (viewableAngles <= enemyAttackAction.maximumAttackAngle &&
-                         viewableAngles >= enemyAttackAction.minimumAttackAngle)
+                else if (enemy.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
+                         enemy.viewableAngles >= enemyAttackAction.minimumAttackAngle)
                 {
                     DEBUG_HandleEnemyAttackTargetIfPossible(enemy);
                 }
@@ -45,18 +43,20 @@ namespace NT
                 HandleEnemyRandomizeGetAttackAction(enemy);
             }
 
-            //  WHEN WE DONE, RETURN TO COMBAT STANCE
-            return enemy.enemyCombatStanceState;
+            if (enemy.distanceToTarget > enemy.navMeshAgent.stoppingDistance)
+                //  WHEN WE DONE, RETURN TO COMBAT STANCE IF TARGET RUN AWAY
+                return enemy.enemyCombatStanceState;
+            else
+                //  OTHERWISE, RETURN THIS STATE AND MAKE NEW ATTACK
+                return this;
         }
 
         protected virtual void HandleEnemyRandomizeGetAttackAction(CharacterManager character)
         {
+            EnemyManager enemy = character as EnemyManager;
+
             if (character.isPerformingAction)
                 return;
-
-            Vector3 targetsDirection = character.characterCombatManager.currentTargetCharacter.transform.position - transform.position;
-            distanceToTarget = Vector3.Distance(character.characterCombatManager.currentTargetCharacter.transform.position, transform.position);
-            float viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
 
             int maxScore = 0;
 
@@ -64,11 +64,11 @@ namespace NT
             {
                 EnemyAttackAction enemyAttackAction = enemyAttackActions[i] as EnemyAttackAction;
 
-                if (distanceToTarget <= enemyAttackAction.maximumDistanceNeededToAttack &&
-                    distanceToTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
+                if (enemy.distanceToTarget <= enemyAttackAction.maximumDistanceNeededToAttack &&
+                    enemy.distanceToTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngles <= enemyAttackAction.maximumAttackAngle &&
-                        viewableAngles >= enemyAttackAction.minimumAttackAngle)
+                    if (enemy.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
+                        enemy.viewableAngles >= enemyAttackAction.minimumAttackAngle)
                     {
                         maxScore += enemyAttackAction.attackScore;
                     }
@@ -82,11 +82,11 @@ namespace NT
             {
                 EnemyAttackAction enemyAttackAction = enemyAttackActions[i] as EnemyAttackAction;
 
-                if (distanceToTarget <= enemyAttackAction.maximumDistanceNeededToAttack &&
-                    distanceToTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
+                if (enemy.distanceToTarget <= enemyAttackAction.maximumDistanceNeededToAttack &&
+                    enemy.distanceToTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
                 {
-                    if (viewableAngles <= enemyAttackAction.maximumAttackAngle &&
-                        viewableAngles >= enemyAttackAction.minimumAttackAngle)
+                    if (enemy.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
+                        enemy.viewableAngles >= enemyAttackAction.minimumAttackAngle)
                     {
                         if (enemyCurrentAttackAction != null)
                             return;

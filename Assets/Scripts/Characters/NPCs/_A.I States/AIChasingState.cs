@@ -5,9 +5,6 @@ namespace NT
 {
     public class AIChasingState : AISate
     {
-        [Header("Enemy Chasing Settings")]
-        public float distanceToTarget;
-
         public override AISate SwitchToState(CharacterManager character)
         {
             EnemyManager enemy = character as EnemyManager;
@@ -22,7 +19,7 @@ namespace NT
             HandleEnemyChasingTarget(enemy);
 
             //  SWITCH TO COMBAT STANCE STATE IF PLAYER IS INRANGE COMBAT
-            if (distanceToTarget <= enemy.enemyCombatStanceState.combatStanceRadius)
+            if (enemy.distanceToTarget <= enemy.enemyCombatStanceState.combatStanceRadius)
                 return enemy.enemyCombatStanceState;
 
             return this;
@@ -31,10 +28,6 @@ namespace NT
         protected virtual void HandleEnemyChasingTarget(CharacterManager character)
         {
             EnemyManager enemy = character as EnemyManager;
-
-            Vector3 targetsDirection = enemy.characterCombatManager.currentTargetCharacter.transform.position - transform.position;
-            distanceToTarget = Vector3.Distance(enemy.characterCombatManager.currentTargetCharacter.transform.position, transform.position);
-            float viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
 
             //  ROTATE WITH NAVMESH AGENT ROTATION
             //HandleEnemyRotateTowardsTarget();

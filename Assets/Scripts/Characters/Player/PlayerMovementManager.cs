@@ -137,17 +137,21 @@ namespace NT
                     Quaternion rollRotateDirection = Quaternion.LookRotation(characterMoveDirection);
                     player.transform.rotation = rollRotateDirection;
 
+                    player.playerStatusManager.characterCurrentStamina -= rollDodgeStaminaCost;
+
                     //  SET STAMINA ON GUI
                     PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
-                        (player.playerStatusManager.characterCurrentStamina - rollDodgeStaminaCost);
+                        (player.playerStatusManager.characterCurrentStamina);
                 }
                 else
                 {
                     player.playerAnimationManager.CharacterPlayAnimation("Back_Step_01", true);
 
+                    player.playerStatusManager.characterCurrentStamina -= backstepDodgeStaminaCost;
+
                     //  SET STAMINA ON GUI
                     PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
-                        (player.playerStatusManager.characterCurrentStamina - backstepDodgeStaminaCost);
+                        (player.playerStatusManager.characterCurrentStamina);
                 }
             }
         }

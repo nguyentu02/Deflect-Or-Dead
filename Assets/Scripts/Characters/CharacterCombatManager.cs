@@ -10,6 +10,10 @@ namespace NT
         public CharacterManager currentTargetCharacter;
         public Transform lockOnTransform;
 
+        [Header("Character Combat Status")]
+        public bool isUsingMainHand = false;
+        public bool isUsingOffHand = false;
+
         [Header("Character Weapon Being Used For Attack")]
         public WeaponItem_SO currentWeaponCharacterUsingForAttack;
 
@@ -221,6 +225,16 @@ namespace NT
 
             PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                 (character.characterStatusManager.characterCurrentStamina);
+        }
+
+        public virtual void EnableIsInvulnerable()
+        {
+            character.isInvulnerable = true;
+        }
+
+        public virtual void DisableIsInvulnerable()
+        {
+            character.isInvulnerable = false;
         }
     }
 }

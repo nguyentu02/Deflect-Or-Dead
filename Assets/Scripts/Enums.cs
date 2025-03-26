@@ -24,7 +24,9 @@ namespace NT
     public enum WeaponType
     {
         Melee_Weapon,
-        Ranged_Weapon
+        Ranged_Weapon,
+        Seal,
+        Staff
     }
 
     public enum WeaponClass

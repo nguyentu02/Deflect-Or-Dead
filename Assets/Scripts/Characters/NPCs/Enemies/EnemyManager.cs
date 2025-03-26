@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 namespace NT
 {
@@ -14,10 +15,16 @@ namespace NT
         public AISate enemyCurrentState;
 
         [Header("Enemy Finite State Machine")]
+        public AIAmbushState enemyAmbushState;
         public AIIdleState enemyIdleState;
         public AIChasingState enemyChasingState;
         public AICombatStanceState enemyCombatStanceState;
         public AIAttackTargetState enemyAttackTargetState;
+
+        [Header("Enemy Target Tracking Values")]
+        public Vector3 targetsDirection;
+        public float viewableAngles;
+        public float distanceToTarget;
 
         //  DEBUG COOL DOWN AFTER ATTACK (USED TO TRACK WHEN WE CAN ATTACK AGAIN)
         public float timeToNextAttack;
@@ -34,13 +41,14 @@ namespace NT
             enemyAnimationManager = GetComponent<EnemyAnimationManager>();
             enemyCombatManager = GetComponent<EnemyCombatManager>();
 
-
+            //  ENEMY STATE MACHINE COMPONENTS
+            enemyAmbushState = GetComponentInChildren<AIAmbushState>();
             enemyIdleState = GetComponentInChildren<AIIdleState>();
             enemyChasingState = GetComponentInChildren<AIChasingState>();
             enemyCombatStanceState = GetComponentInChildren<AICombatStanceState>();
             enemyAttackTargetState = GetComponentInChildren<AIAttackTargetState>();
 
-            enemyCurrentState = enemyIdleState;
+            enemyCurrentState = enemyAmbushState;
         }
 
         protected override void Start()
@@ -78,6 +86,8 @@ namespace NT
                 if (nextState != null)
                     enemyCurrentState = nextState;
             }
+
+            DEBUG_AITrackingValuesOfTargetCharacter();
         }
 
         private void DEBUG_HandleCoolDownUntilEnemyCanAttackTargetAgain()
@@ -109,6 +119,16 @@ namespace NT
 
             Quaternion rotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, DEBUG_enemyRotationSpeed * Time.deltaTime);
+        }
+
+        private void DEBUG_AITrackingValuesOfTargetCharacter()
+        {
+            if (characterCombatManager.currentTargetCharacter != null)
+            {
+                targetsDirection = characterCombatManager.currentTargetCharacter.transform.position - transform.position;
+                distanceToTarget = Vector3.Distance(characterCombatManager.currentTargetCharacter.transform.position, transform.position);
+                viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
+            }
         }
     }
 }

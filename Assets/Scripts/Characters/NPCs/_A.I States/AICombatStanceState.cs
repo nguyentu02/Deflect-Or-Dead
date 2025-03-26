@@ -8,7 +8,6 @@ namespace NT
         [SerializeField] bool isStrafes = false;
         [SerializeField] float randomizeStrafesValue;
         public float combatStanceRadius = 6f;
-        public float distanceToTarget;
 
         public override AISate SwitchToState(CharacterManager character)
         {
@@ -27,14 +26,14 @@ namespace NT
                 return this;
 
             //  CHECK IF IN RANGE ATTACK, SWITCH TO STATE ATTACK
-            if (distanceToTarget <= enemy.navMeshAgent.stoppingDistance)
+            if (enemy.distanceToTarget <= enemy.navMeshAgent.stoppingDistance)
             {
                 ResetStateFlagsBeforeChangesState();
                 return enemy.enemyAttackTargetState;
             }
 
             //  IF OUT OF RANGE COMBAT, SWITCH TO CHASING STATE
-            if (distanceToTarget > combatStanceRadius)
+            if (enemy.distanceToTarget > combatStanceRadius)
             {
                 ResetStateFlagsBeforeChangesState();
                 return enemy.enemyChasingState;
@@ -46,10 +45,6 @@ namespace NT
         protected virtual void HandleEnemyStrafesTargetCharacter(CharacterManager character)
         {
             EnemyManager enemy = character as EnemyManager;
-
-            Vector3 targetsDirection = enemy.characterCombatManager.currentTargetCharacter.transform.position - transform.position;
-            distanceToTarget = Vector3.Distance(enemy.characterCombatManager.currentTargetCharacter.transform.position, transform.position);
-            float viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
 
             //  ROTATE WITH NAVMESH AGENT ROTATION
             //HandleEnemyRotateTowardsTarget();

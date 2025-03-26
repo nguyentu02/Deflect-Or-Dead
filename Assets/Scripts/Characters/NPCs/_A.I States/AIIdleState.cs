@@ -33,16 +33,22 @@ namespace NT
             {
                 CharacterManager characterDetected = colliders[i].gameObject.GetComponent<CharacterManager>();
 
-                Vector3 targetsDirection = characterDetected.transform.position - transform.position;
-                float viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
-
-                if (viewableAngles > enemyMinimumFieldOfView && 
-                    viewableAngles < enemyMaximumFieldOfView)
+                if (characterDetected != null)
                 {
-                    if (characterDetected == character)
-                        continue;
+                    Vector3 targetsDirection = characterDetected.transform.position - transform.position;
+                    float viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
 
-                    character.characterCombatManager.currentTargetCharacter = characterDetected;
+                    if (viewableAngles > enemyMinimumFieldOfView &&
+                        viewableAngles < enemyMaximumFieldOfView)
+                    {
+                        if (characterDetected.characterTeamID == character.characterTeamID)
+                            continue;
+
+                        if (characterDetected == character)
+                            continue;
+
+                        character.characterCombatManager.currentTargetCharacter = characterDetected;
+                    }
                 }
             }
         }

@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4195595077197861392, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: staminaRegenDelay
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8430489685818020566, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -280,6 +284,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTargetCharacter: {fileID: 0}
   lockOnTransform: {fileID: 0}
+  isUsingMainHand: 0
+  isUsingOffHand: 0
   currentWeaponCharacterUsingForAttack: {fileID: 0}
   attackType: 0
   lastAttackAimationCharacterPerformed: 
@@ -708,6 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1429610322}
+  - component: {fileID: 1429610327}
   - component: {fileID: 1429610326}
   - component: {fileID: 1429610325}
   - component: {fileID: 1429610324}
@@ -750,7 +757,6 @@ MonoBehaviour:
   enemyAttackActions:
   - {fileID: 11400000, guid: d64f2a77fd494604c80d8c61bb420e82, type: 2}
   - {fileID: 11400000, guid: f9925a3766768b7478f925041181c0e3, type: 2}
-  distanceToTarget: 0
 --- !u!114 &1429610324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,7 +772,6 @@ MonoBehaviour:
   isStrafes: 0
   randomizeStrafesValue: 0
   combatStanceRadius: 4
-  distanceToTarget: 0
 --- !u!114 &1429610325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,7 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a61823f90851f1449e667c919564d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToTarget: 0
 --- !u!114 &1429610326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,6 +802,22 @@ MonoBehaviour:
   enemyDetectionRadius: 16
   enemyMinimumFieldOfView: -50
   enemyMaximumFieldOfView: 50
+--- !u!114 &1429610327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429610321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e2af16893f97742af8860f1f4930ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWaiting: 0
+  ambushAnimation: Sitting Idle
+  detectAnimation: Standing Up
+  enemyAmbushRadius: 3
 --- !u!1001 &1644490519
 PrefabInstance:
   m_ObjectHideFlags: 0

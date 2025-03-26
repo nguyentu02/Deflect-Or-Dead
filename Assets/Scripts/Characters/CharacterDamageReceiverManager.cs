@@ -18,6 +18,12 @@ namespace NT
 
         public virtual void CharacterDamageReceiver(float damageReceiver)
         {
+            if (character.isInvulnerable)
+                return;
+
+            if (character.isDead)
+                return;
+
             character.characterStatusManager.characterCurrentHealth -= damageReceiver;
 
             //  JUST DEBUG FOR PLAYTEST NOW, WILL REFACTOR LATER
@@ -25,6 +31,8 @@ namespace NT
 
             if (character.characterStatusManager.characterCurrentHealth <= 0f)
             {
+                character.isDead = true;
+
                 character.characterStatusManager.characterCurrentHealth = 0f;
 
                 character.characterAnimationManager.CharacterPlayAnimation("straight_sword_main_death_01", true);

@@ -19,10 +19,12 @@ namespace NT
         public TeamID characterTeamID;
 
         [Header("Character Status")]
+        public bool isDead = false;
         public bool isGrounded = true;
         public bool canMove = true;
         public bool canRotate = true;
         public bool isPerformingAction = false;
+        public bool isInvulnerable = false;
         public bool isRolling = false;
         public bool isSprinting = false;
         public bool isChargingAttack = false;

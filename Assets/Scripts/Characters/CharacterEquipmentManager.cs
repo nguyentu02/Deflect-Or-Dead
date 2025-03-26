@@ -13,6 +13,9 @@ namespace NT
         public WeaponItem_SO currentWeaponHoldInMainHand;
         public WeaponItem_SO currentWeaponHoldInOffHand;
 
+        [Header("Character Current Spell Item")]
+        public SpellItem currentSpellItem;
+
         [Header("Character Has Store Weapons In Quick Slots")]
         public WeaponItem_SO[] weaponsInMainHandQuickSlots;
         public WeaponItem_SO[] weaponsInOffHandQuickSlots;
@@ -50,6 +53,22 @@ namespace NT
 
             //  LOAD WEAPON INTO LEFT HAND
             WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInOffHand, false);
+        }
+
+        public virtual void CharacterTryToPerformCastASpell()
+        {
+            if (currentSpellItem == null)
+                return;
+
+            currentSpellItem.TryToPerformCastASpell(character);
+        }
+
+        public virtual void CharacterSuccessfullyCastASpell()
+        {
+            if (currentSpellItem == null)
+                return;
+
+            currentSpellItem.SuccesfullyCastASpell(character);
         }
 
         public virtual void GetCharacterEquipmentSlotAtStart()
@@ -224,6 +243,8 @@ namespace NT
         //  MAIN HAND/RIGHT HAND
         public virtual void OpenMainHandWeaponDamageCollider()
         {
+            character.characterCombatManager.isUsingMainHand = true;
+
             mainHandWeaponDamageCollider.EnableDamageCollider();
         }
 
@@ -235,6 +256,8 @@ namespace NT
         //  OFF HAND/LEFT HAND
         public virtual void OpenOffHandWeaponDamageCollider()
         {
+            character.characterCombatManager.isUsingOffHand = true;
+
             offHandWeaponDamageCollider.EnableDamageCollider();
         }
 

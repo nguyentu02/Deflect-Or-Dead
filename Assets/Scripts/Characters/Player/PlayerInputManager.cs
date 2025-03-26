@@ -184,8 +184,23 @@ namespace NT
                     if (player.isPerformingAction)
                         return;
 
-                    player.playerCombatManager.CharacterPerformLightAttack
-                        (player.playerEquipmentManager.currentWeaponHoldInMainHand);
+                    switch (player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponType)
+                    {
+                        case WeaponType.Melee_Weapon:
+
+                            player.playerCombatManager.CharacterPerformLightAttack
+                                (player.playerEquipmentManager.currentWeaponHoldInMainHand);
+
+                            break;
+                        case WeaponType.Ranged_Weapon:
+                            break;
+                        case WeaponType.Seal:
+                            break;
+                        case WeaponType.Staff:
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -216,8 +231,23 @@ namespace NT
                     if (player.isPerformingAction)
                         return;
 
-                    player.playerCombatManager.CharacterPerformHeavyAttack
-                        (player.playerEquipmentManager.currentWeaponHoldInMainHand);
+                    switch (player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponType)
+                    {
+                        case WeaponType.Melee_Weapon:
+
+                            player.playerCombatManager.CharacterPerformHeavyAttack
+                                (player.playerEquipmentManager.currentWeaponHoldInMainHand);
+
+                            break;
+                        case WeaponType.Ranged_Weapon:
+                            break;
+                        case WeaponType.Seal:
+                            break;
+                        case WeaponType.Staff:
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

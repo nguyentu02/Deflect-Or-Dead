@@ -54,6 +54,8 @@ namespace NT
             playerInteractionManager.CheckForPlayerInteractionProcess();
 
             PlayerCanvasManager.instance.UpdatePlayerAlertMessageIfPlayerCanInteract_GUI();
+
+            playerStatusManager.PlayerStaminaRegeneration();
         }
 
         protected override void FixedUpdate()
