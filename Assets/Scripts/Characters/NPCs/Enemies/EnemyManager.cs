@@ -48,7 +48,7 @@ namespace NT
             enemyCombatStanceState = GetComponentInChildren<AICombatStanceState>();
             enemyAttackTargetState = GetComponentInChildren<AIAttackTargetState>();
 
-            enemyCurrentState = enemyAmbushState;
+            enemyCurrentState = enemyIdleState;
         }
 
         protected override void Start()

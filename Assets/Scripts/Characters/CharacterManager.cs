@@ -14,6 +14,7 @@ namespace NT
         public CharacterCombatManager characterCombatManager;
         public CharacterStatusManager characterStatusManager;
         public CharacterDamageReceiverManager characterDamageReceiverManager;
+        public CharacterGUIManager characterGUIManager;
 
         [Header("Character Team I.D")]
         public TeamID characterTeamID;
@@ -47,6 +48,7 @@ namespace NT
             characterCombatManager = GetComponent<CharacterCombatManager>();
             characterStatusManager = GetComponent<CharacterStatusManager>();
             characterDamageReceiverManager = GetComponent<CharacterDamageReceiverManager>();
+            characterGUIManager = GetComponent<CharacterGUIManager>();
         }
 
         protected virtual void Start()

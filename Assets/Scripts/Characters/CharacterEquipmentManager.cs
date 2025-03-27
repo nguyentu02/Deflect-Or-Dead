@@ -14,7 +14,7 @@ namespace NT
         public WeaponItem_SO currentWeaponHoldInOffHand;
 
         [Header("Character Current Spell Item")]
-        public SpellItem currentSpellItem;
+        public SpellItem_SO currentSpellItem;
 
         [Header("Character Has Store Weapons In Quick Slots")]
         public WeaponItem_SO[] weaponsInMainHandQuickSlots;

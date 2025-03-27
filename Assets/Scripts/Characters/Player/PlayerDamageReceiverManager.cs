@@ -23,7 +23,7 @@ namespace NT
         {
             base.CharacterDamageReceiver(damageReceiver);
 
-            PlayerCanvasManager.instance.playerHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+            player.playerGUIManager.characterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                 (player.playerStatusManager.characterCurrentHealth);
         }
     }

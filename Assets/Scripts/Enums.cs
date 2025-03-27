@@ -34,7 +34,8 @@ namespace NT
         Unarmed,
         HandToHand,
         StraightSword,
-        Katana
+        Katana,
+        SpellCast,
     }
 
     public enum CharacterAttackType

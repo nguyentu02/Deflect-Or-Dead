@@ -195,8 +195,20 @@ namespace NT
                         case WeaponType.Ranged_Weapon:
                             break;
                         case WeaponType.Seal:
+
+                            //  IF IT'S NOT INCANTATION, WE RETURN IF CURRENT SPELL IS !INCANTATION (IT BE SORCERY SPELL)
+                            if (!player.playerEquipmentManager.currentSpellItem.isIncantation)
+                                return;
+
+                            player.playerEquipmentManager.CharacterTryToPerformCastASpell();
+
                             break;
                         case WeaponType.Staff:
+
+                            //  OTHERWISE, WE RETURN IF CURRENT SPELL IS INCANTATION
+                            if (player.playerEquipmentManager.currentSpellItem.isIncantation)
+                                return;
+
                             break;
                         default:
                             break;
@@ -242,8 +254,20 @@ namespace NT
                         case WeaponType.Ranged_Weapon:
                             break;
                         case WeaponType.Seal:
+
+                            //  IF IT'S NOT INCANTATION, WE RETURN IF CURRENT SPELL IS !INCANTATION (IT BE SORCERY SPELL)
+                            if (!player.playerEquipmentManager.currentSpellItem.isIncantation)
+                                return;
+
+                            player.playerEquipmentManager.CharacterTryToPerformCastASpell();
+
                             break;
                         case WeaponType.Staff:
+
+                            //  OTHERWISE, WE RETURN IF CURRENT SPELL IS INCANTATION
+                            if (player.playerEquipmentManager.currentSpellItem.isIncantation)
+                                return;
+
                             break;
                         default:
                             break;

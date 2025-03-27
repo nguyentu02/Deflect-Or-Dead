@@ -140,7 +140,7 @@ namespace NT
                     player.playerStatusManager.characterCurrentStamina -= rollDodgeStaminaCost;
 
                     //  SET STAMINA ON GUI
-                    PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                         (player.playerStatusManager.characterCurrentStamina);
                 }
                 else
@@ -150,7 +150,7 @@ namespace NT
                     player.playerStatusManager.characterCurrentStamina -= backstepDodgeStaminaCost;
 
                     //  SET STAMINA ON GUI
-                    PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                         (player.playerStatusManager.characterCurrentStamina);
                 }
             }

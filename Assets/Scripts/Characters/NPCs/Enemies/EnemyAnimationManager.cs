@@ -18,7 +18,8 @@ namespace NT
             Vector3 velocity = enemy.characterAnimator.deltaPosition;
             enemy.characterController.Move(velocity);
 
-            //enemy.transform.rotation *= enemy.characterAnimator.deltaRotation;
+            if (enemy.isPerformingAction)
+                enemy.transform.rotation *= enemy.characterAnimator.deltaRotation;
         }
     }
 }

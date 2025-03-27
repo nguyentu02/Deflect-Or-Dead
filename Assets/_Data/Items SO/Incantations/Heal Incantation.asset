@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46afee06a5701d4597b67873e3af895, type: 3}
+  m_Name: Heal Incantation
+  m_EditorClassIdentifier: 
+  spellIcon: {fileID: 0}
+  spellName: Heal
+  spellAnimationName: Heal_Incantation_Crouched
+  spellID: 0
+  spellCostPoints: 35
+  isIncantation: 1
+  spellBeforeCastVFX: {fileID: 1233254026376546, guid: fe509e77ddd20de4cb95119f932cf2aa, type: 3}
+  spellAlreadyCastVFX: {fileID: 1055585006069982, guid: e7720748c74cf40468da0108bebb9c0d, type: 3}
+  spellDescription: 
+  healAmount: 85

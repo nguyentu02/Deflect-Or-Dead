@@ -17,9 +17,10 @@ namespace NT
         [Header("Player Is Open Any GUI")]
         public bool isPlayerOpenMenuOption = false;
 
-        [Header("Player Status Bars GUI")]
-        public PlayerStatsBar_GUI playerHealthPointsBar;
-        public PlayerStatsBar_GUI playerStaminaPointsBar;
+        //[Header("Player Status Bars GUI")]
+        //public CharacterStatsBar_GUI playerHealthPointsBar;
+        //public CharacterStatsBar_GUI playerFocusPointsBar;
+        //public CharacterStatsBar_GUI playerStaminaPointsBar;
 
         [Header("Player Quick Slots GUI")]
         [SerializeField] Image playerLeftWeaponIconImage;

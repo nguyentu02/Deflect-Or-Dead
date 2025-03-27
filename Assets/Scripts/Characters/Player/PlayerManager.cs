@@ -14,6 +14,7 @@ namespace NT
         public PlayerDamageReceiverManager playerDamageReceiverManager;
         public PlayerInteractionManager playerInteractionManager;
         public PlayerInventoryManager playerInventoryManager;
+        public PlayerGUIManager playerGUIManager;
 
         protected override void Awake()
         {
@@ -37,6 +38,7 @@ namespace NT
             playerDamageReceiverManager = GetComponent<PlayerDamageReceiverManager>();
             playerInteractionManager = GetComponent<PlayerInteractionManager>();
             playerInventoryManager = GetComponent<PlayerInventoryManager>();
+            playerGUIManager = GetComponent<PlayerGUIManager>();
 
             PlayerCameraManager.instance.player = this;
             PlayerInputManager.instance.player = this;

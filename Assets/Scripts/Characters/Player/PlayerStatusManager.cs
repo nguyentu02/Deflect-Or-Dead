@@ -32,7 +32,7 @@ namespace NT
                 {
                     characterCurrentStamina += staminaRegenAmount * Time.deltaTime;
 
-                    PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                         (player.playerStatusManager.characterCurrentStamina);
                 }
             }

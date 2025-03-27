@@ -10,9 +10,18 @@ namespace NT
         public CharacterManager currentTargetCharacter;
         public Transform lockOnTransform;
 
+        [Header("DEBUG_Character Combat Systems")]
+        [SerializeField] LayerMask DEBUG_BackstabLayer;
+        [SerializeField] Transform DEBUG_CriticalAttackRayStartPosition;
+        [SerializeField] Transform DEBUG_BackstabStandingPosition;
+
         [Header("Character Combat Status")]
         public bool isUsingMainHand = false;
         public bool isUsingOffHand = false;
+        public bool isRiposting = false;
+        public bool isBackstabbing = false;
+        public bool isRiposted = false;
+        public bool isBackstabbed = false;
 
         [Header("Character Weapon Being Used For Attack")]
         public WeaponItem_SO currentWeaponCharacterUsingForAttack;
@@ -44,6 +53,11 @@ namespace NT
 
         public virtual void CharacterPerformLightAttack(WeaponItem_SO weapon)
         {
+            CharacterPerformCriticalAttack(weapon);
+
+            if (isBackstabbing)
+                return;
+
             if (character.isTwoHanding)
             {
                 character.characterAnimationManager.CharacterPlayAttackAnimation
@@ -142,6 +156,46 @@ namespace NT
             }
         }
 
+        public virtual void CharacterPerformCriticalAttack(WeaponItem_SO weapon)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(DEBUG_CriticalAttackRayStartPosition.position, 
+                transform.TransformDirection(Vector3.forward)
+                , out hit, 0.77f, DEBUG_BackstabLayer))
+            {
+                CharacterManager characterDamaged = hit.transform.gameObject.GetComponent<CharacterManager>();
+
+                if (characterDamaged != null)
+                {
+                    if (character.characterTeamID == characterDamaged.characterTeamID)
+                        return;
+
+                    if (character == characterDamaged)
+                        return;
+
+                    character.characterController.Move
+                        (characterDamaged.characterCombatManager.DEBUG_BackstabStandingPosition.transform.position - 
+                        character.transform.position);
+
+                    Vector3 rotateToCharacterDamaged = character.transform.rotation.eulerAngles;
+                    rotateToCharacterDamaged = hit.transform.position - character.transform.position;
+                    rotateToCharacterDamaged.y = 0f;
+                    rotateToCharacterDamaged.Normalize();
+
+                    Quaternion rotation = Quaternion.LookRotation(rotateToCharacterDamaged);
+                    character.transform.rotation = rotation;
+
+                    character.characterAnimationManager.CharacterPlayAnimation("core_main_backstab_01", true);
+                    isBackstabbing = true;
+
+                    characterDamaged.characterAnimationManager.CharacterPlayAnimation("core_main_backstab_victim_01", true);
+
+                    //  DEAL DAMAGE
+                }
+            }
+        }
+
         public virtual void EnableCanDoComboAttack()
         {
             character.canDoComboAttack = true;
@@ -223,7 +277,7 @@ namespace NT
                     break;
             }
 
-            PlayerCanvasManager.instance.playerStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+            character.characterGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                 (character.characterStatusManager.characterCurrentStamina);
         }
 

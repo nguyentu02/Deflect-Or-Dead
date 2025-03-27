@@ -92,6 +92,7 @@ namespace NT
         public virtual void TrackingCharacterAnimatorParameters()
         {
             //  BOOLS
+            character.characterAnimator.SetBool("isDead", character.isDead);
             character.characterAnimator.SetBool("isGrounded", character.isGrounded);
             character.characterAnimator.SetBool("isPerformingAction", character.isPerformingAction);
             character.characterAnimator.SetBool("isChargingAttack", character.isChargingAttack);

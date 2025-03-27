@@ -19,6 +19,7 @@ namespace NT
             character.isAttacking = false;
             character.characterCombatManager.isUsingMainHand = false;
             character.characterCombatManager.isUsingOffHand = false;
+            character.characterCombatManager.isBackstabbing = false;
             character.characterCombatManager.DisableCanDoComboAttack();
         }
 

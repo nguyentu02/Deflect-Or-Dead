@@ -13,6 +13,9 @@ namespace NT
         public float characterCurrentHealth;
 
         //  MIND
+        public int characterMind = 10;
+        public int characterMaxFocusPoints;
+        public float characterCurrentFocusPoints;
 
         //  ENDURANCE
         public int characterEndurance = 12;
@@ -40,12 +43,26 @@ namespace NT
             //  CHARACTER HEALTH
             characterMaxHealth = GetMaximumHealthBasedOnVigor();
             characterCurrentHealth = characterMaxHealth;
-            PlayerCanvasManager.instance.playerHealthPointsBar.SetMaximumStatusPointsOfCharacter_GUI(characterMaxHealth);
+
+            if (character.characterGUIManager.characterHealthPointsBar != null)
+                character.characterGUIManager.characterHealthPointsBar.SetMaximumStatusPointsOfCharacter_GUI
+                    (characterMaxHealth);
+
+            //  CHARACTER MANA
+            characterMaxFocusPoints = GetMaximumFocusPointsBasedOnMind();
+            characterCurrentFocusPoints = characterMaxFocusPoints;
+
+            if (character.characterGUIManager.characterFocusPointsBar != null)
+                character.characterGUIManager.characterFocusPointsBar.SetMaximumStatusPointsOfCharacter_GUI
+                (characterMaxFocusPoints);
 
             //  CHARACTER STAMINA
             characterMaxStamina = GetMaximumStaminaBasedOnEndurance();
             characterCurrentStamina = characterMaxStamina;
-            PlayerCanvasManager.instance.playerStaminaPointsBar.SetMaximumStatusPointsOfCharacter_GUI(characterMaxStamina);
+
+            if (character.characterGUIManager.characterStaminaPointsBar != null)
+                character.characterGUIManager.characterStaminaPointsBar.SetMaximumStatusPointsOfCharacter_GUI
+                (characterMaxStamina);
         }
 
         private int GetMaximumHealthBasedOnVigor()
@@ -58,6 +75,12 @@ namespace NT
         {
             characterMaxStamina = characterEndurance * 12;
             return characterMaxStamina;
+        }
+
+        private int GetMaximumFocusPointsBasedOnMind()
+        {
+            characterMaxFocusPoints = characterMind * 10;
+            return characterMaxFocusPoints;
         }
     }
 }
