@@ -138,6 +138,9 @@ namespace NT
 
         public void UpdatePlayerAlertMessageIfPlayerCanInteract_GUI()
         {
+            if (player.isPerformingAction)
+                return;
+
             if (player.playerInteractionManager.interactableObjects.Count <= 0)
             {
                 DEBUG_TurnOffMessageAlertPopUp();

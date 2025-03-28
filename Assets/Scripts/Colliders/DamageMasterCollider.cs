@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace NT
@@ -6,8 +7,17 @@ namespace NT
     {
         [SerializeField] protected Collider damageCollider;
 
-        //  DEBUG TEST
-        [SerializeField] float weaponDamageTest = 50f;
+        [Header("Weapon Damages")]
+        public float weaponPhysicalDamage;
+        public float weaponMagicDamage;
+        public float weaponFireDamage;
+        public float weaponHolyDamage;
+        public float weaponLightningDamage;
+
+        [Header("Final Damage")]
+        public float DEBUG_finalDamage;
+
+        private List<CharacterManager> charactersDamaged = new List<CharacterManager>();
 
         protected virtual void Awake()
         {
@@ -27,8 +37,29 @@ namespace NT
             //  DEBUG DAMAGE COLLIDER
             if (characterDamaged != null)
             {
-                characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver(weaponDamageTest);
+                //  CHECK FOR TEAMMATE
+
+                //  CHECK FOR BLOCK
+
+                //  CHECK FOR PARRY
+
+                //  CHECK FOR CAN'T DEAL ANY DAMAGE
+
+                CalculateDamageAfterAddedToCharacterDamaged(characterDamaged);
             }
+        }
+
+        protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager character)
+        {
+            if (charactersDamaged.Contains(character))
+                return;
+
+            charactersDamaged.Add(character);
+
+            DEBUG_finalDamage = weaponPhysicalDamage + weaponMagicDamage +
+                weaponFireDamage + weaponHolyDamage + weaponLightningDamage;
+
+            character.characterDamageReceiverManager.CharacterDamageReceiver(DEBUG_finalDamage, true, false);
         }
 
         public virtual void EnableDamageCollider()
@@ -38,7 +69,9 @@ namespace NT
 
         public virtual void DisableDamageCollider()
         {
+            charactersDamaged.Clear();
             damageCollider.enabled = false;
+            DEBUG_finalDamage = 0f;
         }
     }
 }

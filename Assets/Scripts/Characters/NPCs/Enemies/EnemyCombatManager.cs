@@ -17,5 +17,10 @@ namespace NT
         {
 
         }
+
+        public override void PendingCriticalDamageViaVictimCriticalAnimation()
+        {
+            base.PendingCriticalDamageViaVictimCriticalAnimation();
+        }
     }
 }

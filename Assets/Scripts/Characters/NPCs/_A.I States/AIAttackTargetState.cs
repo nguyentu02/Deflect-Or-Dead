@@ -18,23 +18,23 @@ namespace NT
                 return this;
             }
 
+            enemy.DEBUG_EnemyManuallyRotateTowardsTarget();
+
             if (enemyCurrentAttackAction != null)
             {
                 EnemyAttackAction enemyAttackAction = enemyCurrentAttackAction as EnemyAttackAction;
 
-                //  IF SELECTED ATTACK IS NOT ABLE TO USE (BAD ANGLE, BAD DISTANCE) CHOOSE THE NEW ONE
-                if (enemy.viewableAngles > enemyAttackAction.maximumAttackAngle &&
-                    enemy.viewableAngles < enemyAttackAction.minimumAttackAngle)
-                {
-                    enemy.DEBUG_EnemyManuallyRotateTowardsTarget();
-                    enemyCurrentAttackAction = null;
-                    return this;
-                }
                 //  IF POSSIBLE, STADING AND ATTACK OUR TARGET
-                else if (enemy.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
-                         enemy.viewableAngles >= enemyAttackAction.minimumAttackAngle)
+                if (enemy.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
+                    enemy.viewableAngles >= enemyAttackAction.minimumAttackAngle)
                 {
                     DEBUG_HandleEnemyAttackTargetIfPossible(enemy);
+                }
+                //  IF SELECTED ATTACK IS NOT ABLE TO USE (BAD ANGLE, BAD DISTANCE) CHOOSE THE NEW ONE
+                else
+                {
+                    enemyCurrentAttackAction = null;
+                    return enemy.enemyCombatStanceState;
                 }
             }
             else

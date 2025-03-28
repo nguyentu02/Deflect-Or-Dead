@@ -14,11 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemModelPrefab: {fileID: 4376034628328676589, guid: 406cd9bd2057d1c43abe4def8e12c896, type: 3}
   itemIcon: {fileID: 0}
-  itemName: Hand
+  itemName: Red Seal
   itemID: 0
   weaponAnimator: {fileID: 22100000, guid: 1d9f6f55e4992574faf73b53882c24ba, type: 2}
   weaponClass: 4
   weaponType: 2
+  weaponPhysicalDamage: 0
+  weaponMagicDamage: 0
+  weaponFireDamage: 0
+  weaponHolyDamage: 0
+  weaponLightningDamage: 0
+  weaponCriticalDamageMultiplier: 100
   oh_Light_Attack_01: 
   oh_Light_Attack_02: 
   oh_Light_Attack_03: 

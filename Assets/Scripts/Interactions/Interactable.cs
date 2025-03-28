@@ -7,6 +7,7 @@ namespace NT
         protected Collider interactCollider;
 
         [Header("Interact Settings")]
+        public DEBUG_ItemInteractType DEBUG_ItemInteractType;
         public string interactObjectText;
         [SerializeField] protected float interactRadius = 0.5f;
 

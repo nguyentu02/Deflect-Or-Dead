@@ -63,6 +63,9 @@ namespace NT
 
             //  DEBUG FOR ANIMATION
             characterAnimationManager.UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand();
+
+            //  KEEP STATUS VALUE ALWAYS POSITIVE
+            characterStatusManager.DEBUG_TrackingStatusPointsAndGetThemNeverNegativeValue();
         }
 
         protected virtual void FixedUpdate()

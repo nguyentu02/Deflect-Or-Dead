@@ -137,6 +137,9 @@ PrefabInstance:
       addedObject: {fileID: 8819605600385314668}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 1d407a6008b748b4f9fec2ed72ffde73, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2658987559793829874}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 1d407a6008b748b4f9fec2ed72ffde73, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7652892465784585169}
   m_SourcePrefab: {fileID: 100100000, guid: 1d407a6008b748b4f9fec2ed72ffde73, type: 3}
 --- !u!1 &6194741930788787522 stripped
@@ -167,6 +170,33 @@ CapsuleCollider:
   m_Height: 0.92537475
   m_Direction: 1
   m_Center: {x: 0.00000088157867, y: -0.5252542, z: 0.013855047}
+--- !u!54 &2658987559793829874
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194741930788787522}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!114 &7652892465784585169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,7 +209,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50f395da8a4e1047add832e7cdb3848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamageTest: 50
+  damageCollider: {fileID: 0}
+  weaponPhysicalDamage: 0
+  weaponMagicDamage: 0
+  weaponFireDamage: 0
+  weaponHolyDamage: 0
+  weaponLightningDamage: 0
+  DEBUG_finalDamage: 0
 --- !u!4 &6194741930789013858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1d407a6008b748b4f9fec2ed72ffde73, type: 3}

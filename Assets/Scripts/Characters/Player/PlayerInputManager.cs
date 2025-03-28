@@ -327,7 +327,23 @@ namespace NT
 
                 //}
 
-                PlayerCanvasManager.instance.ShowAlertToPlayerWhenPickUpAnWeaponNeverHaveBefore_GUI();
+                switch (player.playerInteractionManager.interactableObjects[0].DEBUG_ItemInteractType)
+                {
+                    case DEBUG_ItemInteractType.isItem:
+
+                        PlayerCanvasManager.instance.ShowAlertToPlayerWhenPickUpAnWeaponNeverHaveBefore_GUI();
+
+                        break;
+                    case DEBUG_ItemInteractType.isKeyItem:
+
+                        PlayerCanvasManager.instance.ShowAlertToPlayerWhenPickUpAnWeaponNeverHaveBefore_GUI();
+
+                        break;
+                    case DEBUG_ItemInteractType.isChest:
+                        break;
+                    default:
+                        break;
+                }
 
                 player.playerInteractionManager.interactableObjects[0].InteractWithAnObject(player);
             }
@@ -355,6 +371,15 @@ namespace NT
 
         private void HandlePlayerLockOnTargetInput()
         {
+            if (player.isLockedOn && player.playerCombatManager.currentTargetCharacter.isDead ||
+                player.isDead)
+            {
+                player.isLockedOn = false;
+
+                //  CLEAR LOCK ON TARGETS
+                PlayerCameraManager.instance.ClearAllLockedOnTargets();
+            }
+
             if (q_Input && !player.isLockedOn)
             {
                 q_Input = false;

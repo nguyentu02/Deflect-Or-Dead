@@ -11,6 +11,16 @@ namespace NT
         public WeaponClass weaponClass;
         public WeaponType weaponType;
 
+        [Header("Weapon Damages")]
+        public float weaponPhysicalDamage;
+        public float weaponMagicDamage;
+        public float weaponFireDamage;
+        public float weaponHolyDamage;
+        public float weaponLightningDamage;
+
+        [Header("Weapon Critical Multiplier")]
+        public float weaponCriticalDamageMultiplier = 100f;
+
         [Header("Weapon Attack Animations")]
         public string oh_Light_Attack_01;
         public string oh_Light_Attack_02;

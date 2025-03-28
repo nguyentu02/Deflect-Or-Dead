@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace NT
@@ -27,35 +27,50 @@ namespace NT
             RaycastHit hit;
             List<Interactable> objectsToRemove = new List<Interactable>(interactableObjects);
 
+            // USE RAYCAST FOR CHECK INTERACTABLE OBJECTS
             if (Physics.SphereCast
                 (player.transform.position, 0.5f, player.transform.forward, out hit, 0.77f, interactableLayer))
             {
-                Interactable interactWithObject = hit.collider.GetComponent<Interactable>();
+                // IF COLLIDER OF OBJECT NOT NULL, CONTINUE =>
+                if (hit.collider != null)
+                {
+                    Interactable interactWithObject = hit.collider.GetComponent<Interactable>();
 
-                if (interactWithObject == null)
-                    return;
+                    // IF INTERACTABLE SCRIPT IS NOT NULL, DO IT CODE
+                    if (interactWithObject != null)
+                    {
+                        if (!interactableObjects.Contains(interactWithObject))
+                            interactableObjects.Add(interactWithObject);
 
-                if (!interactableObjects.Contains(interactWithObject))
-                    interactableObjects.Add(interactWithObject);
-
-                objectsToRemove.Remove(interactWithObject);
+                        objectsToRemove.Remove(interactWithObject);
+                    }
+                }
             }
 
+            // USE OVERLAPSPHERE FOR CHECK ITEM IS INRANGE OF PLAYER, PLAYER CAN INTERACT
             Collider[] colliders = Physics.OverlapSphere
                 (player.transform.position + transform.forward * 0.5f, 0.5f, interactableLayer);
 
             foreach (Collider collider in colliders)
             {
-                Interactable objectInPlayerRange = collider.GetComponent<Interactable>();
+                // CHECK COLLIDER NULL
+                if (collider != null) 
+                {
+                    Interactable objectInPlayerRange = collider.GetComponent<Interactable>();
 
-                if (objectInPlayerRange == null)
-                    return;
+                    // IF INTERACTABLE SCRIPT IS NOT NULL, DO IT CODE
+                    if (objectInPlayerRange != null)
+                    {
+                        if (!interactableObjects.Contains(objectInPlayerRange))
+                            interactableObjects.Add(objectInPlayerRange);
 
-                if (!interactableObjects.Contains(objectInPlayerRange))
-                    interactableObjects.Add(objectInPlayerRange);
-
-                objectsToRemove.Remove(objectInPlayerRange);
+                        objectsToRemove.Remove(objectInPlayerRange);
+                    }
+                }
             }
+
+            // IF OBJECT IS DESTROY, REMOVE THEM TO MAKE SURE IT'S DOES'NT MAKE WE NULL SLOT
+            interactableObjects.RemoveAll(obj => obj == null);
 
             foreach (var @object in objectsToRemove)
             {

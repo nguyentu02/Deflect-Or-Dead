@@ -49,5 +49,14 @@ namespace NT
         ChargeAttack01,
         ChargeAttack02,
         ChargeAttack03,
+        CriticalAttack01,
+        CriticalAttack02,
+    }
+
+    public enum DEBUG_ItemInteractType
+    {
+        isItem,
+        isKeyItem,
+        isChest,
     }
 }

@@ -24,14 +24,14 @@ namespace NT
         public int currentWeaponInOffHandIndex = 0;
 
         [Header("Character Equipment Hand Slots")]
-        protected WeaponInstantiateTransformWhenEquipped characterMainHand;
+        public WeaponInstantiateTransformWhenEquipped characterMainHand;
         protected WeaponInstantiateTransformWhenEquipped characterOffHand;
         protected WeaponInstantiateTransformWhenEquipped characterBack;
         //  HIPS SLOT
 
         //  JUST DEBUG TEST DAMAGE COLLIDERS
-        private DamageMasterCollider mainHandWeaponDamageCollider;
-        private DamageMasterCollider offHandWeaponDamageCollider;
+        public DamageMasterCollider mainHandWeaponDamageCollider;
+        public DamageMasterCollider offHandWeaponDamageCollider;
 
         protected virtual void Awake()
         {
@@ -231,12 +231,36 @@ namespace NT
         {
             mainHandWeaponDamageCollider = characterMainHand.weaponPrefabInstantiatedInThisHand.
                 GetComponentInChildren<DamageMasterCollider>();
+
+            //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
+            SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem(mainHandWeaponDamageCollider);
         }
 
         protected virtual void LoadDamageColliderOfCharacterOffHandWeapon()
         {
             offHandWeaponDamageCollider = characterOffHand.weaponPrefabInstantiatedInThisHand.
                 GetComponentInChildren<DamageMasterCollider>();
+
+            //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
+            SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(offHandWeaponDamageCollider);
+        }
+
+        private void SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
+        {
+            damageCollider.weaponPhysicalDamage = currentWeaponHoldInMainHand.weaponPhysicalDamage;
+            damageCollider.weaponMagicDamage = currentWeaponHoldInMainHand.weaponMagicDamage;
+            damageCollider.weaponFireDamage = currentWeaponHoldInMainHand.weaponFireDamage;
+            damageCollider.weaponHolyDamage = currentWeaponHoldInMainHand.weaponHolyDamage;
+            damageCollider.weaponLightningDamage = currentWeaponHoldInMainHand.weaponLightningDamage;
+        }
+
+        private void SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
+        {
+            damageCollider.weaponPhysicalDamage = currentWeaponHoldInOffHand.weaponPhysicalDamage;
+            damageCollider.weaponMagicDamage = currentWeaponHoldInOffHand.weaponMagicDamage;
+            damageCollider.weaponFireDamage = currentWeaponHoldInOffHand.weaponFireDamage;
+            damageCollider.weaponHolyDamage = currentWeaponHoldInOffHand.weaponHolyDamage;
+            damageCollider.weaponLightningDamage = currentWeaponHoldInOffHand.weaponLightningDamage;
         }
 
         //  OPEN/CLOSE DAMAGE COLLIDERS

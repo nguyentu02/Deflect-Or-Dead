@@ -14,6 +14,7 @@ namespace NT
         [SerializeField] float rotationSpeed = 15f;
 
         [Header("Player Actions Costs")]
+        [SerializeField] float sprintingStaminaCost = 2f;
         [SerializeField] float rollDodgeStaminaCost = 15f;
         [SerializeField] float backstepDodgeStaminaCost = 12f;
 
@@ -43,9 +44,22 @@ namespace NT
             characterMoveDirection.y = 0f;
 
             if (player.isSprinting)
+            {
+                if (player.playerStatusManager.characterCurrentStamina <= 0f)
+                    player.isSprinting = false;
+
                 player.characterController.Move(characterMoveDirection * sprintingSpeed * Time.deltaTime);
+
+                player.playerStatusManager.characterCurrentStamina -= sprintingStaminaCost * Time.deltaTime;
+
+                //  SET STAMINA ON GUI
+                player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    (player.playerStatusManager.characterCurrentStamina);
+            }
             else
+            {
                 player.characterController.Move(characterMoveDirection * runningSpeed * Time.deltaTime);
+            }
 
 
             if (player.isLockedOn && !player.isSprinting)
@@ -121,6 +135,10 @@ namespace NT
             if (player.isPerformingAction)
                 return;
 
+            //  IF WE OUT OF STAMINA, WE CAN'T DO ANYTHING
+            if (player.characterStatusManager.characterCurrentStamina <= 0)
+                return;
+
             characterMoveDirection = Vector3.zero;
 
             if (player.isRolling)
@@ -138,22 +156,29 @@ namespace NT
                     player.transform.rotation = rollRotateDirection;
 
                     player.playerStatusManager.characterCurrentStamina -= rollDodgeStaminaCost;
-
-                    //  SET STAMINA ON GUI
-                    player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
-                        (player.playerStatusManager.characterCurrentStamina);
                 }
                 else
                 {
                     player.playerAnimationManager.CharacterPlayAnimation("Back_Step_01", true);
 
                     player.playerStatusManager.characterCurrentStamina -= backstepDodgeStaminaCost;
-
-                    //  SET STAMINA ON GUI
-                    player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
-                        (player.playerStatusManager.characterCurrentStamina);
                 }
+
+                //  SET STAMINA ON GUI
+                player.playerGUIManager.characterStaminaPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    (player.playerStatusManager.characterCurrentStamina);
             }
+        }
+
+        //  ANIMTION EVENTS
+        public override void EnableCharacterCanRotate()
+        {
+            player.canRotate = true;
+        }
+
+        public override void DisableCharacterCanRotate()
+        {
+            player.canRotate = false;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NT
 
         public void PlayerStaminaRegeneration()
         {
-            if (player.isPerformingAction)
+            if (player.isPerformingAction || player.isSprinting)
             {
                 staminaRegenTimer = 0f;
             }

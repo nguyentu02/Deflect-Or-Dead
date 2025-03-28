@@ -62,5 +62,16 @@ namespace NT
 
             character.characterController.Move(yVelocity * Time.deltaTime);
         }
+
+        //  ANIMATION EVENTS
+        public virtual void EnableCharacterCanRotate()
+        {
+
+        }
+
+        public virtual void DisableCharacterCanRotate()
+        {
+
+        }
     }
 }

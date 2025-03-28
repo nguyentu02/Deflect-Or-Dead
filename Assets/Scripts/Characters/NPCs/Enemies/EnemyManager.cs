@@ -97,7 +97,7 @@ namespace NT
         }
 
         //  DEBUG NAVMESH AGENT
-        protected virtual void DEBUG_EnemyNavmeshRotateTowardsTarget()
+        public virtual void DEBUG_EnemyNavmeshRotateTowardsTarget()
         {
             transform.rotation = navMeshAgent.transform.rotation;
         }

@@ -82,5 +82,17 @@ namespace NT
             characterMaxFocusPoints = characterMind * 10;
             return characterMaxFocusPoints;
         }
+
+        public virtual void DEBUG_TrackingStatusPointsAndGetThemNeverNegativeValue()
+        {
+            if (characterCurrentHealth <= 0f)
+                characterCurrentHealth = 0f;
+
+            if (characterCurrentStamina <= 0f)
+                characterCurrentStamina = 0f;
+
+            if (characterCurrentFocusPoints <= 0f)
+                characterCurrentFocusPoints = 0f;
+        }
     }
 }
