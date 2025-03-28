@@ -193,6 +193,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Defense",
+                    "type": "Button",
+                    "id": "b82d0fac-7633-4712-9142-ac0e8af7128f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.01)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Deflect",
+                    "type": "Button",
+                    "id": "4b3645a8-41cc-48d9-890d-51dff997b977",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -666,6 +684,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Two Handing Off Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f070e5a1-7c9c-43ce-bb7b-ed883364d912",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Deflect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a47f2ef-d70d-400e-9dad-0ce8982c869f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Defense",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

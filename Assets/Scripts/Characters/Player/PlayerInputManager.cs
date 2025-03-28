@@ -43,6 +43,9 @@ namespace NT
         [SerializeField] private bool twoHanding_MainWeapon_Input = false;
         [SerializeField] private bool twoHanding_OffWeapon_Input = false;
 
+        [SerializeField] private bool rightMouse_Input = false;
+        [SerializeField] private bool rightMouse_Hold_Input = false;
+
         private void Awake()
         {
             if (instance == null)
@@ -86,6 +89,10 @@ namespace NT
                 inputActions.Player.TwoHandingMainWeapon.performed += i => twoHanding_MainWeapon_Input = true;
                 inputActions.Player.TwoHandingOffWeapon.performed += i => twoHanding_OffWeapon_Input = true;
 
+                inputActions.Player.Deflect.performed += i => rightMouse_Input = true;
+                inputActions.Player.Defense.performed += i => rightMouse_Hold_Input = true;
+                inputActions.Player.Defense.canceled += i => rightMouse_Hold_Input = false;
+
                 //  PLAYER ATTACKS
                 inputActions.Player.Attack.performed += i => leftMouse_Input = true;
 
@@ -120,6 +127,8 @@ namespace NT
             HandlePlayerOpenMenuOptionsInput();
             HandlePlayerLockOnTargetInput();
             HandlePlayerTwoHandingInput();
+            HandlePlayerDefenseInput();
+            HandlePlayerDeflectInput();
         }
 
         private void HandlePlayerMovementInput()
@@ -127,6 +136,23 @@ namespace NT
             horizontal_Input = movement_Vector2.x;
             vertical_Input = movement_Vector2.y;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal_Input) + Mathf.Abs(vertical_Input));
+
+            //  DEBUG TEST FOR DEFLECT/DEFENSE
+            if (moveAmount != 0 && player.isDefense)
+                moveAmount = 0.5f;
+
+            if (player.isLockedOn && player.isDefense)
+            {
+                if (horizontal_Input > 0.55f)
+                    horizontal_Input = 0.5f;
+                else if (horizontal_Input < -0.55f)
+                    horizontal_Input = -0.5f;
+
+                if (vertical_Input > 0.55f)
+                    vertical_Input = 0.5f;
+                else if (vertical_Input < -0.55f)
+                    vertical_Input = -0.5f;
+            }
         }
 
         private void HandlePlayerCameraLookInput()
@@ -428,7 +454,7 @@ namespace NT
             }
         }
 
-        //  DEBUG
+        //  DEBUG TEST FUNC
         private void HandlePlayerTwoHandingInput()
         {
             if (!twoHanding_Input)
@@ -464,6 +490,21 @@ namespace NT
 
                 player.isTwoHanding = true;
                 player.playerEquipmentManager.CharacterTwoHandingOffWeapon();
+            }
+        }
+
+        private void HandlePlayerDefenseInput()
+        {
+            player.isDefense = rightMouse_Hold_Input;
+        }
+
+        private void HandlePlayerDeflectInput()
+        {
+            if (rightMouse_Input)
+            {
+                rightMouse_Input = false;
+
+                player.playerCombatManager.isDeflect = true;
             }
         }
     }

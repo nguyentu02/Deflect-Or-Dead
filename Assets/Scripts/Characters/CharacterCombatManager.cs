@@ -11,12 +11,18 @@ namespace NT
         public Transform lockOnTransform;
 
         [Header("DEBUG_Character Combat Systems")]
-        [SerializeField] LayerMask DEBUG_BackstabLayer;
-        [SerializeField] Transform DEBUG_CriticalAttackRayStartPosition;
+        public LayerMask DEBUG_critical_Layer;
+        public Transform DEBUG_CriticalAttackRayStartPosition;
         [SerializeField] Transform DEBUG_BackstabStandingPosition;
+        [SerializeField] Transform DEBUG_RiposteStandingPosition;
         [SerializeField] float DEBUG_PendingCriticalDamage = 0f;
+        [SerializeField] float DEBUG_dotValue;
 
         [Header("Character Combat Status")]
+        public bool isDeflect = false;
+        public bool isStanceBreak = false;
+        public bool isCanBeBackstabbed = true;
+        public bool isCanBeRiposted = false;
         public bool isUsingMainHand = false;
         public bool isUsingOffHand = false;
         public bool isRiposting = false;
@@ -53,7 +59,6 @@ namespace NT
 
             CharacterPerformLightAttackCombo(weapon);
             CharacterPerformHeavyAttackCombo(weapon);
-
         }
 
         public virtual void CharacterPerformLightAttack(WeaponItem_SO weapon)
@@ -66,6 +71,10 @@ namespace NT
 
             //  IF CAN CRITICAL HIT, DON'T DO NORMAL ATTACK
             if (isBackstabbing)
+                return;
+
+            //  IF CAN CRITICAL HIT, DON'T DO NORMAL ATTACK
+            if (isRiposting)
                 return;
 
             if (character.isTwoHanding)
@@ -90,6 +99,10 @@ namespace NT
 
             //  IF CAN CRITICAL HIT, DON'T DO NORMAL ATTACK
             if (isBackstabbing)
+                return;
+
+            //  IF CAN CRITICAL HIT, DON'T DO NORMAL ATTACK
+            if (isRiposting)
                 return;
 
             if (character.isTwoHanding)
@@ -180,61 +193,140 @@ namespace NT
 
             if (Physics.Raycast(DEBUG_CriticalAttackRayStartPosition.position, 
                 transform.TransformDirection(Vector3.forward)
-                , out hit, 0.77f, DEBUG_BackstabLayer))
+                , out hit, 0.77f, DEBUG_critical_Layer))
             {
                 CharacterManager characterDamaged = hit.transform.gameObject.GetComponent<CharacterManager>();
+                Vector3 directionFromCharacterToTargetCharacter = 
+                    transform.position - characterDamaged.transform.position;
+                DEBUG_dotValue = Vector3.Dot
+                    (directionFromCharacterToTargetCharacter, characterDamaged.transform.forward);
 
-                if (characterDamaged != null)
+                if (characterDamaged.characterCombatManager.isCanBeRiposted)
                 {
-                    if (character.characterTeamID == characterDamaged.characterTeamID)
+                    if (DEBUG_dotValue < 1.22f && DEBUG_dotValue > 0.66f)
+                    {
+                        //ATTEMPT RIPOSTE
+                        AttemptToPerformRiposteStrike(hit, characterDamaged);
                         return;
+                    }
+                }
 
-                    if (character == characterDamaged)
-                        return;
-
-                    if (characterDamaged.isDead)
-                        return;
-
-                    character.characterController.Move
-                        (characterDamaged.characterCombatManager.DEBUG_BackstabStandingPosition.transform.position - 
-                        character.transform.position);
-
-                    Vector3 rotateToCharacterDamaged = character.transform.rotation.eulerAngles;
-                    rotateToCharacterDamaged = hit.transform.position - character.transform.position;
-                    rotateToCharacterDamaged.y = 0f;
-                    rotateToCharacterDamaged.Normalize();
-
-                    Quaternion rotation = Quaternion.LookRotation(rotateToCharacterDamaged);
-                    character.transform.rotation = rotation;
-
-                    character.characterAnimationManager.CharacterPlayAttackAnimation
-                        ("core_main_backstab_01", character.characterEquipmentManager.currentWeaponHoldInMainHand,
-                        CharacterAttackType.CriticalAttack01, true, true);
-                    isBackstabbing = true;
-
-                    //  FIND WEAPON USING FOR CRITICAL HIT
-                    WeaponItem_SO weaponUseForBackstab = character.characterCombatManager.currentWeaponCharacterUsingForAttack;
-
-                    //  IF WE HOLD A RANGED WEAPON, DON'T DO A BACKSTAB/RIPOSTE CRITICAL HIT
-                    if (weaponUseForBackstab.weaponType != WeaponType.Melee_Weapon)
-                        return;
-
-                    characterDamaged.characterAnimationManager.CharacterPlayAnimation("core_main_backstab_victim_01", true);
-                    characterDamaged.characterCombatManager.isBackstabbed = true;
-
-                    //  DAMAGE OUTPUT IS FINAL DAMAGE BASED ON WEAPON, AND CRITICAL DAMAGE BASED ON WEAPON CRITICAL
-                    //  MULTIPLIER (AS 100 = 100% DAMAGE BASED ON OUTPUT DAMAGE)
-                    float criticalDamage =
-                        (weaponUseForBackstab.weaponPhysicalDamage +
-                        weaponUseForBackstab.weaponMagicDamage +
-                        weaponUseForBackstab.weaponFireDamage +
-                        weaponUseForBackstab.weaponHolyDamage +
-                        weaponUseForBackstab.weaponLightningDamage) *
-                        (1f + currentWeaponCharacterUsingForAttack.weaponCriticalDamageMultiplier / 100f);
-
-                    characterDamaged.characterCombatManager.DEBUG_PendingCriticalDamage = criticalDamage;
+                if (DEBUG_dotValue > -0.77f && DEBUG_dotValue < 0.55f)
+                {
+                    //ATTEMPT BACKSTAB
+                    AttemptToPerformBackstabStrike(hit, characterDamaged);
                 }
             }
+        }
+
+        public virtual void AttemptToPerformBackstabStrike(RaycastHit hit, CharacterManager characterDamaged)
+        {
+            if (character.characterTeamID == characterDamaged.characterTeamID)
+                return;
+
+            if (character == characterDamaged)
+                return;
+
+            if (characterDamaged.isDead)
+                return;
+
+            if (!characterDamaged.characterCombatManager.isCanBeBackstabbed)
+                return;
+
+            character.characterController.Move
+                (characterDamaged.characterCombatManager.DEBUG_BackstabStandingPosition.transform.position -
+                character.transform.position);
+
+            Vector3 rotateToCharacterDamaged = character.transform.rotation.eulerAngles;
+            rotateToCharacterDamaged = hit.transform.position - character.transform.position;
+            rotateToCharacterDamaged.y = 0f;
+            rotateToCharacterDamaged.Normalize();
+
+            Quaternion rotation = Quaternion.LookRotation(rotateToCharacterDamaged);
+            character.transform.rotation = rotation;
+
+            character.characterAnimationManager.CharacterPlayAttackAnimation
+                ("core_main_backstab_01", character.characterEquipmentManager.currentWeaponHoldInMainHand,
+                CharacterAttackType.CriticalAttack01, true, true);
+            isBackstabbing = true;
+
+            //  FIND WEAPON USING FOR CRITICAL HIT
+            WeaponItem_SO weaponUseForBackstab = character.characterCombatManager.currentWeaponCharacterUsingForAttack;
+
+            //  IF WE HOLD A RANGED WEAPON, DON'T DO A BACKSTAB/RIPOSTE CRITICAL HIT
+            if (weaponUseForBackstab.weaponType != WeaponType.Melee_Weapon)
+                return;
+
+            characterDamaged.characterAnimationManager.CharacterPlayAnimation("core_main_backstab_victim_01", true);
+            characterDamaged.characterCombatManager.isBackstabbed = true;
+            characterDamaged.characterCombatManager.isCanBeBackstabbed = false;
+
+            //  DAMAGE OUTPUT IS FINAL DAMAGE BASED ON WEAPON, AND CRITICAL DAMAGE BASED ON WEAPON CRITICAL
+            //  MULTIPLIER (AS 100 = 100% DAMAGE BASED ON OUTPUT DAMAGE)
+            float criticalDamage =
+                (weaponUseForBackstab.weaponPhysicalDamage +
+                weaponUseForBackstab.weaponMagicDamage +
+                weaponUseForBackstab.weaponFireDamage +
+                weaponUseForBackstab.weaponHolyDamage +
+                weaponUseForBackstab.weaponLightningDamage) *
+                (1f + currentWeaponCharacterUsingForAttack.weaponCriticalDamageMultiplier / 100f);
+
+            characterDamaged.characterCombatManager.DEBUG_PendingCriticalDamage = criticalDamage;
+        }
+
+        public virtual void AttemptToPerformRiposteStrike(RaycastHit hit, CharacterManager characterDamaged)
+        {
+            if (character.characterTeamID == characterDamaged.characterTeamID)
+                return;
+
+            if (character == characterDamaged)
+                return;
+
+            if (characterDamaged.isDead)
+                return;
+
+            if (!characterDamaged.characterCombatManager.isCanBeRiposted)
+                return;
+
+            character.characterController.Move
+                (characterDamaged.characterCombatManager.DEBUG_RiposteStandingPosition.transform.position -
+                character.transform.position);
+
+            Vector3 rotateToCharacterDamaged = character.transform.rotation.eulerAngles;
+            rotateToCharacterDamaged = hit.transform.position - character.transform.position;
+            rotateToCharacterDamaged.y = 0f;
+            rotateToCharacterDamaged.Normalize();
+
+            Quaternion rotation = Quaternion.LookRotation(rotateToCharacterDamaged);
+            character.transform.rotation = rotation;
+
+            character.characterAnimationManager.CharacterPlayAttackAnimation
+                ("core_main_riposte_01", character.characterEquipmentManager.currentWeaponHoldInMainHand,
+                CharacterAttackType.CriticalAttack02, true, true);
+            isRiposting = true;
+
+            //  FIND WEAPON USING FOR CRITICAL HIT
+            WeaponItem_SO weaponUseForBackstab = character.characterCombatManager.currentWeaponCharacterUsingForAttack;
+
+            //  IF WE HOLD A RANGED WEAPON, DON'T DO A BACKSTAB/RIPOSTE CRITICAL HIT
+            if (weaponUseForBackstab.weaponType != WeaponType.Melee_Weapon)
+                return;
+
+            characterDamaged.characterAnimationManager.CharacterPlayAnimation("core_main_riposte_victim_01", true);
+            characterDamaged.characterCombatManager.isRiposted = true;
+            characterDamaged.characterCombatManager.isCanBeRiposted = false;
+
+            //  DAMAGE OUTPUT IS FINAL DAMAGE BASED ON WEAPON, AND CRITICAL DAMAGE BASED ON WEAPON CRITICAL
+            //  MULTIPLIER (AS 100 = 100% DAMAGE BASED ON OUTPUT DAMAGE)
+            float criticalDamage =
+                (weaponUseForBackstab.weaponPhysicalDamage +
+                weaponUseForBackstab.weaponMagicDamage +
+                weaponUseForBackstab.weaponFireDamage +
+                weaponUseForBackstab.weaponHolyDamage +
+                weaponUseForBackstab.weaponLightningDamage) *
+                (1f + currentWeaponCharacterUsingForAttack.weaponCriticalDamageMultiplier / 100f);
+
+            characterDamaged.characterCombatManager.DEBUG_PendingCriticalDamage = criticalDamage;
         }
 
         public virtual void DrainStaminaBasedOnCharacterAttackType()

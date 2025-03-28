@@ -4,7 +4,8 @@ namespace NT
 {
     public class AIAttackTargetState : AISate
     {
-        [Header("Enemy Attack Actions List")]
+        [Header("Enemy Attack Settings")]
+        public float enemyAttackRangeRadius = 3f;
         public EnemyAction enemyCurrentAttackAction;
         public EnemyAction[] enemyAttackActions;
 

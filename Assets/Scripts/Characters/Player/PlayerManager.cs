@@ -6,15 +6,18 @@ namespace NT
     {
         public static PlayerManager instance;
 
-        public PlayerMovementManager playerMovementManager;
-        public PlayerAnimationManager playerAnimationManager;
-        public PlayerEquipmentManager playerEquipmentManager;
-        public PlayerCombatManager playerCombatManager;
-        public PlayerStatusManager playerStatusManager;
-        public PlayerDamageReceiverManager playerDamageReceiverManager;
-        public PlayerInteractionManager playerInteractionManager;
-        public PlayerInventoryManager playerInventoryManager;
-        public PlayerGUIManager playerGUIManager;
+        [HideInInspector] public PlayerMovementManager playerMovementManager;
+        [HideInInspector] public PlayerAnimationManager playerAnimationManager;
+        [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
+        [HideInInspector] public PlayerCombatManager playerCombatManager;
+        [HideInInspector] public PlayerStatusManager playerStatusManager;
+        [HideInInspector] public PlayerDamageReceiverManager playerDamageReceiverManager;
+        [HideInInspector] public PlayerInteractionManager playerInteractionManager;
+        [HideInInspector] public PlayerInventoryManager playerInventoryManager;
+        [HideInInspector] public PlayerGUIManager playerGUIManager;
+
+        [Header("Player Souls Collected")]
+        public int playerSoulsCollected;
 
         protected override void Awake()
         {

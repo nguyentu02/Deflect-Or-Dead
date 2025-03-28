@@ -247,6 +247,8 @@ namespace NT
 
         private void SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
         {
+            damageCollider.characterCausingDamage = character;
+
             damageCollider.weaponPhysicalDamage = currentWeaponHoldInMainHand.weaponPhysicalDamage;
             damageCollider.weaponMagicDamage = currentWeaponHoldInMainHand.weaponMagicDamage;
             damageCollider.weaponFireDamage = currentWeaponHoldInMainHand.weaponFireDamage;
@@ -256,6 +258,8 @@ namespace NT
 
         private void SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
         {
+            damageCollider.characterCausingDamage = character;
+
             damageCollider.weaponPhysicalDamage = currentWeaponHoldInOffHand.weaponPhysicalDamage;
             damageCollider.weaponMagicDamage = currentWeaponHoldInOffHand.weaponMagicDamage;
             damageCollider.weaponFireDamage = currentWeaponHoldInOffHand.weaponFireDamage;

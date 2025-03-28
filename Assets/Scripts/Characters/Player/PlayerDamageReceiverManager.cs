@@ -27,5 +27,10 @@ namespace NT
             player.playerGUIManager.characterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                 (player.playerStatusManager.characterCurrentHealth);
         }
+
+        public override void CharacterGiveAwardedOnDeath(int soulsReward)
+        {
+            player.playerSoulsCollected += soulsReward;
+        }
     }
 }

@@ -22,6 +22,9 @@ namespace NT
         //public CharacterStatsBar_GUI playerFocusPointsBar;
         //public CharacterStatsBar_GUI playerStaminaPointsBar;
 
+        [Header("Player Souls Collected GUI")]
+        [SerializeField] TextMeshProUGUI soulsCountTMPro;
+
         [Header("Player Quick Slots GUI")]
         [SerializeField] Image playerLeftWeaponIconImage;
         [SerializeField] Image playerRightWeaponIconImage;
@@ -221,6 +224,12 @@ namespace NT
 
             playerLeftWeaponSlot_01_Selected = false;
             playerLeftWeaponSlot_02_Selected = false;
+        }
+
+        //  DEBUG SOULS COUNT
+        public void UpdateSoulsCollectedOnPlayerGUI()
+        {
+            soulsCountTMPro.text = player.soulsRewardOnDeath.ToString();
         }
     }
 }

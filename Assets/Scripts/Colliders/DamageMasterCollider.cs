@@ -5,6 +5,8 @@ namespace NT
 {
     public class DamageMasterCollider : MonoBehaviour
     {
+        public CharacterManager characterCausingDamage;
+
         [SerializeField] protected Collider damageCollider;
 
         [Header("Weapon Damages")]
@@ -21,6 +23,8 @@ namespace NT
 
         protected virtual void Awake()
         {
+            characterCausingDamage = GetComponentInParent<CharacterManager>(true);
+
             damageCollider = GetComponent<Collider>();
 
             if (damageCollider != null)
@@ -32,16 +36,25 @@ namespace NT
 
         private void OnTriggerEnter(Collider other)
         {
-            CharacterManager characterDamaged = other.GetComponent<CharacterManager>();
+            CharacterManager characterDamaged = other.GetComponentInParent<CharacterManager>();
 
             //  DEBUG DAMAGE COLLIDER
             if (characterDamaged != null)
             {
+                //  CHECK FOR DAMAGE MYSELF
+                if (characterDamaged == characterCausingDamage)
+                    return;
+
                 //  CHECK FOR TEAMMATE
 
                 //  CHECK FOR BLOCK
 
                 //  CHECK FOR PARRY
+                if (characterDamaged.characterCombatManager.isDeflect)
+                {
+                    CheckForDeflect(characterDamaged);
+                    return;
+                }
 
                 //  CHECK FOR CAN'T DEAL ANY DAMAGE
 
@@ -60,6 +73,17 @@ namespace NT
                 weaponFireDamage + weaponHolyDamage + weaponLightningDamage;
 
             character.characterDamageReceiverManager.CharacterDamageReceiver(DEBUG_finalDamage, true, false);
+        }
+
+        protected virtual void CheckForDeflect(CharacterManager characterDamaged)
+        {
+            characterCausingDamage.characterAnimationManager.CharacterPlayAnimation("GhostSamurai_DefenseR_Rebound_Root", true);
+            characterCausingDamage.characterCombatManager.isStanceBreak = true;
+        }
+
+        protected virtual void CheckForDefense(CharacterManager characterDamaged)
+        {
+
         }
 
         public virtual void EnableDamageCollider()

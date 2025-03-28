@@ -1,23 +1,28 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace NT
 {
     public class CharacterManager : MonoBehaviour
     {
-        public CharacterController characterController;
-        public Animator characterAnimator;
-        public Rigidbody characterRigidbody;
+        [HideInInspector] public CharacterController characterController;
+        [HideInInspector] public Animator characterAnimator;
+        [HideInInspector] public Rigidbody characterRigidbody;
 
-        public CharacterMovementManager characterMovementManager;
-        public CharacterAnimationManager characterAnimationManager;
-        public CharacterEquipmentManager characterEquipmentManager;
-        public CharacterCombatManager characterCombatManager;
-        public CharacterStatusManager characterStatusManager;
-        public CharacterDamageReceiverManager characterDamageReceiverManager;
-        public CharacterGUIManager characterGUIManager;
+        [HideInInspector] public CharacterMovementManager characterMovementManager;
+        [HideInInspector] public CharacterAnimationManager characterAnimationManager;
+        [HideInInspector] public CharacterEquipmentManager characterEquipmentManager;
+        [HideInInspector] public CharacterCombatManager characterCombatManager;
+        [HideInInspector] public CharacterStatusManager characterStatusManager;
+        [HideInInspector] public CharacterDamageReceiverManager characterDamageReceiverManager;
+        [HideInInspector] public CharacterGUIManager characterGUIManager;
 
         [Header("Character Team I.D")]
         public TeamID characterTeamID;
+
+        //  JUST APPLY WITH BOT RIGHT NOW !!!
+        [Header("Character Reward When Death")]
+        public int soulsRewardOnDeath = 50;
 
         [Header("Character Status")]
         public bool isDead = false;
@@ -35,6 +40,7 @@ namespace NT
         public bool isTwoHanding = false;
         public bool isTwoHanding_MainWeapon = false;
         public bool isTwoHanding_OffWeapon = false;
+        public bool isDefense = false;
 
         protected virtual void Awake()
         {

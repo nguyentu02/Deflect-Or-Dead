@@ -279,6 +279,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Defense"",
+                    ""type"": ""Button"",
+                    ""id"": ""b82d0fac-7633-4712-9142-ac0e8af7128f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.01)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Deflect"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b3645a8-41cc-48d9-890d-51dff997b977"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -752,6 +770,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Two Handing Off Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f070e5a1-7c9c-43ce-bb7b-ed883364d912"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Deflect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a47f2ef-d70d-400e-9dad-0ce8982c869f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Defense"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1360,6 +1400,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_TwoHanding = m_Player.FindAction("Two Handing", throwIfNotFound: true);
         m_Player_TwoHandingMainWeapon = m_Player.FindAction("Two Handing Main Weapon", throwIfNotFound: true);
         m_Player_TwoHandingOffWeapon = m_Player.FindAction("Two Handing Off Weapon", throwIfNotFound: true);
+        m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
+        m_Player_Deflect = m_Player.FindAction("Deflect", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1474,6 +1516,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TwoHanding;
     private readonly InputAction m_Player_TwoHandingMainWeapon;
     private readonly InputAction m_Player_TwoHandingOffWeapon;
+    private readonly InputAction m_Player_Defense;
+    private readonly InputAction m_Player_Deflect;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1570,6 +1614,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @TwoHandingOffWeapon => m_Wrapper.m_Player_TwoHandingOffWeapon;
         /// <summary>
+        /// Provides access to the underlying input action "Player/Defense".
+        /// </summary>
+        public InputAction @Defense => m_Wrapper.m_Player_Defense;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Deflect".
+        /// </summary>
+        public InputAction @Deflect => m_Wrapper.m_Player_Deflect;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1658,6 +1710,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @TwoHandingOffWeapon.started += instance.OnTwoHandingOffWeapon;
             @TwoHandingOffWeapon.performed += instance.OnTwoHandingOffWeapon;
             @TwoHandingOffWeapon.canceled += instance.OnTwoHandingOffWeapon;
+            @Defense.started += instance.OnDefense;
+            @Defense.performed += instance.OnDefense;
+            @Defense.canceled += instance.OnDefense;
+            @Deflect.started += instance.OnDeflect;
+            @Deflect.performed += instance.OnDeflect;
+            @Deflect.canceled += instance.OnDeflect;
         }
 
         /// <summary>
@@ -1732,6 +1790,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @TwoHandingOffWeapon.started -= instance.OnTwoHandingOffWeapon;
             @TwoHandingOffWeapon.performed -= instance.OnTwoHandingOffWeapon;
             @TwoHandingOffWeapon.canceled -= instance.OnTwoHandingOffWeapon;
+            @Defense.started -= instance.OnDefense;
+            @Defense.performed -= instance.OnDefense;
+            @Defense.canceled -= instance.OnDefense;
+            @Deflect.started -= instance.OnDeflect;
+            @Deflect.performed -= instance.OnDeflect;
+            @Deflect.canceled -= instance.OnDeflect;
         }
 
         /// <summary>
@@ -2179,6 +2243,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTwoHandingOffWeapon(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Defense" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDefense(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Deflect" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDeflect(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

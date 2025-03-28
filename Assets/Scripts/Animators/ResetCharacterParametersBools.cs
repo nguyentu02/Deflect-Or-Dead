@@ -20,6 +20,11 @@ namespace NT
             character.characterCombatManager.isUsingMainHand = false;
             character.characterCombatManager.isUsingOffHand = false;
             character.characterCombatManager.isBackstabbing = false;
+            character.characterCombatManager.isRiposting = false;
+            character.characterCombatManager.isBackstabbed = false;
+            character.characterCombatManager.isRiposted = false;
+            character.characterCombatManager.isCanBeBackstabbed = true;
+            character.characterCombatManager.isCanBeRiposted = false;
             character.characterCombatManager.DisableCanDoComboAttack();
         }
 

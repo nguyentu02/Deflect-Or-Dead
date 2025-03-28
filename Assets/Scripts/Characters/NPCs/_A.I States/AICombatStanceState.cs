@@ -26,7 +26,7 @@ namespace NT
                 return this;
 
             //  CHECK IF IN RANGE ATTACK, SWITCH TO STATE ATTACK
-            if (enemy.distanceToTarget <= enemy.navMeshAgent.stoppingDistance)
+            if (enemy.distanceToTarget <= enemy.enemyAttackTargetState.enemyAttackRangeRadius)
             {
                 ResetStateFlagsBeforeChangesState();
                 return enemy.enemyAttackTargetState;

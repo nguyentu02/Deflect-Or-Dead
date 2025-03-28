@@ -1,25 +1,24 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.TextCore.Text;
 
 namespace NT
 {
     public class EnemyManager : CharacterManager
     {
-        public NavMeshAgent navMeshAgent;
+        [HideInInspector] public NavMeshAgent navMeshAgent;
 
-        public EnemyAnimationManager enemyAnimationManager;
-        public EnemyCombatManager enemyCombatManager;
+        [HideInInspector] public EnemyAnimationManager enemyAnimationManager;
+        [HideInInspector] public EnemyCombatManager enemyCombatManager;
 
         [Header("Enemy Current State")]
         public AISate enemyCurrentState;
 
         [Header("Enemy Finite State Machine")]
-        public AIAmbushState enemyAmbushState;
-        public AIIdleState enemyIdleState;
-        public AIChasingState enemyChasingState;
-        public AICombatStanceState enemyCombatStanceState;
-        public AIAttackTargetState enemyAttackTargetState;
+        [HideInInspector] public AIAmbushState enemyAmbushState;
+        [HideInInspector] public AIIdleState enemyIdleState;
+        [HideInInspector] public AIChasingState enemyChasingState;
+        [HideInInspector] public AICombatStanceState enemyCombatStanceState;
+        [HideInInspector] public AIAttackTargetState enemyAttackTargetState;
 
         [Header("Enemy Target Tracking Values")]
         public Vector3 targetsDirection;

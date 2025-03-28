@@ -41,5 +41,21 @@ namespace NT
                     character.characterAnimationManager.CharacterPlayAnimation("straight_sword_main_death_01", true);
             }
         }
+
+        public virtual void CharacterGiveAwardedOnDeath(int soulsReward)
+        {
+
+        }
+
+        //  ANIMATION EVENTS
+        public virtual void CharacterGiveAwardedWithAnimationEvent()
+        {
+            if (PlayerManager.instance != null)
+            {
+                PlayerManager.instance.playerDamageReceiverManager.CharacterGiveAwardedOnDeath
+                    (character.soulsRewardOnDeath);
+                PlayerCanvasManager.instance.UpdateSoulsCollectedOnPlayerGUI();
+            }
+        }
     }
 }
