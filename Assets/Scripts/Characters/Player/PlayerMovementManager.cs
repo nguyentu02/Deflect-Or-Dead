@@ -59,7 +59,7 @@ namespace NT
             }
             else
             {
-                if (isWalking || player.isDefense)
+                if (isWalking || player.isDefense && !player.characterCombatManager.DEBUG_isAlreadyHasOffHandWeapon)
                 {
                     player.characterController.Move(characterMoveDirection * walkingSpeed * Time.deltaTime);
                 }

@@ -68,10 +68,13 @@ namespace NT
             characterAnimationManager.TrackingCharacterAnimatorParameters();
 
             //  DEBUG FOR ANIMATION
-            characterAnimationManager.UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand();
+            characterAnimationManager.DEBUG_UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand();
 
-            //  KEEP STATUS VALUE ALWAYS POSITIVE
+            //  DEBUG KEEP STATUS VALUE ALWAYS POSITIVE
             characterStatusManager.DEBUG_TrackingStatusPointsAndGetThemNeverNegativeValue();
+
+            //  DEBUG FOR DEFENSE SYSTEM
+            characterCombatManager.DEBUG_TrackingIfCharacterAlreadyHasWeaponInOffHand();
         }
 
         protected virtual void FixedUpdate()

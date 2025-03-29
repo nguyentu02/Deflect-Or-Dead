@@ -103,21 +103,38 @@ namespace NT
 
             //  FLOATS
             character.characterAnimator.SetFloat("inAirTimer", character.characterMovementManager.inAirTimer);
+
+            //  DEBUGGING
+            character.characterAnimator.SetBool("isAlreadyHasOffHandWeapon", character.characterCombatManager.DEBUG_isAlreadyHasOffHandWeapon);
         }
 
         //  DEBUG FOR ANIMATOR OVERRIDE BASE ON WEAPON HOLD IN WHICH HANDS
         //  CHECK FOR RIGHT HAND FIRST, IF RIGHT HAND != NULL, ALWAYS USE ANIMATOR OF RIGHT WEAPON
-        public virtual void UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand()
+        public virtual void DEBUG_UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand()
         {
-            if (character.characterEquipmentManager.currentWeaponHoldInMainHand != null)
+            if (character.isAttacking)
+            {
+                character.characterAnimator.runtimeAnimatorController =
+                    character.characterCombatManager.currentWeaponCharacterUsingForAttack.weaponAnimator;
+                return;
+            }
+
+            if (character.characterEquipmentManager.currentWeaponHoldInMainHand != null &&
+                character.characterEquipmentManager.currentWeaponHoldInOffHand.weaponType != WeaponType.Shield_Weapon)
+            {
                 character.characterAnimator.runtimeAnimatorController =
                     character.characterEquipmentManager.currentWeaponHoldInMainHand.weaponAnimator;
-            else if (character.characterEquipmentManager.currentWeaponHoldInMainHand == null &&
-                character.characterEquipmentManager.currentWeaponHoldInOffHand != null)
+            }
+            else if (character.characterEquipmentManager.currentWeaponHoldInMainHand != null &&
+                     character.characterEquipmentManager.currentWeaponHoldInOffHand.weaponType == WeaponType.Shield_Weapon)
+            {
                 character.characterAnimator.runtimeAnimatorController =
                     character.characterEquipmentManager.currentWeaponHoldInOffHand.weaponAnimator;
+            }
             else
+            {
                 character.characterAnimator.runtimeAnimatorController = characterAnimator;
+            }
         }
 
         public virtual void OnAnimatorMove()

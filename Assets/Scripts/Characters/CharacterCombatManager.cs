@@ -30,6 +30,7 @@ namespace NT
         public bool isBackstabbing = false;
         public bool isBeingRiposted = false;
         public bool isBeingBackstabbed = false;
+        public bool DEBUG_isAlreadyHasOffHandWeapon = false;
 
         [Header("Character Weapon Being Used For Attack")]
         public WeaponItem_SO currentWeaponCharacterUsingForAttack;
@@ -478,6 +479,31 @@ namespace NT
             {
                 DEBUG_deflectTimeCount = 0f;
             }
+        }
+
+        //  DEBUG FUNCTION USE FOR DEFENSE SYSTEM, IF WE HAS AT LEAST ONE WEAPON IN OFF HAND
+        //  WE USE THAT WEAPON FOR DEFENSE, (NOT DEFLECTING WITH RIGHT HAND WEAPON)
+        public virtual void DEBUG_TrackingIfCharacterAlreadyHasWeaponInOffHand()
+        {
+            if (character.characterEquipmentManager.currentWeaponHoldInOffHand == null)
+            {
+                DEBUG_isAlreadyHasOffHandWeapon = false;
+                return;
+            }
+
+            if (character.characterEquipmentManager.currentWeaponHoldInOffHand.weaponClass == WeaponClass.Unarmed)
+            {
+                DEBUG_isAlreadyHasOffHandWeapon = false;
+                return;
+            }
+
+            if (character.characterEquipmentManager.currentWeaponHoldInOffHand.weaponType == WeaponType.Ranged_Weapon)
+            {
+                DEBUG_isAlreadyHasOffHandWeapon = false;
+                return;
+            }
+
+            DEBUG_isAlreadyHasOffHandWeapon = true;
         }
     }
 }

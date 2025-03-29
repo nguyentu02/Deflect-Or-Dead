@@ -229,6 +229,12 @@ namespace NT
                                 (player.playerEquipmentManager.currentWeaponHoldInMainHand);
 
                             break;
+                        case WeaponType.Shield_Weapon:
+
+                            player.playerCombatManager.CharacterPerformLightAttack
+                                (player.playerEquipmentManager.currentWeaponHoldInMainHand);
+
+                            break;
                         case WeaponType.Ranged_Weapon:
                             break;
                         case WeaponType.Seal:
@@ -283,6 +289,12 @@ namespace NT
                     switch (player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponType)
                     {
                         case WeaponType.Melee_Weapon:
+
+                            player.playerCombatManager.CharacterPerformHeavyAttack
+                                (player.playerEquipmentManager.currentWeaponHoldInMainHand);
+
+                            break;
+                        case WeaponType.Shield_Weapon:
 
                             player.playerCombatManager.CharacterPerformHeavyAttack
                                 (player.playerEquipmentManager.currentWeaponHoldInMainHand);

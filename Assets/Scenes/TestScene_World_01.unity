@@ -436,19 +436,19 @@ PrefabInstance:
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInOffHandQuickSlots.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+      objectReference: {fileID: 11400000, guid: e85e6a20ec0968c439a95e63f4d480c3, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInOffHandQuickSlots.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: e85e6a20ec0968c439a95e63f4d480c3, type: 2}
+      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInMainHandQuickSlots.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
+      objectReference: {fileID: 11400000, guid: e85e6a20ec0968c439a95e63f4d480c3, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInMainHandQuickSlots.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+      objectReference: {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
     - target: {fileID: 7222443554906440679, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17
@@ -575,8 +575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: -35}
-  m_SizeDelta: {x: 250, y: 40}
+  m_AnchoredPosition: {x: 30, y: -35}
+  m_SizeDelta: {x: 175, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &416740884
 MonoBehaviour:
@@ -933,6 +933,10 @@ PrefabInstance:
     - target: {fileID: 9037161698327657763, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_Name
       value: Bot_Character_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037161698327657763, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1458,7 +1462,7 @@ Transform:
   m_GameObject: {fileID: 1291523272}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -500, y: 0, z: -500}
+  m_LocalPosition: {x: -125, y: 0, z: -125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
