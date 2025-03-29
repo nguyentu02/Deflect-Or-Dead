@@ -297,6 +297,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Walking"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""d8decfbf-2815-4503-a1da-a6651293218c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ash Of War"",
+                    ""type"": ""Button"",
+                    ""id"": ""c87dcf77-e030-46f6-8b39-bc0aa081acb2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -792,6 +810,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Defense"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40699f88-72c7-4844-8033-81882862dc42"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeaf1634-d2e4-4e5e-a09e-f75b0a29004e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ash Of War"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1402,6 +1442,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_TwoHandingOffWeapon = m_Player.FindAction("Two Handing Off Weapon", throwIfNotFound: true);
         m_Player_Defense = m_Player.FindAction("Defense", throwIfNotFound: true);
         m_Player_Deflect = m_Player.FindAction("Deflect", throwIfNotFound: true);
+        m_Player_Walking = m_Player.FindAction("Walking", throwIfNotFound: true);
+        m_Player_AshOfWar = m_Player.FindAction("Ash Of War", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1518,6 +1560,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TwoHandingOffWeapon;
     private readonly InputAction m_Player_Defense;
     private readonly InputAction m_Player_Deflect;
+    private readonly InputAction m_Player_Walking;
+    private readonly InputAction m_Player_AshOfWar;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1622,6 +1666,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Deflect => m_Wrapper.m_Player_Deflect;
         /// <summary>
+        /// Provides access to the underlying input action "Player/Walking".
+        /// </summary>
+        public InputAction @Walking => m_Wrapper.m_Player_Walking;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/AshOfWar".
+        /// </summary>
+        public InputAction @AshOfWar => m_Wrapper.m_Player_AshOfWar;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1716,6 +1768,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Deflect.started += instance.OnDeflect;
             @Deflect.performed += instance.OnDeflect;
             @Deflect.canceled += instance.OnDeflect;
+            @Walking.started += instance.OnWalking;
+            @Walking.performed += instance.OnWalking;
+            @Walking.canceled += instance.OnWalking;
+            @AshOfWar.started += instance.OnAshOfWar;
+            @AshOfWar.performed += instance.OnAshOfWar;
+            @AshOfWar.canceled += instance.OnAshOfWar;
         }
 
         /// <summary>
@@ -1796,6 +1854,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Deflect.started -= instance.OnDeflect;
             @Deflect.performed -= instance.OnDeflect;
             @Deflect.canceled -= instance.OnDeflect;
+            @Walking.started -= instance.OnWalking;
+            @Walking.performed -= instance.OnWalking;
+            @Walking.canceled -= instance.OnWalking;
+            @AshOfWar.started -= instance.OnAshOfWar;
+            @AshOfWar.performed -= instance.OnAshOfWar;
+            @AshOfWar.canceled -= instance.OnAshOfWar;
         }
 
         /// <summary>
@@ -2257,6 +2321,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDeflect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Walking" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnWalking(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Ash Of War" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAshOfWar(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

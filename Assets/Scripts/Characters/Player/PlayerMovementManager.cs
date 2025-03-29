@@ -8,6 +8,7 @@ namespace NT
         private PlayerManager player;
 
         [Header("Player Movement Settings")]
+        public bool isWalking = false;
         [SerializeField] float walkingSpeed = 1.5f;
         [SerializeField] float runningSpeed = 4f;
         [SerializeField] float sprintingSpeed = 6f;
@@ -58,7 +59,14 @@ namespace NT
             }
             else
             {
-                player.characterController.Move(characterMoveDirection * runningSpeed * Time.deltaTime);
+                if (isWalking || player.isDefense)
+                {
+                    player.characterController.Move(characterMoveDirection * walkingSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    player.characterController.Move(characterMoveDirection * runningSpeed * Time.deltaTime);
+                }
             }
 
 

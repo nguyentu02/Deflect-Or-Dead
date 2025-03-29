@@ -17,13 +17,15 @@ namespace NT
     {
         MainHandSlot,
         OffHandSlot,
+        OffHand_Shield_Slot,
         BackSlot,
-        HipsSlot
+        HipsSlot,
     }
 
     public enum WeaponType
     {
         Melee_Weapon,
+        Shield_Weapon,
         Ranged_Weapon,
         Seal,
         Staff
@@ -36,6 +38,7 @@ namespace NT
         StraightSword,
         Katana,
         SpellCast,
+        MediumShield,
     }
 
     public enum CharacterAttackType

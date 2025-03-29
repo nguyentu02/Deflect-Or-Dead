@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NT
 {
-    [CreateAssetMenu(menuName = "NPCs/Enemies/Enemy Actions/Attack Action")]
+    [CreateAssetMenu(menuName = "NPCs/Enemies/Enemy Actions/Attack")]
     public class EnemyAttackAction : EnemyAction
     {
         [Header("Enemy Attack Action Settings")]

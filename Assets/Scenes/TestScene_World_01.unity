@@ -257,6 +257,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68501286}
   m_CullTransparentMesh: 1
+--- !u!4 &111730481 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7498985525762375290, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+  m_PrefabInstance: {fileID: 550552755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &150936052
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +373,14 @@ PrefabInstance:
       propertyPath: DEBUG_critical_Backstab_Layer.m_Bits
       value: 2097152
       objectReference: {fileID: 0}
+    - target: {fileID: 357423779565019154, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: DEBUG_maxTimeDeflectPossibleBeforeBeingDefense
+      value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024275918742076590, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: weaponInstantiateSlot
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1424048101129303542, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17
@@ -392,9 +405,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3650892174516969405, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: m_Name
+      value: Hand_L (Melee Weapon)
+      objectReference: {fileID: 0}
     - target: {fileID: 3910505802783247262, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195595077197861392, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: characterVigor
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 4195595077197861392, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: staminaRegenDelay
@@ -412,6 +433,22 @@ PrefabInstance:
       propertyPath: currentSpellItem
       value: 
       objectReference: {fileID: 11400000, guid: e81e868b4228e3f4fa96156eb15a35e3, type: 2}
+    - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: 'weaponsInOffHandQuickSlots.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+    - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: 'weaponsInOffHandQuickSlots.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e85e6a20ec0968c439a95e63f4d480c3, type: 2}
+    - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: 'weaponsInMainHandQuickSlots.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
+    - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: 'weaponsInMainHandQuickSlots.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
     - target: {fileID: 7222443554906440679, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17
@@ -419,6 +456,14 @@ PrefabInstance:
     - target: {fileID: 8210387510795268815, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8226045373697985023, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8226045373697985023, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8306191859998869790, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: characterFocusPointsBar
@@ -479,6 +524,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3369386070823584522, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 513748295}
     - targetCorrespondingSourceObject: {fileID: 3382723974091142277, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2017680226}
@@ -487,6 +535,11 @@ PrefabInstance:
       addedObject: {fileID: 1571633968}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+--- !u!4 &407423109 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3369386070823584522, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+  m_PrefabInstance: {fileID: 394898227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &416740882
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +616,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416740882}
   m_CullTransparentMesh: 1
+--- !u!1 &513748294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 513748295}
+  - component: {fileID: 513748296}
+  m_Layer: 12
+  m_Name: Hand_L (Shield Weapon)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &513748295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513748294}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.05326705, y: -0.1925765, z: -0.9735615, w: 0.11070203}
+  m_LocalPosition: {x: 0.0030617793, y: 0.012625391, z: 0.0263493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 407423109}
+  m_LocalEulerAnglesHint: {x: -21.295, y: -9.037, z: -165.323}
+--- !u!114 &513748296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513748294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInstantiateSlot: 2
+  weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1 &530545423 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4746605764317604469, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
@@ -587,7 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 0}
   playerStatusBarTransform: {fileID: 530545424}
-  healthWidthScaleMultiplier: 1.2
+  healthWidthScaleMultiplier: 1.05
   thisBarHaveWidthScale: 1
 --- !u!1001 &532379946
 PrefabInstance:
@@ -703,6 +802,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 1911564129936027215, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_Name
+      value: Hand_L (Melee Weapon)
+      objectReference: {fileID: 0}
     - target: {fileID: 2289903766253501282, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_Layer
       value: 17
@@ -765,7 +868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5607956565275596469, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: isCanBeRiposted
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5607956565275596469, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: DEBUG_criticalLayer.m_Bits
@@ -815,6 +918,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 7311585282790628572, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311585282790628572, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7487021045192737132, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_Layer
       value: 17
@@ -827,6 +938,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 114720008894973100, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7498985525762375290, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172905032}
     - targetCorrespondingSourceObject: {fileID: 1898643102606819495, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1197540060}
@@ -1138,6 +1252,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2060629304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1172905031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1172905032}
+  - component: {fileID: 1172905033}
+  m_Layer: 12
+  m_Name: Hand_L (Shield Weapon)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1172905032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172905031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 111730481}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1172905033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172905031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInstantiateSlot: 2
+  weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1 &1197540059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,6 +2020,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6261436959732608978, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
+      propertyPath: healthWidthScaleMultiplier
+      value: 1.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6600404801564936545, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1947,6 +2111,10 @@ PrefabInstance:
     - target: {fileID: 9008933272972856301, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9194690126671858903, guid: 5c8a0433e280593469d1b6e4b1794897, type: 3}
+      propertyPath: healthWidthScaleMultiplier
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

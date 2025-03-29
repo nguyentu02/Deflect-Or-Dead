@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 61c05d3dd541cc24b8461ff133d88a7a
+guid: 9325eff531cf6024d988b7ca8d798caf
 DefaultImporter:
   externalObjects: {}
   userData: 
@@ -7,9 +7,9 @@ DefaultImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 220752
-  packageName: Straight Sword Animation Set
+  productId: 228817
+  packageName: Shield Animation Set
   packageVersion: 3.0
-  assetPath: Assets/Nephilite Studios/Straight Sword Animation Set/_Demo (You Can
-    Delete)/Scenes/Built In/Test_Scene_01.unity
-  uploadId: 722475
+  assetPath: Assets/_Data/_Packs/Nephilite Studios/Straight Sword Animation Set/_Demo
+    (You Can Delete)/Scenes/Built In/Test_Scene_01.unity
+  uploadId: 722473

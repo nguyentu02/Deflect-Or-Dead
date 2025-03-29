@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NT
 {
-    [CreateAssetMenu(menuName = "Item/Weapon Item/Melee Weapon Item")]
+    [CreateAssetMenu(menuName = "Items/Weapons/Melee Weapon")]
     public class MeleeWeaponItem_SO : WeaponItem_SO
     {
 

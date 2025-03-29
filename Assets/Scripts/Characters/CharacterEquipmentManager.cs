@@ -25,8 +25,9 @@ namespace NT
 
         [Header("Character Equipment Hand Slots")]
         public WeaponInstantiateTransformWhenEquipped characterMainHand;
-        protected WeaponInstantiateTransformWhenEquipped characterOffHand;
-        protected WeaponInstantiateTransformWhenEquipped characterBack;
+        [SerializeField] protected WeaponInstantiateTransformWhenEquipped characterOffHand;
+        [SerializeField] protected WeaponInstantiateTransformWhenEquipped characterOffHand_Shield;
+        [SerializeField] protected WeaponInstantiateTransformWhenEquipped characterBack;
         //  HIPS SLOT
 
         //  JUST DEBUG TEST DAMAGE COLLIDERS
@@ -84,6 +85,9 @@ namespace NT
                         break;
                     case WeaponInstantiateSlot.OffHandSlot:
                         characterOffHand = equipmentSlot;
+                        break;
+                    case WeaponInstantiateSlot.OffHand_Shield_Slot:
+                        characterOffHand_Shield = equipmentSlot;
                         break;
                     case WeaponInstantiateSlot.BackSlot:
                         characterBack = equipmentSlot;
@@ -212,7 +216,33 @@ namespace NT
             }
             else
             {
-                characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+                switch (weapon.weaponType)
+                {
+                    case WeaponType.Melee_Weapon:
+
+                        characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                    case WeaponType.Shield_Weapon:
+
+                        characterOffHand_Shield.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                    case WeaponType.Ranged_Weapon:
+
+                        break;
+                    case WeaponType.Seal:
+
+                        characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                    case WeaponType.Staff:
+
+                        characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                }
+
                 LoadDamageColliderOfCharacterOffHandWeapon();
             }
         }
@@ -238,8 +268,14 @@ namespace NT
 
         protected virtual void LoadDamageColliderOfCharacterOffHandWeapon()
         {
-            offHandWeaponDamageCollider = characterOffHand.weaponPrefabInstantiatedInThisHand.
-                GetComponentInChildren<DamageMasterCollider>();
+            //  DEBUG GET COMPONENT OF SHIELD, IF NOT SHIELD, JUST GET NORMAL
+            if (currentWeaponHoldInOffHand.weaponClass != WeaponClass.MediumShield)
+                offHandWeaponDamageCollider = characterOffHand.weaponPrefabInstantiatedInThisHand.
+                    GetComponentInChildren<DamageMasterCollider>();
+            //  OTHERWISE, WE GET COMPONENT IN SHIELD SLOT WE WAS INSTANTIATE A SHIELD
+            else
+                offHandWeaponDamageCollider = characterOffHand_Shield.weaponPrefabInstantiatedInThisHand.
+                    GetComponentInChildren<DamageMasterCollider>();
 
             //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
             SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(offHandWeaponDamageCollider);

@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae11e98c21536549bb724d98473fd55, type: 3}
+  m_Name: Medium_Shield_01
+  m_EditorClassIdentifier: 
+  itemModelPrefab: {fileID: 777290722940080076, guid: c6b3cf233fc1d744ea8146f7f5600b8a, type: 3}
+  itemIcon: {fileID: 0}
+  itemName: Medium Shield
+  itemID: 0
+  weaponAnimator: {fileID: 22100000, guid: 8cf927b543673114d92fad879c786ad5, type: 2}
+  weaponClass: 5
+  weaponType: 1
+  weaponAshOfWar: {fileID: 11400000, guid: 19410047c5cb3394e9a2c09795198456, type: 2}
+  weaponPhysicalDamage: 70
+  weaponMagicDamage: 0
+  weaponFireDamage: 0
+  weaponHolyDamage: 0
+  weaponLightningDamage: 0
+  weaponCriticalDamageMultiplier: 100
+  oh_Light_Attack_01: 
+  oh_Light_Attack_02: 
+  oh_Light_Attack_03: 
+  oh_Heavy_Attack_01: 
+  oh_Heavy_Attack_02: 
+  oh_Heavy_Attack_03: 
+  th_Light_Attack_01: 
+  th_Light_Attack_02: 
+  th_Light_Attack_03: 
+  th_Heavy_Attack_01: 
+  th_Heavy_Attack_02: 
+  th_Heavy_Attack_03: 
+  baseStaminaCost: 10
+  oh_Light_Attack_01_Stamina_Multiplier: 1
+  oh_Light_Attack_02_Stamina_Multiplier: 1.15
+  oh_Light_Attack_03_Stamina_Multiplier: 1.3
+  oh_Heavy_Attack_01_Stamina_multiplier: 1.5
+  oh_Heavy_Attack_02_Stamina_multiplier: 1.7
+  oh_Heavy_Attack_03_Stamina_multiplier: 1.9
+  oh_Charge_Attack_01_Stamina_multiplier: 2
+  oh_Charge_Attack_02_Stamina_multiplier: 2.25
+  oh_Charge_Attack_03_Stamina_multiplier: 2.5

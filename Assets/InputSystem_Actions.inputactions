@@ -211,6 +211,24 @@
                     "processors": "",
                     "interactions": "Tap",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Walking",
+                    "type": "PassThrough",
+                    "id": "d8decfbf-2815-4503-a1da-a6651293218c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.1)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ash Of War",
+                    "type": "Button",
+                    "id": "c87dcf77-e030-46f6-8b39-bc0aa081acb2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -706,6 +724,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Defense",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40699f88-72c7-4844-8033-81882862dc42",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eeaf1634-d2e4-4e5e-a09e-f75b0a29004e",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ash Of War",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

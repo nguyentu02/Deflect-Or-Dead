@@ -34,7 +34,33 @@ namespace NT
             }
             else
             {
-                characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+                switch (weapon.weaponType)
+                {
+                    case WeaponType.Melee_Weapon:
+
+                        characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                    case WeaponType.Shield_Weapon:
+
+                        characterOffHand_Shield.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                    case WeaponType.Ranged_Weapon:
+
+                        break;
+                    case WeaponType.Seal:
+
+                        characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                    case WeaponType.Staff:
+
+                        characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
+
+                        break;
+                }
+
                 LoadDamageColliderOfCharacterOffHandWeapon();
                 PlayerCanvasManager.instance.UpdatePlayerQuickSlotsIconImage_GUI(weapon, isMainHand);
             }

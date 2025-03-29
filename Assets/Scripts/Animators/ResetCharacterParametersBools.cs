@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace NT
 {
@@ -21,11 +22,12 @@ namespace NT
             character.characterCombatManager.isUsingOffHand = false;
             character.characterCombatManager.isBackstabbing = false;
             character.characterCombatManager.isRiposting = false;
-            character.characterCombatManager.isBackstabbed = false;
-            character.characterCombatManager.isRiposted = false;
+            character.characterCombatManager.isBeingBackstabbed = false;
+            character.characterCombatManager.isBeingRiposted = false;
             character.characterCombatManager.isCanBeBackstabbed = true;
-            character.characterCombatManager.isCanBeRiposted = false;
+            character.characterCombatManager.isStanceBreak = false;
             character.characterCombatManager.DisableCanDoComboAttack();
+            character.characterCombatManager.DisableIsCanBeRiposte();
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -99,6 +99,7 @@ namespace NT
             character.characterAnimator.SetBool("canDoComboAttack", character.canDoComboAttack);
             character.characterAnimator.SetBool("isTwoHandingWeapon", character.isTwoHanding);
             character.characterAnimator.SetBool("isDefense", character.isDefense);
+            character.characterAnimator.SetBool("isStanceBreak", character.characterCombatManager.isStanceBreak);
 
             //  FLOATS
             character.characterAnimator.SetFloat("inAirTimer", character.characterMovementManager.inAirTimer);

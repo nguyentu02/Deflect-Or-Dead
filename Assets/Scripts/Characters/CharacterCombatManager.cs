@@ -20,6 +20,7 @@ namespace NT
 
         [Header("Character Combat Status")]
         public bool isDeflect = false;
+        public bool isParrying = false;
         public bool isStanceBreak = false;
         public bool isCanBeBackstabbed = true;
         public bool isCanBeRiposted = false;
@@ -27,8 +28,8 @@ namespace NT
         public bool isUsingOffHand = false;
         public bool isRiposting = false;
         public bool isBackstabbing = false;
-        public bool isRiposted = false;
-        public bool isBackstabbed = false;
+        public bool isBeingRiposted = false;
+        public bool isBeingBackstabbed = false;
 
         [Header("Character Weapon Being Used For Attack")]
         public WeaponItem_SO currentWeaponCharacterUsingForAttack;
@@ -38,6 +39,10 @@ namespace NT
 
         [Header("Last Attack Character Performed")]
         public string lastAttackAimationCharacterPerformed;
+
+        [Header("DEBUG Character Deflecting")]
+        public float DEBUG_maxTimeDeflectPossibleBeforeBeingDefense = 0.23f;
+        public float DEBUG_deflectTimeCount = 0f;
 
         protected virtual void Awake()
         {
@@ -258,7 +263,7 @@ namespace NT
                 return;
 
             characterDamaged.characterAnimationManager.CharacterPlayAnimation("core_main_backstab_victim_01", true);
-            characterDamaged.characterCombatManager.isBackstabbed = true;
+            characterDamaged.characterCombatManager.isBeingBackstabbed = true;
             characterDamaged.characterCombatManager.isCanBeBackstabbed = false;
 
             //  DAMAGE OUTPUT IS FINAL DAMAGE BASED ON WEAPON, AND CRITICAL DAMAGE BASED ON WEAPON CRITICAL
@@ -313,7 +318,7 @@ namespace NT
                 return;
 
             characterDamaged.characterAnimationManager.CharacterPlayAnimation("core_main_riposte_victim_01", true);
-            characterDamaged.characterCombatManager.isRiposted = true;
+            characterDamaged.characterCombatManager.isBeingRiposted = true;
             characterDamaged.characterCombatManager.isCanBeRiposted = false;
 
             //  DAMAGE OUTPUT IS FINAL DAMAGE BASED ON WEAPON, AND CRITICAL DAMAGE BASED ON WEAPON CRITICAL
@@ -430,6 +435,49 @@ namespace NT
         public virtual void DisableIsInvulnerable()
         {
             character.isInvulnerable = false;
+        }
+
+        public virtual void EnableIsCanBeRiposted()
+        {
+            isCanBeRiposted = true;
+        }
+
+        public virtual void DisableIsCanBeRiposte()
+        {
+            isCanBeRiposted = false;
+        }
+
+        public virtual void EnableIsParrying()
+        {
+            isParrying = true;
+        }
+
+        public virtual void DisableIsParrying()
+        {
+            isParrying = false;
+        }
+
+        //  DEBUG FUNC
+        public virtual void DeductStanceViaAnimation(int stanceDamage)
+        {
+            character.characterStatusManager.characterCurrentStance -= stanceDamage;
+        }
+
+        public virtual void DEBUG_TrackingCharacterDeflecting(bool isDefense)
+        {
+            if (isDefense)
+            {
+                DEBUG_deflectTimeCount += Time.deltaTime;
+
+                if (DEBUG_deflectTimeCount <= DEBUG_maxTimeDeflectPossibleBeforeBeingDefense)
+                    isDeflect = true;
+                else
+                    isDeflect = false;
+            }
+            else
+            {
+                DEBUG_deflectTimeCount = 0f;
+            }
         }
     }
 }

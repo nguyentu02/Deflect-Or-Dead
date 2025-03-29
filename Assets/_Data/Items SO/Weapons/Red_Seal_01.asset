@@ -18,7 +18,8 @@ MonoBehaviour:
   itemID: 0
   weaponAnimator: {fileID: 22100000, guid: 1d9f6f55e4992574faf73b53882c24ba, type: 2}
   weaponClass: 4
-  weaponType: 2
+  weaponType: 3
+  weaponAshOfWar: {fileID: 0}
   weaponPhysicalDamage: 0
   weaponMagicDamage: 0
   weaponFireDamage: 0

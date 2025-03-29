@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NT
 {
-    [CreateAssetMenu(menuName = "Spells/Incantations/Heal Incantation")]
+    [CreateAssetMenu(menuName = "Items/Spells/Incantations/Heal Incantation")]
     public class Heal_Incantaion_SO : IncantationItem_SO
     {
         [Header("Heal Settings")]

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using static TreeEditor.TreeGroup;
 
@@ -24,10 +25,12 @@ namespace NT
         [SerializeField] private bool space_Input = false;
         [SerializeField] private bool space_Hold_Input = false;
         [SerializeField] private bool leftShift_Input = false;
+        [SerializeField] private bool x_Input = false;
 
         [SerializeField] private bool leftMouse_Input = false;
         [SerializeField] private bool leftMouse_Hold_Input = false;
         [SerializeField] private bool leftMouse_Hold_For_Charge_Attack = false;
+        [SerializeField] private bool f_Input = false;
 
         [SerializeField] private bool rightArrow_Input = false;
         [SerializeField] private bool leftArrow_Input = false;
@@ -75,6 +78,8 @@ namespace NT
                 inputActions.Player.Look.performed += i => cameraLook_Vector2 = i.ReadValue<Vector2>();
                 inputActions.Player.Sprint.performed += i => space_Hold_Input = true;
                 inputActions.Player.Sprint.canceled += i => space_Hold_Input = false;
+                inputActions.Player.Walking.performed += i => x_Input = true;
+                inputActions.Player.Walking.canceled += i => x_Input = false;
 
                 //  PLAYER ACTIONS
                 inputActions.Player.Dodge.performed += i => space_Input = true;
@@ -94,10 +99,9 @@ namespace NT
                 inputActions.Player.Defense.canceled += i => rightMouse_Hold_Input = false;
 
                 //  PLAYER ATTACKS
+                inputActions.Player.AshOfWar.performed += i => f_Input = true;
                 inputActions.Player.Attack.performed += i => leftMouse_Input = true;
-
                 inputActions.Player.HeavyAttack.performed += i => leftMouse_Hold_Input = true;
-
                 inputActions.Player.ChargeAttack.performed += i => leftMouse_Hold_For_Charge_Attack = true;
                 inputActions.Player.ChargeAttack.canceled += i => leftMouse_Hold_For_Charge_Attack = false;
 
@@ -119,9 +123,11 @@ namespace NT
             HandlePlayerSprintInput();
             HandlePlayerCameraLookInput();
             HandlePlayerDodgeInput();
+            HandlePlayerWalkingInput();
             HandlePlayerLightAttackInput();
             HandlePlayerHeavyAttackInput();
             HandlePlayerChargeAttackInput();
+            HandlePlayerAshOfWarInput();
             HandlePlayerSwitchWeaponInHandsInput();
             HandlePlayerInteractInput();
             HandlePlayerOpenMenuOptionsInput();
@@ -137,11 +143,11 @@ namespace NT
             vertical_Input = movement_Vector2.y;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal_Input) + Mathf.Abs(vertical_Input));
 
-            //  DEBUG TEST FOR DEFLECT/DEFENSE
-            if (moveAmount != 0 && player.isDefense)
+            //  DEBUG TEST FOR CASE WALKING MOVEMENT
+            if (moveAmount != 0 && player.playerMovementManager.isWalking)
                 moveAmount = 0.5f;
 
-            if (player.isLockedOn && player.isDefense)
+            if (player.isLockedOn && player.playerMovementManager.isWalking)
             {
                 if (horizontal_Input > 0.55f)
                     horizontal_Input = 0.5f;
@@ -182,6 +188,11 @@ namespace NT
             }
 
             player.isSprinting = space_Hold_Input;
+        }
+
+        private void HandlePlayerWalkingInput()
+        {
+            player.playerMovementManager.isWalking = x_Input;
         }
 
         private void HandlePlayerLightAttackInput()
@@ -308,6 +319,18 @@ namespace NT
                 return;
 
             player.isChargingAttack = leftMouse_Hold_For_Charge_Attack;
+        }
+
+        //  DEBUG NOW FOR ASH OF WAR SYSTEM
+        private void HandlePlayerAshOfWarInput()
+        {
+            if (f_Input)
+            {
+                f_Input = false;
+
+                if (player.playerEquipmentManager.currentWeaponHoldInOffHand.weaponAshOfWar != null)
+                    player.playerEquipmentManager.currentWeaponHoldInOffHand.weaponAshOfWar.CharacterPlayingAshOfWar(player);
+            }
         }
 
         private void HandlePlayerSwitchWeaponInHandsInput()
@@ -455,6 +478,8 @@ namespace NT
         }
 
         //  DEBUG TEST FUNC
+
+        //  DEBUG TEST FOR TWO HANDING
         private void HandlePlayerTwoHandingInput()
         {
             if (!twoHanding_Input)
@@ -493,9 +518,12 @@ namespace NT
             }
         }
 
+        //  DEBUG TEST FOR DEFLECT/DEFENSE
         private void HandlePlayerDefenseInput()
         {
             player.isDefense = rightMouse_Hold_Input;
+
+            player.playerCombatManager.DEBUG_TrackingCharacterDeflecting(player.isDefense);
         }
 
         private void HandlePlayerDeflectInput()
@@ -504,8 +532,18 @@ namespace NT
             {
                 rightMouse_Input = false;
 
-                player.playerCombatManager.isDeflect = true;
+                StartCoroutine(DEBUG_TrackingDeflectCoroutine());
             }
+        }
+
+        private IEnumerator DEBUG_TrackingDeflectCoroutine()
+        {
+            player.playerCombatManager.isDeflect = true;
+
+            yield return new WaitForSeconds
+                (player.playerCombatManager.DEBUG_maxTimeDeflectPossibleBeforeBeingDefense);
+
+            player.playerCombatManager.isDeflect = false;
         }
     }
 }

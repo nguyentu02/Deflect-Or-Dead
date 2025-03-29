@@ -6,6 +6,10 @@ namespace NT
     {
         private CharacterManager character;
 
+        [Header("Character Stance Points")]
+        public int characterMaxStance = 80;
+        public int characterCurrentStance = 80;
+
         [Header("Character Status")]
         //  VIGOR
         public int characterVigor = 15;
@@ -40,6 +44,9 @@ namespace NT
 
         public virtual void SetMaximumCharacterStatsWhenStart()
         {
+            //  STANCE
+            characterCurrentStance = characterMaxStance;
+
             //  CHARACTER HEALTH
             characterMaxHealth = GetMaximumHealthBasedOnVigor();
             characterCurrentHealth = characterMaxHealth;

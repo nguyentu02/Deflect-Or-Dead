@@ -46,15 +46,34 @@ namespace NT
                     return;
 
                 //  CHECK FOR TEAMMATE
+                if (characterCausingDamage.characterTeamID == characterDamaged.characterTeamID)
+                    return;
 
-                //  CHECK FOR BLOCK
+                //  CHECK FOR CHARACTER BEING GET CRITICAL HIT
+                if (characterCausingDamage.characterCombatManager.isBeingBackstabbed ||
+                    characterCausingDamage.characterCombatManager.isBeingRiposted)
+                    return;
+
+                //  CHECK FOR CHARACTER WHO DEALT CRITICAL HIT
+                if (characterDamaged.characterCombatManager.isBackstabbing ||
+                    characterDamaged.characterCombatManager.isRiposting)
+                    return;
 
                 //  CHECK FOR PARRY
-                if (characterDamaged.characterCombatManager.isDeflect)
+                if (characterDamaged.characterCombatManager.isParrying)
                 {
-                    CheckForDeflect(characterDamaged);
+                    CheckForParry(characterCausingDamage);
                     return;
                 }
+
+                //  CHECK FOR DEFLECT
+                if (characterDamaged.characterCombatManager.isDeflect)
+                {
+                    CheckForDeflect(characterCausingDamage);
+                    return;
+                }
+
+                //  CHECK FOR BLOCK
 
                 //  CHECK FOR CAN'T DEAL ANY DAMAGE
 
@@ -75,10 +94,30 @@ namespace NT
             character.characterDamageReceiverManager.CharacterDamageReceiver(DEBUG_finalDamage, true, false);
         }
 
-        protected virtual void CheckForDeflect(CharacterManager characterDamaged)
+        protected virtual void CheckForDeflect(CharacterManager characterBeingDeflected)
         {
-            characterCausingDamage.characterAnimationManager.CharacterPlayAnimation("GhostSamurai_DefenseR_Rebound_Root", true);
-            characterCausingDamage.characterCombatManager.isStanceBreak = true;
+            characterBeingDeflected.characterAnimationManager.CharacterPlayAnimation
+                ("GhostSamurai_DefenseR_Rebound_Root", true);
+
+            //  JUST DEBUG FOR NOW, DEDUCT 40 STANCE POINT PER DEFLECT (VIA ANIMATION EVENT)
+            if (characterBeingDeflected.characterStatusManager.characterCurrentStance <= 0)
+            {
+                //  BREAK STANCE, MAKE WHO CHARACTER IS BEING DEFLECT CAN BE RIPOSTE
+                characterBeingDeflected.characterCombatManager.isStanceBreak = true;
+
+                //  RESET CHARACTER STANCE TO MAX AFTER BREAK
+                characterBeingDeflected.characterStatusManager.characterCurrentStance = 
+                    characterBeingDeflected.characterStatusManager.characterMaxStance;
+            }
+
+            DisableDamageCollider();
+        }
+
+        protected virtual void CheckForParry(CharacterManager characterBeingParried)
+        {
+            characterBeingParried.characterAnimationManager.CharacterPlayAnimation
+                ("core_main_parry_victim_01", true);
+            characterBeingParried.characterCombatManager.EnableIsCanBeRiposted();
         }
 
         protected virtual void CheckForDefense(CharacterManager characterDamaged)

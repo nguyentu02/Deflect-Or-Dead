@@ -11,6 +11,9 @@ namespace NT
         public WeaponClass weaponClass;
         public WeaponType weaponType;
 
+        [Header("Weapon Ash Of War")]
+        public AshOfWarItem_SO weaponAshOfWar;
+
         [Header("Weapon Damages")]
         public float weaponPhysicalDamage;
         public float weaponMagicDamage;
