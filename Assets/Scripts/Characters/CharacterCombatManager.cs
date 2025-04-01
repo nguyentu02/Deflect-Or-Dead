@@ -19,17 +19,36 @@ namespace NT
         [SerializeField] float DEBUG_dotValue;
 
         [Header("Character Combat Status")]
-        public bool isDeflect = false;
-        public bool isParrying = false;
+        public bool isLockedOn = false;
         public bool isStanceBreak = false;
-        public bool isCanBeBackstabbed = true;
-        public bool isCanBeRiposted = false;
+
         public bool isUsingMainHand = false;
         public bool isUsingOffHand = false;
+
+        //  TWO HANDED BOOLS
+        public bool isTwoHanding = false;
+        public bool isTwoHanding_MainWeapon = false;
+        public bool isTwoHanding_OffWeapon = false;
+
+        //  DEFLECT/DEFENSE SYSTEM
+        public bool isDefense = false;
+        public bool isDeflect = false;
+        public bool isParrying = false;
+
+        public bool isAttacking = false;
+        public bool isInvulnerable = false;
+        public bool isChargingAttack = false;
+        public bool canDoComboAttack = false;
+
+        //  CRITICAL BOOLS CHECK
+        public bool isCanBeBackstabbed = true;
+        public bool isCanBeRiposted = false;
         public bool isRiposting = false;
         public bool isBackstabbing = false;
         public bool isBeingRiposted = false;
         public bool isBeingBackstabbed = false;
+
+        //  DEBUG BOOLS
         public bool DEBUG_isAlreadyHasOffHandWeapon = false;
 
         [Header("Character Weapon Being Used For Attack")]
@@ -61,7 +80,7 @@ namespace NT
             if (character.characterStatusManager.characterCurrentStamina <= 0)
                 return;
 
-            character.canDoComboAttack = false;
+            character.characterCombatManager.canDoComboAttack = false;
 
             CharacterPerformLightAttackCombo(weapon);
             CharacterPerformHeavyAttackCombo(weapon);
@@ -83,7 +102,7 @@ namespace NT
             if (isRiposting)
                 return;
 
-            if (character.isTwoHanding)
+            if (isTwoHanding)
             {
                 character.characterAnimationManager.CharacterPlayAttackAnimation
                     (weapon.th_Light_Attack_01, weapon, CharacterAttackType.LightAttack01, true, true);
@@ -111,7 +130,7 @@ namespace NT
             if (isRiposting)
                 return;
 
-            if (character.isTwoHanding)
+            if (isTwoHanding)
             {
                 character.characterAnimationManager.CharacterPlayAttackAnimation
                     (weapon.th_Heavy_Attack_01, weapon, CharacterAttackType.HeavyAttack01, true, true);
@@ -127,7 +146,7 @@ namespace NT
 
         public virtual void CharacterPerformLightAttackCombo(WeaponItem_SO weapon)
         {
-            if (character.isTwoHanding)
+            if (isTwoHanding)
             {
                 if (lastAttackAimationCharacterPerformed == weapon.th_Light_Attack_01)
                 {
@@ -161,7 +180,7 @@ namespace NT
 
         public virtual void CharacterPerformHeavyAttackCombo(WeaponItem_SO weapon)
         {
-            if (character.isTwoHanding)
+            if (isTwoHanding)
             {
                 if (lastAttackAimationCharacterPerformed == weapon.th_Heavy_Attack_01)
                 {
@@ -414,28 +433,28 @@ namespace NT
         public virtual void PendingCriticalDamageViaVictimCriticalAnimation()
         {
             character.characterDamageReceiverManager.CharacterDamageReceiver
-                (DEBUG_PendingCriticalDamage, false, true);
+                (DEBUG_PendingCriticalDamage, "", false, true);
             DEBUG_PendingCriticalDamage = 0f;
         }
 
         public virtual void EnableCanDoComboAttack()
         {
-            character.canDoComboAttack = true;
+            canDoComboAttack = true;
         }
 
         public virtual void DisableCanDoComboAttack()
         {
-            character.canDoComboAttack = false;
+            canDoComboAttack = false;
         }
 
         public virtual void EnableIsInvulnerable()
         {
-            character.isInvulnerable = true;
+            isInvulnerable = true;
         }
 
         public virtual void DisableIsInvulnerable()
         {
-            character.isInvulnerable = false;
+            isInvulnerable = false;
         }
 
         public virtual void EnableIsCanBeRiposted()

@@ -32,6 +32,13 @@ namespace NT
         //  FAITH
         //  ARCANE
 
+        [Header("Character Damage Absorptions")]
+        public float characterPhysicalDamageAbsorption;
+        public float characterMagicDamageAbsorption;
+        public float characterFireDamageAbsorption;
+        public float characterHolyDamageAbsorption;
+        public float characterLightningDamageAbsorption;
+
         protected virtual void Awake()
         {
             character = GetComponent<CharacterManager>();

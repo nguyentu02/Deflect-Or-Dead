@@ -147,7 +147,7 @@ namespace NT
             if (moveAmount != 0 && player.playerMovementManager.isWalking)
                 moveAmount = 0.5f;
 
-            if (player.isLockedOn && player.playerMovementManager.isWalking)
+            if (player.playerCombatManager.isLockedOn && player.playerMovementManager.isWalking)
             {
                 if (horizontal_Input > 0.55f)
                     horizontal_Input = 0.5f;
@@ -211,7 +211,7 @@ namespace NT
                 if (PlayerCanvasManager.instance.isPlayerOpenMenuOption)
                     return;
 
-                if (player.canDoComboAttack)
+                if (player.playerCombatManager.canDoComboAttack)
                 {
                     player.playerCombatManager.CharacterPerformComboAttack
                         (player.playerEquipmentManager.currentWeaponHoldInMainHand);
@@ -276,7 +276,7 @@ namespace NT
                 if (PlayerCanvasManager.instance.isPlayerOpenMenuOption)
                     return;
 
-                if (player.canDoComboAttack)
+                if (player.playerCombatManager.canDoComboAttack)
                 {
                     player.playerCombatManager.CharacterPerformComboAttack
                         (player.playerEquipmentManager.currentWeaponHoldInMainHand);
@@ -330,7 +330,7 @@ namespace NT
             if (!player.isPerformingAction)
                 return;
 
-            player.isChargingAttack = leftMouse_Hold_For_Charge_Attack;
+            player.playerCombatManager.isChargingAttack = leftMouse_Hold_For_Charge_Attack;
         }
 
         //  DEBUG NOW FOR ASH OF WAR SYSTEM
@@ -432,16 +432,16 @@ namespace NT
 
         private void HandlePlayerLockOnTargetInput()
         {
-            if (player.isLockedOn && player.playerCombatManager.currentTargetCharacter.isDead ||
+            if (player.playerCombatManager.isLockedOn && player.playerCombatManager.currentTargetCharacter.isDead ||
                 player.isDead)
             {
-                player.isLockedOn = false;
+                player.playerCombatManager.isLockedOn = false;
 
                 //  CLEAR LOCK ON TARGETS
                 PlayerCameraManager.instance.ClearAllLockedOnTargets();
             }
 
-            if (q_Input && !player.isLockedOn)
+            if (q_Input && !player.playerCombatManager.isLockedOn)
             {
                 q_Input = false;
 
@@ -450,19 +450,19 @@ namespace NT
                 if (PlayerCameraManager.instance.nearestLockOnTarget != null)
                 {
                     player.playerCombatManager.currentTargetCharacter = PlayerCameraManager.instance.nearestLockOnTarget;
-                    player.isLockedOn = true;
+                    player.playerCombatManager.isLockedOn = true;
                 }
             }
-            else if (q_Input && player.isLockedOn)
+            else if (q_Input && player.playerCombatManager.isLockedOn)
             {
                 q_Input = false;
-                player.isLockedOn = false;
+                player.playerCombatManager.isLockedOn = false;
 
                 //  CLEAR LOCK ON TARGETS
                 PlayerCameraManager.instance.ClearAllLockedOnTargets();
             }
 
-            if (player.isLockedOn && number1_Input)
+            if (player.playerCombatManager.isLockedOn && number1_Input)
             {
                 number1_Input = false;
 
@@ -471,11 +471,11 @@ namespace NT
                 if (PlayerCameraManager.instance.leftNearestLockOnTarget != null)
                 {
                     player.playerCombatManager.currentTargetCharacter = PlayerCameraManager.instance.leftNearestLockOnTarget;
-                    player.isLockedOn = true;
+                    player.playerCombatManager.isLockedOn = true;
                 }
             }
 
-            if (player.isLockedOn && number2_Input)
+            if (player.playerCombatManager.isLockedOn && number2_Input)
             {
                 number2_Input = false;
 
@@ -484,7 +484,7 @@ namespace NT
                 if (PlayerCameraManager.instance.rightNearestLockOnTarget != null)
                 {
                     player.playerCombatManager.currentTargetCharacter = PlayerCameraManager.instance.rightNearestLockOnTarget;
-                    player.isLockedOn = true;
+                    player.playerCombatManager.isLockedOn = true;
                 }
             }
         }
@@ -495,21 +495,25 @@ namespace NT
         private void HandlePlayerTwoHandingInput()
         {
             if (!twoHanding_Input)
+            {
+                twoHanding_MainWeapon_Input = false;
+                twoHanding_OffWeapon_Input = false;
                 return;
+            }
 
             if (twoHanding_MainWeapon_Input)
             {
                 twoHanding_MainWeapon_Input = false;
                 leftMouse_Input = false;
 
-                if (player.isTwoHanding)
+                if (player.playerCombatManager.isTwoHanding)
                 {
-                    player.isTwoHanding = false;
+                    player.playerCombatManager.isTwoHanding = false;
                     player.playerEquipmentManager.CharacterUnTwoHandingWeapon();
                     return;
                 }
 
-                player.isTwoHanding = true;
+                player.playerCombatManager.isTwoHanding = true;
                 player.playerEquipmentManager.CharacterTwoHandingMainWeapon();
             }
 
@@ -518,14 +522,14 @@ namespace NT
                 twoHanding_OffWeapon_Input = false;
                 //  DEBUG RIGHT MOUSE INPUT (IF HAVE) 
 
-                if (player.isTwoHanding)
+                if (player.playerCombatManager.isTwoHanding)
                 {
-                    player.isTwoHanding = false;
+                    player.playerCombatManager.isTwoHanding = false;
                     player.playerEquipmentManager.CharacterUnTwoHandingWeapon();
                     return;
                 }
 
-                player.isTwoHanding = true;
+                player.playerCombatManager.isTwoHanding = true;
                 player.playerEquipmentManager.CharacterTwoHandingOffWeapon();
             }
         }
@@ -533,9 +537,9 @@ namespace NT
         //  DEBUG TEST FOR DEFLECT/DEFENSE
         private void HandlePlayerDefenseInput()
         {
-            player.isDefense = rightMouse_Hold_Input;
+            player.playerCombatManager.isDefense = rightMouse_Hold_Input;
 
-            player.playerCombatManager.DEBUG_TrackingCharacterDeflecting(player.isDefense);
+            player.playerCombatManager.DEBUG_TrackingCharacterDeflecting(player.playerCombatManager.isDefense);
         }
 
         private void HandlePlayerDeflectInput()

@@ -81,7 +81,8 @@ namespace NT
 
         private void HandleCameraRotateLookAround()
         {
-            if (!player.isLockedOn && player.playerCombatManager.currentTargetCharacter == null)
+            if (!player.playerCombatManager.isLockedOn && 
+                player.playerCombatManager.currentTargetCharacter == null)
             {
                 Vector3 rotateAround;
                 Quaternion rotateCameraLookAroundBasedOnMouse;
@@ -184,7 +185,7 @@ namespace NT
                     nearestLockOnTarget = availableCharactersCanTarget[j];
                 }
 
-                if (player.isLockedOn)
+                if (player.playerCombatManager.isLockedOn)
                 {
                     Vector3 relativeEnemyPosition =
                         player.transform.InverseTransformPoint(availableCharactersCanTarget[j].transform.position);

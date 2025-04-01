@@ -83,7 +83,7 @@ namespace NT
             character.characterAnimator.applyRootMotion = isPerformingAction;
             character.characterCombatManager.currentWeaponCharacterUsingForAttack = weapon;
             character.characterCombatManager.attackType = attackType;
-            character.isAttacking = isAttacking;
+            character.characterCombatManager.isAttacking = isAttacking;
             character.isPerformingAction = isPerformingAction;
             character.canMove = canMove;
             character.canRotate = canRotate;
@@ -95,10 +95,10 @@ namespace NT
             character.characterAnimator.SetBool("isDead", character.isDead);
             character.characterAnimator.SetBool("isGrounded", character.isGrounded);
             character.characterAnimator.SetBool("isPerformingAction", character.isPerformingAction);
-            character.characterAnimator.SetBool("isChargingAttack", character.isChargingAttack);
-            character.characterAnimator.SetBool("canDoComboAttack", character.canDoComboAttack);
-            character.characterAnimator.SetBool("isTwoHandingWeapon", character.isTwoHanding);
-            character.characterAnimator.SetBool("isDefense", character.isDefense);
+            character.characterAnimator.SetBool("isChargingAttack", character.characterCombatManager.isChargingAttack);
+            character.characterAnimator.SetBool("canDoComboAttack", character.characterCombatManager.canDoComboAttack);
+            character.characterAnimator.SetBool("isTwoHandingWeapon", character.characterCombatManager.isTwoHanding);
+            character.characterAnimator.SetBool("isDefense", character.characterCombatManager.isDefense);
             character.characterAnimator.SetBool("isStanceBreak", character.characterCombatManager.isStanceBreak);
 
             //  FLOATS
@@ -112,10 +112,17 @@ namespace NT
         //  CHECK FOR RIGHT HAND FIRST, IF RIGHT HAND != NULL, ALWAYS USE ANIMATOR OF RIGHT WEAPON
         public virtual void DEBUG_UpdateOverrideAnimatorBasedOnWeaponCharacterHoldInHand()
         {
-            if (character.isAttacking)
+            if (character.characterCombatManager.isAttacking)
             {
                 character.characterAnimator.runtimeAnimatorController =
                     character.characterCombatManager.currentWeaponCharacterUsingForAttack.weaponAnimator;
+                return;
+            }
+
+            if (character.characterCombatManager.isTwoHanding)
+            {
+                character.characterAnimator.runtimeAnimatorController =
+                    character.characterEquipmentManager.currentTwoHandingWeapon.weaponAnimator;
                 return;
             }
 

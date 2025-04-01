@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace NT
 {
@@ -59,7 +58,10 @@ namespace NT
             }
             else
             {
-                if (isWalking || player.isDefense && !player.characterCombatManager.DEBUG_isAlreadyHasOffHandWeapon)
+                if (isWalking || player.playerCombatManager.isDefense && 
+                    !player.characterCombatManager.DEBUG_isAlreadyHasOffHandWeapon ||
+                    //  DEBUG IN CASE IF PLAYER IS TWO HANDED AND DEFENSE
+                    player.playerCombatManager.isTwoHanding && player.playerCombatManager.isDefense)
                 {
                     player.characterController.Move(characterMoveDirection * walkingSpeed * Time.deltaTime);
                 }
@@ -70,7 +72,7 @@ namespace NT
             }
 
 
-            if (player.isLockedOn && !player.isSprinting)
+            if (player.playerCombatManager.isLockedOn && !player.isSprinting)
             {
                 player.playerAnimationManager.ProcessCharacterMovementAnimation
                     (PlayerInputManager.instance.horizontal_Input, 
@@ -89,7 +91,7 @@ namespace NT
             if (!player.canRotate)
                 return;
 
-            if (player.isLockedOn)
+            if (player.playerCombatManager.isLockedOn)
             {
                 if (player.isSprinting || player.isRolling)
                 {

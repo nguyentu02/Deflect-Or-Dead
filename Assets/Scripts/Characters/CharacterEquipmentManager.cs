@@ -12,6 +12,8 @@ namespace NT
         public WeaponItem_SO currentTwoHandingWeapon;
         public WeaponItem_SO currentWeaponHoldInMainHand;
         public WeaponItem_SO currentWeaponHoldInOffHand;
+        private WeaponItem_SO DEBUG_StoreWeaponInMainHand;
+        private WeaponItem_SO DEBUG_StoreWeaponInOffHand;
 
         [Header("Character Current Spell Item")]
         public SpellItem_SO currentSpellItem;
@@ -100,6 +102,8 @@ namespace NT
 
         public virtual void CharacterSwitchMainHandWeapon()
         {
+            characterMainHand.UnloadWeaponPrefab();
+
             currentWeaponInMainHandIndex += 1;
 
             if (currentWeaponInMainHandIndex == 0 && weaponsInMainHandQuickSlots[0] != null)
@@ -131,6 +135,8 @@ namespace NT
 
         public virtual void CharacterSwitchOffHandWeapon()
         {
+            DEBUG_UnloadWeaponModelsInOffHand();
+
             currentWeaponInOffHandIndex += 1;
 
             if (currentWeaponInOffHandIndex == 0 && weaponsInOffHandQuickSlots[0] != null)
@@ -162,14 +168,17 @@ namespace NT
 
         public virtual void CharacterTwoHandingMainWeapon()
         {
-            if (!character.isTwoHanding)
+            if (!character.characterCombatManager.isTwoHanding)
                 return;
 
-            character.isTwoHanding_MainWeapon = true;
+            character.characterCombatManager.isTwoHanding_MainWeapon = true;
 
             currentTwoHandingWeapon = currentWeaponHoldInMainHand;
 
-            characterOffHand.UnloadWeaponPrefab();
+            DEBUG_StoreWeaponInMainHand = currentWeaponHoldInMainHand;
+            DEBUG_StoreWeaponInOffHand = currentWeaponHoldInOffHand;
+
+            DEBUG_UnloadWeaponModelsInOffHand();
             characterMainHand.LoadWeaponPrefabModelInCharacterHand(currentTwoHandingWeapon);
 
             LoadDamageColliderOfCharacterMainHandWeapon();
@@ -180,31 +189,47 @@ namespace NT
 
         public virtual void CharacterTwoHandingOffWeapon()
         {
-            if (!character.isTwoHanding)
+            if (!character.characterCombatManager.isTwoHanding)
                 return;
 
-            character.isTwoHanding_OffWeapon = true;
+            character.characterCombatManager.isTwoHanding_OffWeapon = true;
 
             currentTwoHandingWeapon = currentWeaponHoldInOffHand;
 
-            characterOffHand.UnloadWeaponPrefab();
+            DEBUG_StoreWeaponInMainHand = currentWeaponHoldInMainHand;
+            DEBUG_StoreWeaponInOffHand = currentWeaponHoldInOffHand;
+
+            DEBUG_UnloadWeaponModelsInOffHand();
             characterMainHand.LoadWeaponPrefabModelInCharacterHand(currentTwoHandingWeapon);
 
             LoadDamageColliderOfCharacterMainHandWeapon();
 
             WhichSlotToMoveCharacterAnOtherWeaponAfterPickAnWeaponForTwoHandingStyle
                 (currentWeaponHoldInMainHand, true);
+
+            //  DEBUG FOR WEAPON ATTACK, IN INPUT, WE JUST KEEP TRACK WEAPON ATTACK BASED ON MAIN HAND WEAPON
+            currentWeaponHoldInMainHand = currentTwoHandingWeapon;
         }
 
         public virtual void CharacterUnTwoHandingWeapon()
         {
-            character.isTwoHanding = false;
-            character.isTwoHanding_MainWeapon = false;
-            character.isTwoHanding_OffWeapon = false;
+            character.characterCombatManager.isTwoHanding = false;
+            character.characterCombatManager.isTwoHanding_MainWeapon = false;
+            character.characterCombatManager.isTwoHanding_OffWeapon = false;
 
             characterBack.UnloadWeaponPrefab();
-            WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInMainHand, true);
-            WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInMainHand, false);
+
+            //  LOAD WEAPON WITH WEAPON WE STORES
+            WhichCharacterHandWeWantToLoadWeaponIn(DEBUG_StoreWeaponInMainHand, true);
+            WhichCharacterHandWeWantToLoadWeaponIn(DEBUG_StoreWeaponInOffHand, false);
+
+            //  SET CURRENT WEAPON WE HOLD IN HAND WITH THAT
+            currentWeaponHoldInMainHand = DEBUG_StoreWeaponInMainHand;
+            currentWeaponHoldInOffHand = DEBUG_StoreWeaponInOffHand;
+
+            //  SET THEM TO NULL FOR NEXT TIME WE USE
+            DEBUG_StoreWeaponInMainHand = null;
+            DEBUG_StoreWeaponInOffHand = null;
         }
 
         public virtual void WhichCharacterHandWeWantToLoadWeaponIn(WeaponItem_SO weapon, bool isMainHand)
@@ -219,27 +244,21 @@ namespace NT
                 switch (weapon.weaponType)
                 {
                     case WeaponType.Melee_Weapon:
-
                         characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
-
                         break;
                     case WeaponType.Shield_Weapon:
-
                         characterOffHand_Shield.LoadWeaponPrefabModelInCharacterHand(weapon);
-
                         break;
                     case WeaponType.Ranged_Weapon:
 
                         break;
                     case WeaponType.Seal:
-
                         characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
-
                         break;
                     case WeaponType.Staff:
-
                         characterOffHand.LoadWeaponPrefabModelInCharacterHand(weapon);
-
+                        break;
+                    default:
                         break;
                 }
 
@@ -279,6 +298,9 @@ namespace NT
 
             //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
             SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(offHandWeaponDamageCollider);
+
+            //  DEBUG LOAD ABSORPTION JUST APPLY WITH OFF HAND WEAPON
+            SetDamageAbsorptionsForCharacterInCaseDefense(offHandWeaponDamageCollider, false);
         }
 
         private void SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
@@ -301,6 +323,40 @@ namespace NT
             damageCollider.weaponFireDamage = currentWeaponHoldInOffHand.weaponFireDamage;
             damageCollider.weaponHolyDamage = currentWeaponHoldInOffHand.weaponHolyDamage;
             damageCollider.weaponLightningDamage = currentWeaponHoldInOffHand.weaponLightningDamage;
+        }
+
+        //  JUST DEBUG FOR NOW,
+        public virtual void SetDamageAbsorptionsForCharacterInCaseDefense
+            (DamageMasterCollider damageCollider, bool isMainHand)
+        {
+            if (isMainHand)
+            {
+                damageCollider.weaponPhysicalDamageAbsorption = currentWeaponHoldInMainHand.weaponPhysicalDamageAbsorption;
+                damageCollider.weaponMagicDamageAbsorption = currentWeaponHoldInMainHand.weaponMagicDamageAbsorption;
+                damageCollider.weaponFireDamageAbsorption = currentWeaponHoldInMainHand.weaponFireDamageAbsorption;
+                damageCollider.weaponHolyDamageAbsorption = currentWeaponHoldInMainHand.weaponHolyDamageAbsorption;
+                damageCollider.weaponLightningDamageAbsorption = currentWeaponHoldInMainHand.weaponLightningDamageAbsorption;
+
+                character.characterStatusManager.characterPhysicalDamageAbsorption = damageCollider.weaponPhysicalDamageAbsorption;
+                character.characterStatusManager.characterMagicDamageAbsorption = damageCollider.weaponMagicDamageAbsorption;
+                character.characterStatusManager.characterFireDamageAbsorption = damageCollider.weaponFireDamageAbsorption;
+                character.characterStatusManager.characterHolyDamageAbsorption = damageCollider.weaponHolyDamageAbsorption;
+                character.characterStatusManager.characterLightningDamageAbsorption = damageCollider.weaponLightningDamageAbsorption;
+            }
+            else
+            {
+                damageCollider.weaponPhysicalDamageAbsorption = currentWeaponHoldInOffHand.weaponPhysicalDamageAbsorption;
+                damageCollider.weaponMagicDamageAbsorption = currentWeaponHoldInOffHand.weaponMagicDamageAbsorption;
+                damageCollider.weaponFireDamageAbsorption = currentWeaponHoldInOffHand.weaponFireDamageAbsorption;
+                damageCollider.weaponHolyDamageAbsorption = currentWeaponHoldInOffHand.weaponHolyDamageAbsorption;
+                damageCollider.weaponLightningDamageAbsorption = currentWeaponHoldInOffHand.weaponLightningDamageAbsorption;
+
+                character.characterStatusManager.characterPhysicalDamageAbsorption = damageCollider.weaponPhysicalDamageAbsorption;
+                character.characterStatusManager.characterMagicDamageAbsorption = damageCollider.weaponMagicDamageAbsorption;
+                character.characterStatusManager.characterFireDamageAbsorption = damageCollider.weaponFireDamageAbsorption;
+                character.characterStatusManager.characterHolyDamageAbsorption = damageCollider.weaponHolyDamageAbsorption;
+                character.characterStatusManager.characterLightningDamageAbsorption = damageCollider.weaponLightningDamageAbsorption;
+            }
         }
 
         //  OPEN/CLOSE DAMAGE COLLIDERS
@@ -328,6 +384,13 @@ namespace NT
         public virtual void CloseOffHandWeaponDamageCollider()
         {
             offHandWeaponDamageCollider.DisableDamageCollider();
+        }
+
+        //  DEBUG
+        private void DEBUG_UnloadWeaponModelsInOffHand()
+        {
+            characterOffHand.UnloadWeaponPrefab();
+            characterOffHand_Shield.UnloadWeaponPrefab();
         }
     }
 }

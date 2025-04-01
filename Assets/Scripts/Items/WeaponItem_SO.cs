@@ -21,6 +21,13 @@ namespace NT
         public float weaponHolyDamage;
         public float weaponLightningDamage;
 
+        [Header("Weapon Damage Absorptions")]
+        public float weaponPhysicalDamageAbsorption;
+        public float weaponMagicDamageAbsorption;
+        public float weaponFireDamageAbsorption;
+        public float weaponHolyDamageAbsorption;
+        public float weaponLightningDamageAbsorption;
+
         [Header("Weapon Critical Multiplier")]
         public float weaponCriticalDamageMultiplier = 100f;
 

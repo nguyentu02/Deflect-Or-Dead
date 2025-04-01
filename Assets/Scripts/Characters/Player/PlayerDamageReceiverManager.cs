@@ -20,9 +20,11 @@ namespace NT
 
         //  JUST DEBUG FOR PLAYTEST NOW, WILL REFACTOR LATER
         public override void CharacterDamageReceiver
-            (float damageReceiver, bool isHasDamageAnimtion, bool isHasNewDeadAnimation)
+            (float damageReceiver, 
+            string damageAnimation = "core_main_hit_reaction_medium_f_01", 
+            bool isHasDamageAnimtion = false, bool isHasNewDeadAnimation = false)
         {
-            base.CharacterDamageReceiver(damageReceiver, isHasDamageAnimtion, isHasNewDeadAnimation);
+            base.CharacterDamageReceiver(damageReceiver, damageAnimation, isHasDamageAnimtion, isHasNewDeadAnimation);
 
             player.playerGUIManager.characterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                 (player.playerStatusManager.characterCurrentHealth);

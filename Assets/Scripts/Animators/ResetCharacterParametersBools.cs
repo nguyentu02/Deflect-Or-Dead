@@ -13,11 +13,12 @@ namespace NT
             if (character == null)
                 character = animator.GetComponent<CharacterManager>();
 
+            character.characterCombatManager.isAttacking = false;
+            character.isPerformingAction = false;
+            character.characterCombatManager.isStanceBreak = false;
             character.canMove = true;
             character.canRotate = true;
-            character.isPerformingAction = false;
             character.isRolling = false;
-            character.isAttacking = false;
             character.characterCombatManager.isUsingMainHand = false;
             character.characterCombatManager.isUsingOffHand = false;
             character.characterCombatManager.isBackstabbing = false;
@@ -25,9 +26,8 @@ namespace NT
             character.characterCombatManager.isBeingBackstabbed = false;
             character.characterCombatManager.isBeingRiposted = false;
             character.characterCombatManager.isCanBeBackstabbed = true;
-            character.characterCombatManager.isStanceBreak = false;
-            character.characterCombatManager.DisableCanDoComboAttack();
             character.characterCombatManager.DisableIsCanBeRiposte();
+            character.characterCombatManager.DisableCanDoComboAttack();
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

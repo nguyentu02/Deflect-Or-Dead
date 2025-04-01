@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace NT
 {
@@ -26,21 +25,16 @@ namespace NT
 
         [Header("Character Status")]
         public bool isDead = false;
+        public bool isPerformingAction = false;
+
+        //  MOVING BOOLS
         public bool isGrounded = true;
         public bool canMove = true;
         public bool canRotate = true;
-        public bool isPerformingAction = false;
-        public bool isInvulnerable = false;
+
+        //  ACTIONS BOOLS
         public bool isRolling = false;
         public bool isSprinting = false;
-        public bool isChargingAttack = false;
-        public bool canDoComboAttack = false;
-        public bool isAttacking = false;
-        public bool isLockedOn = false;
-        public bool isTwoHanding = false;
-        public bool isTwoHanding_MainWeapon = false;
-        public bool isTwoHanding_OffWeapon = false;
-        public bool isDefense = false;
 
         protected virtual void Awake()
         {

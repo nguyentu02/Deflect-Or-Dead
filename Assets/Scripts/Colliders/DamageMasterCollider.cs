@@ -16,6 +16,13 @@ namespace NT
         public float weaponHolyDamage;
         public float weaponLightningDamage;
 
+        [Header("Weapon Damage Absorptions")]
+        public float weaponPhysicalDamageAbsorption;
+        public float weaponMagicDamageAbsorption;
+        public float weaponFireDamageAbsorption;
+        public float weaponHolyDamageAbsorption;
+        public float weaponLightningDamageAbsorption;
+
         [Header("Final Damage")]
         public float DEBUG_finalDamage;
 
@@ -41,6 +48,12 @@ namespace NT
             //  DEBUG DAMAGE COLLIDER
             if (characterDamaged != null)
             {
+                //  CALCULATE DOT VALUE FOR PARRY, DEFLECT AND DEFENSE CHECK
+                Vector3 directionFromCharacterToTargetCharacter =
+                    characterCausingDamage.transform.position - characterDamaged.transform.position;
+                float dotValue = Vector3.Dot
+                    (directionFromCharacterToTargetCharacter, characterDamaged.transform.forward);
+
                 //  CHECK FOR DAMAGE MYSELF
                 if (characterDamaged == characterCausingDamage)
                     return;
@@ -67,13 +80,18 @@ namespace NT
                 }
 
                 //  CHECK FOR DEFLECT
-                if (characterDamaged.characterCombatManager.isDeflect)
+                if (characterDamaged.characterCombatManager.isDeflect && dotValue > 0.3f)
                 {
-                    CheckForDeflect(characterCausingDamage);
+                    CheckForDeflect(characterCausingDamage, characterDamaged);
                     return;
                 }
 
                 //  CHECK FOR BLOCK
+                if (characterDamaged.characterCombatManager.isDefense && dotValue > 0.3f)
+                {
+                    CheckForDefense(characterDamaged);
+                    return;
+                }
 
                 //  CHECK FOR CAN'T DEAL ANY DAMAGE
 
@@ -81,29 +99,42 @@ namespace NT
             }
         }
 
-        protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager character)
+        protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager characterDamaged)
         {
-            if (charactersDamaged.Contains(character))
+            if (charactersDamaged.Contains(characterDamaged))
                 return;
 
-            charactersDamaged.Add(character);
+            charactersDamaged.Add(characterDamaged);
 
             DEBUG_finalDamage = weaponPhysicalDamage + weaponMagicDamage +
                 weaponFireDamage + weaponHolyDamage + weaponLightningDamage;
 
-            character.characterDamageReceiverManager.CharacterDamageReceiver(DEBUG_finalDamage, true, false);
+            characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
+                (DEBUG_finalDamage, "core_main_hit_reaction_medium_f_01", true, false);
         }
 
-        protected virtual void CheckForDeflect(CharacterManager characterBeingDeflected)
+        protected virtual void CheckForDeflect
+            (CharacterManager characterBeingDeflected, CharacterManager characterDamaged)
         {
             characterBeingDeflected.characterAnimationManager.CharacterPlayAnimation
                 ("GhostSamurai_DefenseR_Rebound_Root", true);
+
+            //  DEBUG FOR CHOOSE ANIMATION DELFECT OF CHARACTER DEFLECTING
+            int randomScore = Random.Range(0, 100);
+
+            if (randomScore < 50)
+                characterDamaged.characterAnimationManager.CharacterPlayAnimation
+                    ("GhostSamurai_DefenseL_Parry_L2R_Up_Root", true);
+            else
+                characterDamaged.characterAnimationManager.CharacterPlayAnimation
+                    ("GhostSamurai_DefenseR_Parry_R2L_Up_Root", true);
 
             //  JUST DEBUG FOR NOW, DEDUCT 40 STANCE POINT PER DEFLECT (VIA ANIMATION EVENT)
             if (characterBeingDeflected.characterStatusManager.characterCurrentStance <= 0)
             {
                 //  BREAK STANCE, MAKE WHO CHARACTER IS BEING DEFLECT CAN BE RIPOSTE
                 characterBeingDeflected.characterCombatManager.isStanceBreak = true;
+                characterBeingDeflected.characterCombatManager.EnableIsCanBeRiposted();
 
                 //  RESET CHARACTER STANCE TO MAX AFTER BREAK
                 characterBeingDeflected.characterStatusManager.characterCurrentStance = 
@@ -122,7 +153,41 @@ namespace NT
 
         protected virtual void CheckForDefense(CharacterManager characterDamaged)
         {
+            if (charactersDamaged.Contains(characterDamaged))
+                return;
 
+            charactersDamaged.Add(characterDamaged);
+
+            float physicalDamageAfterBlocked = weaponPhysicalDamage;
+            float magicDamageAfterBlocked = weaponMagicDamage;
+            float fireDamageAfterBlocked = weaponFireDamage;
+            float holyDamageAfterBlocked = weaponHolyDamage;
+            float lightningDamageAfterBlocked = weaponLightningDamage;
+
+            physicalDamageAfterBlocked -= Mathf.RoundToInt(weaponPhysicalDamage *
+                (characterDamaged.characterStatusManager.characterPhysicalDamageAbsorption / 100));
+
+            magicDamageAfterBlocked -= Mathf.RoundToInt(weaponMagicDamage *
+                (characterDamaged.characterStatusManager.characterMagicDamageAbsorption / 100));
+
+            fireDamageAfterBlocked -= Mathf.RoundToInt(weaponFireDamage *
+                (characterDamaged.characterStatusManager.characterFireDamageAbsorption / 100));
+
+            lightningDamageAfterBlocked -= Mathf.RoundToInt(weaponLightningDamage *
+                (characterDamaged.characterStatusManager.characterLightningDamageAbsorption / 100));
+
+            holyDamageAfterBlocked -= Mathf.RoundToInt(weaponHolyDamage *
+                (characterDamaged.characterStatusManager.characterHolyDamageAbsorption / 100));
+
+            DEBUG_finalDamage =
+                physicalDamageAfterBlocked +
+                magicDamageAfterBlocked +
+                fireDamageAfterBlocked +
+                lightningDamageAfterBlocked +
+                holyDamageAfterBlocked;
+
+            characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
+                (DEBUG_finalDamage, "shield_off_guard_block_ping_01", true, false);
         }
 
         public virtual void EnableDamageCollider()
