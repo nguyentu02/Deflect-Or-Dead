@@ -5,7 +5,7 @@ namespace NT
 {
     public class CharacterStatsBar_GUI : MonoBehaviour
     {
-        [SerializeField] Slider slider;
+        public Slider slider;
 
         [Header("Player Status Bar Settings")]
         [SerializeField] RectTransform playerStatusBarTransform;

@@ -189,7 +189,7 @@ namespace NT
                 {
                     Vector3 relativeEnemyPosition =
                         player.transform.InverseTransformPoint(availableCharactersCanTarget[j].transform.position);
-                    var distanceFromLeftTarget = -relativeEnemyPosition.x;
+                    var distanceFromLeftTarget = relativeEnemyPosition.x;
                     var distanceFromRightTarget = relativeEnemyPosition.x;
 
                     if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget && 

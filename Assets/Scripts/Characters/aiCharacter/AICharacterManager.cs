@@ -9,6 +9,8 @@ namespace NT
 
         [HideInInspector] public AICharacterAnimationManager aiCharaterAnimationManager;
         [HideInInspector] public AICharacterCombatManager aiCharacterCombatManager;
+        [HideInInspector] public AICharacterGUIManager aiCharacterGUIManager;
+        [HideInInspector] public AICharacterDamageReceiverManager aiCharacterDamageReceiverManager;
 
         [Header("Enemy Current State")]
         public AISate aiCurrentState;
@@ -39,6 +41,8 @@ namespace NT
 
             aiCharaterAnimationManager = GetComponent<AICharacterAnimationManager>();
             aiCharacterCombatManager = GetComponent<AICharacterCombatManager>();
+            aiCharacterGUIManager = GetComponent<AICharacterGUIManager>();
+            aiCharacterDamageReceiverManager = GetComponent<AICharacterDamageReceiverManager>();
 
             //  ENEMY STATE MACHINE COMPONENTS
             aiAmbushState = GetComponentInChildren<AIAmbushState>();
@@ -62,6 +66,8 @@ namespace NT
             HandleEnemyCharacterStates();
 
             DEBUG_HandleCoolDownUntilEnemyCanAttackTargetAgain();
+
+            aiCharacterGUIManager.DEBUG_ShowUpAICharacterHealthBarOnHeadForPlayerSee_GUI();
         }
 
         protected override void FixedUpdate()
@@ -74,6 +80,8 @@ namespace NT
         protected override void LateUpdate()
         {
             base.LateUpdate();
+
+            aiCharacterGUIManager.DEBUG_RotateAICharacterHealthBarToPlayerMainCamera_GUI();
         }
 
         protected virtual void HandleEnemyCharacterStates()

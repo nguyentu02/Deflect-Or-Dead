@@ -229,7 +229,7 @@ namespace NT
         //  DEBUG SOULS COUNT
         public void UpdateSoulsCollectedOnPlayerGUI()
         {
-            soulsCountTMPro.text = player.soulsRewardOnDeath.ToString();
+            soulsCountTMPro.text = player.playerSoulsCollected.ToString();
         }
     }
 }
