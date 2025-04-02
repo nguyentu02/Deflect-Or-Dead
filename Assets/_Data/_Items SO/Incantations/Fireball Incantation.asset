@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80f137602a36f34a8ea2074885c9aed, type: 3}
+  m_Name: Fireball Incantation
+  m_EditorClassIdentifier: 
+  spellIcon: {fileID: 0}
+  spellName: Fireball
+  spellAnimationName: sphand_main_projectile_01_charge
+  spellID: 0
+  spellCostPoints: 0
+  isIncantation: 1
+  spellBeforeCastVFX: {fileID: 1392961458021664, guid: c3dd3a4e5bb16fa4eac8c14e4b0fcb1e, type: 3}
+  spellAlreadyCastVFX: {fileID: 1722081097931586, guid: 8f75b170f8bfd854b80be0b6b0e711d6, type: 3}
+  spellDescription: 
+  fireBallVelocity: 0
+  fireBallImpactSmallVFX: {fileID: 0}
+  fireBallImpactFullChargeVFX: {fileID: 0}
+  fireballPhysicalDamage: 0
+  fireballMagicDamage: 0
+  fireballFireDamage: 0
+  fireballHolyDamage: 0
+  fireballLightningDamage: 0
+  DEBUG_fireballTimeCastDelay: 0.34

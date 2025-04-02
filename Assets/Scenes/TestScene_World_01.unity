@@ -396,15 +396,15 @@ PrefabInstance:
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: currentSpellItem
       value: 
-      objectReference: {fileID: 11400000, guid: e81e868b4228e3f4fa96156eb15a35e3, type: 2}
+      objectReference: {fileID: 11400000, guid: 620ea4ddb9419684caecf13e0c819504, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInOffHandQuickSlots.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
+      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInOffHandQuickSlots.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: e85e6a20ec0968c439a95e63f4d480c3, type: 2}
+      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInMainHandQuickSlots.Array.data[0]'
       value: 
@@ -412,7 +412,7 @@ PrefabInstance:
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInMainHandQuickSlots.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+      objectReference: {fileID: 11400000, guid: 2e2f33da59eba184bae23cb3349a0f70, type: 2}
     - target: {fileID: 7222443554906440679, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17

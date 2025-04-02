@@ -48,6 +48,9 @@ namespace NT
         public bool isBeingRiposted = false;
         public bool isBeingBackstabbed = false;
 
+        //  FULL CHARGE FIRE BALL
+        public bool isFullyChargeFireBall;
+
         //  DEBUG BOOLS
         public bool DEBUG_isAlreadyHasOffHandWeapon = false;
 

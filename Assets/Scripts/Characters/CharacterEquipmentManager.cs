@@ -18,6 +18,9 @@ namespace NT
         [Header("Character Current Spell Item")]
         public SpellItem_SO currentSpellItem;
 
+        //  DEBUG FIREBALL DELAY CASTING TIME WITH COROUTINE
+        private Coroutine DEBUG_Fireball_Coroutine;
+
         [Header("Character Has Store Weapons In Quick Slots")]
         public WeaponItem_SO[] weaponsInMainHandQuickSlots;
         public WeaponItem_SO[] weaponsInOffHandQuickSlots;
@@ -62,6 +65,19 @@ namespace NT
         {
             if (currentSpellItem == null)
                 return;
+
+            //  JUST DEBUG FOR FIREBALL INCANTATION
+            Fireball_Incantation_SO fireballIncantation = currentSpellItem as Fireball_Incantation_SO;
+
+            if (fireballIncantation != null)
+            {
+                if (DEBUG_Fireball_Coroutine != null)
+                    StopCoroutine(fireballIncantation.DEBUG_DelayInstantateVFXWhenCharacterTryToCast(character));
+
+                DEBUG_Fireball_Coroutine = StartCoroutine(fireballIncantation.DEBUG_DelayInstantateVFXWhenCharacterTryToCast(character));
+                StartCoroutine(fireballIncantation.DEBUG_DelayInstantateVFXWhenCharacterTryToCast(character));
+                return;
+            }
 
             currentSpellItem.TryToPerformCastASpell(character);
         }
