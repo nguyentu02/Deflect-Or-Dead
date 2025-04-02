@@ -21,12 +21,11 @@ MonoBehaviour:
   spellBeforeCastVFX: {fileID: 1392961458021664, guid: c3dd3a4e5bb16fa4eac8c14e4b0fcb1e, type: 3}
   spellAlreadyCastVFX: {fileID: 1722081097931586, guid: 8f75b170f8bfd854b80be0b6b0e711d6, type: 3}
   spellDescription: 
-  fireBallVelocity: 0
-  fireBallImpactSmallVFX: {fileID: 0}
-  fireBallImpactFullChargeVFX: {fileID: 0}
+  fireballForwardVelocity: 15
+  fireballUpwardVelocity: 2
   fireballPhysicalDamage: 0
   fireballMagicDamage: 0
   fireballFireDamage: 0
   fireballHolyDamage: 0
   fireballLightningDamage: 0
-  DEBUG_fireballTimeCastDelay: 0.34
+  DEBUG_fireballTimeCastDelay: 0.4

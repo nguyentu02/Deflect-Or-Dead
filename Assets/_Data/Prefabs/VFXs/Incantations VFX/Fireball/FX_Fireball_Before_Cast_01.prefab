@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4512300890362992}
   - component: {fileID: 198879910538899236}
   - component: {fileID: 199141224730341376}
+  - component: {fileID: 7050074048026168909}
   m_Layer: 0
   m_Name: FX_Fireball_Before_Cast_01
   m_TagString: Untagged
@@ -42,8 +43,8 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392961458021664}
   serializedVersion: 8
-  lengthInSec: 0.1
-  simulationSpeed: 0.5
+  lengthInSec: 5
+  simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -116,8 +117,8 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.44
+      minMaxState: 3
+      scalar: 1
       minScalar: 0.5
       maxCurve:
         serializedVersion: 2
@@ -151,7 +152,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startSpeed:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -251,9 +252,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.5
-      minScalar: 0.3
+      minMaxState: 3
+      scalar: 0.625
+      minScalar: 0.375
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -286,7 +287,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0.050000004
       minScalar: 0.04
       maxCurve:
@@ -321,7 +322,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0.05
       minScalar: 0.04
       maxCurve:
@@ -356,7 +357,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -391,7 +392,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -426,7 +427,7 @@ ParticleSystem:
         m_RotationOrder: 0
     startRotation:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 6.283185
       minScalar: 0
       maxCurve:
@@ -4585,6 +4586,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7050074048026168909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392961458021664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367df9f363e00104798e622465492b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyAfterTime: 2
 --- !u!1 &1867844395138674
 GameObject:
   m_ObjectHideFlags: 0
@@ -4602,7 +4616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4599378133210738
 Transform:
   m_ObjectHideFlags: 0

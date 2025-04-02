@@ -6818,7 +6818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTargetCharacter: {fileID: 0}
-  lockOnTransform: {fileID: 0}
+  lockOnTransform: {fileID: 5329556532331756651}
   DEBUG_critical_Layer:
     serializedVersion: 2
     m_Bits: 4096
@@ -6847,6 +6847,7 @@ MonoBehaviour:
   isBackstabbing: 0
   isBeingRiposted: 0
   isBeingBackstabbed: 0
+  isFullyChargeFireBall: 0
   DEBUG_isAlreadyHasOffHandWeapon: 0
   currentWeaponCharacterUsingForAttack: {fileID: 0}
   attackType: 0

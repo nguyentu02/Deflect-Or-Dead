@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6411515671045745038}
   - component: {fileID: 1543246148939339334}
   - component: {fileID: 2758474945690438471}
+  - component: {fileID: 739604579690536649}
   m_Layer: 0
   m_Name: FX_Fireball_Explosion_01 (Small)
   m_TagString: Untagged
@@ -4653,6 +4654,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &739604579690536649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6365323186157438460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367df9f363e00104798e622465492b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyAfterTime: 2
 --- !u!1 &6605220608782810864
 GameObject:
   m_ObjectHideFlags: 0

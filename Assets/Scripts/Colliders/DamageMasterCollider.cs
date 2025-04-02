@@ -41,7 +41,7 @@ namespace NT
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             CharacterManager characterDamaged = other.GetComponentInParent<CharacterManager>();
 

@@ -7,12 +7,8 @@ namespace NT
     public class Fireball_Incantation_SO : IncantationItem_SO
     {
         [Header("Fireball Gravities")]
-        [SerializeField] float fireBallVelocity;
-        private Rigidbody fireBallRigidbody;
-
-        [Header("Fireball Impact VFXs")]
-        [SerializeField] GameObject fireBallImpactSmallVFX;
-        [SerializeField] GameObject fireBallImpactFullChargeVFX;
+        [SerializeField] float fireballForwardVelocity;
+        [SerializeField] float fireballUpwardVelocity;
 
         [Header("Fireball Damages")]
         public float fireballPhysicalDamage;
@@ -32,6 +28,36 @@ namespace NT
         public override void SuccesfullyCastASpell(CharacterManager character)
         {
             base.SuccesfullyCastASpell(character);
+
+            GameObject fireballAlreadyCastVFX = Instantiate
+                (spellAlreadyCastVFX, 
+                character.characterEquipmentManager.characterMainHand.transform.position, 
+                PlayerCameraManager.instance.playerCameraPivotTransform.rotation);
+
+            Rigidbody fireballRigidbody = fireballAlreadyCastVFX.GetComponent<Rigidbody>();
+
+            FireballDamageCollider fireballDamageCollider = fireballAlreadyCastVFX.
+                GetComponent<FireballDamageCollider>();
+            fireballDamageCollider.characterCausingDamage = character;
+
+            fireballAlreadyCastVFX.transform.parent = null;
+
+            if (character.characterCombatManager.isLockedOn)
+            {
+                fireballAlreadyCastVFX.transform.LookAt
+                    (character.characterCombatManager.
+                    currentTargetCharacter.characterCombatManager.lockOnTransform.position);
+            }
+            else
+            {
+                Vector3 forwardDirection = character.transform.forward;
+                fireballAlreadyCastVFX.transform.forward = forwardDirection;
+            }
+
+            Vector3 upwardVelocity = fireballAlreadyCastVFX.transform.up * fireballUpwardVelocity;
+            Vector3 forwardVelocity = fireballAlreadyCastVFX.transform.forward * fireballForwardVelocity;
+            Vector3 totalVelocity = upwardVelocity + forwardVelocity;
+            fireballRigidbody.linearVelocity = totalVelocity;
         }
 
         //  JUST DEBUG FOR INSTANTIATE CASTING VFX, BEFORE WE THROWING TO TARGETS
@@ -41,7 +67,7 @@ namespace NT
 
             yield return new WaitForSeconds(DEBUG_fireballTimeCastDelay);
 
-            GameObject fireBallBeforeCastVFX = Instantiate
+            GameObject fireballBeforeCastVFX = Instantiate
                 (spellBeforeCastVFX, character.characterEquipmentManager.characterMainHand.transform);
         }
     }

@@ -13766,8 +13766,8 @@ GameObject:
   - component: {fileID: 5535758235642624227}
   - component: {fileID: 199455834240973142}
   - component: {fileID: 5796843387754820955}
-  - component: {fileID: -6403504684043274158}
-  m_Layer: 18
+  - component: {fileID: 8666070916403597773}
+  m_Layer: 23
   m_Name: FX_Fireball_Already_Cast_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18726,8 +18726,8 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &-6403504684043274158
+  m_CollisionDetection: 2
+--- !u!114 &8666070916403597773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18736,7 +18736,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1722081097931586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c50f395da8a4e1047add832e7cdb3848, type: 3}
+  m_Script: {fileID: 11500000, guid: b8a3b78f9131bc44ba986f53aab0c477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterCausingDamage: {fileID: 0}
@@ -18752,3 +18752,6 @@ MonoBehaviour:
   weaponHolyDamageAbsorption: 0
   weaponLightningDamageAbsorption: 0
   DEBUG_finalDamage: 0
+  isFullChargeFireball: 0
+  fireballImpactSmallVFX: {fileID: 6365323186157438460, guid: 69ca0057ba21a3a478a88d0afb02bfe1, type: 3}
+  fireballImpactFullChargeVFX: {fileID: 1809022330002312, guid: 8bf62cca247aabb42b0c1e0806466795, type: 3}
