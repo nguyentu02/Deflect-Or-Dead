@@ -4,21 +4,16 @@ namespace NT
 {
     public class FireballDamageCollider : DamageMasterCollider
     {
-        private Rigidbody fireballRigidbody;
+        [SerializeField] private FireballManager fireballManager;
         private Vector3 fireballImpactNormal;
-
-        public bool isFullChargeFireball = false;
-
-        [Header("Fireball Impact VFXs")]
-        [SerializeField] GameObject fireballImpactSmallVFX;
-        [SerializeField] GameObject fireballImpactFullChargeVFX;
 
         protected override void Awake()
         {
             base.Awake();
 
+            fireballManager = GetComponentInParent<FireballManager>();
+
             damageCollider.enabled = true;
-            fireballRigidbody = GetComponent<Rigidbody>();
         }
 
         protected override void OnTriggerEnter(Collider other)
@@ -38,10 +33,7 @@ namespace NT
                 CalculateDamageAfterAddedToCharacterDamaged(characterDamaged);
             }
 
-            GameObject impactVFX = Instantiate
-                (fireballImpactSmallVFX, transform.position,
-                Quaternion.FromToRotation(Vector3.up, fireballImpactNormal));
-            Destroy(gameObject);
+            fireballManager.InstantiateSpellDestructionVFX();
         }
     }
 }
