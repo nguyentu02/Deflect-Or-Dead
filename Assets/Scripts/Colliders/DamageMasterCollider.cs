@@ -109,6 +109,8 @@ namespace NT
             DEBUG_finalDamage = weaponPhysicalDamage + weaponMagicDamage +
                 weaponFireDamage + weaponHolyDamage + weaponLightningDamage;
 
+            Debug.Log(DEBUG_finalDamage);
+
             characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
                 (DEBUG_finalDamage, "core_main_hit_reaction_medium_f_01", true, false);
         }

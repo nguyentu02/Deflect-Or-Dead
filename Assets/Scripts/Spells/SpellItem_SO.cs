@@ -43,5 +43,10 @@ namespace NT
             character.characterGUIManager.characterFocusPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                 (character.characterStatusManager.characterCurrentFocusPoints);
         }
+
+        public virtual void SuccesfullyCastFullChargeASpell(CharacterManager character)
+        {
+
+        }
     }
 }

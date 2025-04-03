@@ -66,19 +66,6 @@ namespace NT
             if (currentSpellItem == null)
                 return;
 
-            //  JUST DEBUG FOR FIREBALL INCANTATION
-            Fireball_Incantation_SO fireballIncantation = currentSpellItem as Fireball_Incantation_SO;
-
-            if (fireballIncantation != null)
-            {
-                if (DEBUG_Fireball_Coroutine != null)
-                    StopCoroutine(fireballIncantation.DEBUG_DelayInstantateVFXWhenCharacterTryToCast(character));
-
-                DEBUG_Fireball_Coroutine = StartCoroutine(fireballIncantation.DEBUG_DelayInstantateVFXWhenCharacterTryToCast(character));
-                StartCoroutine(fireballIncantation.DEBUG_DelayInstantateVFXWhenCharacterTryToCast(character));
-                return;
-            }
-
             currentSpellItem.TryToPerformCastASpell(character);
         }
 
@@ -88,6 +75,14 @@ namespace NT
                 return;
 
             currentSpellItem.SuccesfullyCastASpell(character);
+        }
+
+        public virtual void CharacterSuccessfullyChargeCastASpell()
+        {
+            if (currentSpellItem == null)
+                return;
+
+            currentSpellItem.SuccesfullyCastFullChargeASpell(character);
         }
 
         public virtual void GetCharacterEquipmentSlotAtStart()

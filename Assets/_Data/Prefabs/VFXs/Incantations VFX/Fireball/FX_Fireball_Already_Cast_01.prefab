@@ -13767,7 +13767,7 @@ GameObject:
   - component: {fileID: 199455834240973142}
   - component: {fileID: 5796843387754820955}
   - component: {fileID: 8666070916403597773}
-  m_Layer: 23
+  m_Layer: 18
   m_Name: FX_Fireball_Already_Cast_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18726,7 +18726,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!114 &8666070916403597773
 MonoBehaviour:
   m_ObjectHideFlags: 0
