@@ -33,7 +33,7 @@ namespace NT
                 CalculateDamageAfterAddedToCharacterDamaged(characterDamaged);
             }
 
-            fireballManager.InstantiateSpellDestructionVFX();
+            fireballManager.WaitThenInstantiateSpellDestructionVFX(0.04f);
         }
     }
 }

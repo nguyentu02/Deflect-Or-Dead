@@ -9,5 +9,10 @@ namespace NT
         public Sprite itemIcon;
         public string itemName;
         public int itemID;
+
+        protected virtual void Awake()
+        {
+
+        }
     }
 }

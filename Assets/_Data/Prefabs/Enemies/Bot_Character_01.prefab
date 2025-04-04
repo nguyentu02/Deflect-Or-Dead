@@ -6673,11 +6673,12 @@ GameObject:
   - component: {fileID: 3013325578715195863}
   - component: {fileID: 3387740750653289344}
   - component: {fileID: 1138591295909360818}
-  - component: {fileID: 2370059124425676205}
-  - component: {fileID: 5533030697813561235}
-  - component: {fileID: 8323322585137435708}
   - component: {fileID: 5302920484631591365}
   - component: {fileID: 4706790984695884280}
+  - component: {fileID: 8323322585137435708}
+  - component: {fileID: 2370059124425676205}
+  - component: {fileID: 5533030697813561235}
+  - component: {fileID: 4385215437377972088}
   - component: {fileID: 1792327951604300885}
   - component: {fileID: 7311585282790628572}
   m_Layer: 12
@@ -6767,6 +6768,7 @@ MonoBehaviour:
   characterStatusManager: {fileID: 0}
   characterDamageReceiverManager: {fileID: 0}
   characterGUIManager: {fileID: 0}
+  characterEffectsManager: {fileID: 0}
   characterTeamID: 1
   soulsRewardOnDeath: 50
   isDead: 0
@@ -6854,6 +6856,68 @@ MonoBehaviour:
   lastAttackAimationCharacterPerformed: 
   DEBUG_maxTimeDeflectPossibleBeforeBeingDefense: 0.23
   DEBUG_deflectTimeCount: 0
+--- !u!114 &5302920484631591365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037161698327657763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6e7d312b6c8e24f9150ecc61de93f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4706790984695884280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037161698327657763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ed41cad409d0c4dabc004303d96bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterHealthPointsBar: {fileID: 5040525927877153163}
+  characterFocusPointsBar: {fileID: 0}
+  characterStaminaPointsBar: {fileID: 0}
+  aiCharacterHealthPointsBar: {fileID: 5040525927877153163}
+  aiCharacterFocusPointsBar: {fileID: 0}
+  aiCharacterStaminaPointsBar: {fileID: 0}
+--- !u!114 &8323322585137435708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037161698327657763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54ce874c2ee06741bc47172b24a7a3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unarmed_No_Weapon: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  currentTwoHandingWeapon: {fileID: 0}
+  currentWeaponHoldInMainHand: {fileID: 0}
+  currentWeaponHoldInOffHand: {fileID: 0}
+  currentConsumableItem: {fileID: 0}
+  currentSpellItem: {fileID: 0}
+  weaponsInMainHandQuickSlots:
+  - {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
+  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  weaponsInOffHandQuickSlots:
+  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  currentWeaponInMainHandIndex: 0
+  currentWeaponInOffHandIndex: 0
+  characterMainHand: {fileID: 0}
+  characterOffHand: {fileID: 0}
+  characterOffHand_Shield: {fileID: 0}
+  characterBack: {fileID: 0}
+  mainHandWeaponDamageCollider: {fileID: 0}
+  offHandWeaponDamageCollider: {fileID: 0}
 --- !u!114 &2370059124425676205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6904,7 +6968,7 @@ MonoBehaviour:
   characterFireDamageAbsorption: 0
   characterHolyDamageAbsorption: 0
   characterLightningDamageAbsorption: 0
---- !u!114 &8323322585137435708
+--- !u!114 &4385215437377972088
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6913,58 +6977,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9037161698327657763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54ce874c2ee06741bc47172b24a7a3d, type: 3}
+  m_Script: {fileID: 11500000, guid: a8292ed64f575024e8cb38f855b3c21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unarmed_No_Weapon: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
-  currentTwoHandingWeapon: {fileID: 0}
-  currentWeaponHoldInMainHand: {fileID: 0}
-  currentWeaponHoldInOffHand: {fileID: 0}
-  currentSpellItem: {fileID: 0}
-  weaponsInMainHandQuickSlots:
-  - {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
-  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
-  weaponsInOffHandQuickSlots:
-  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
-  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
-  currentWeaponInMainHandIndex: 0
-  currentWeaponInOffHandIndex: 0
-  characterMainHand: {fileID: 0}
-  characterOffHand: {fileID: 0}
-  characterOffHand_Shield: {fileID: 0}
-  characterBack: {fileID: 0}
-  mainHandWeaponDamageCollider: {fileID: 0}
-  offHandWeaponDamageCollider: {fileID: 0}
---- !u!114 &5302920484631591365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9037161698327657763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de6e7d312b6c8e24f9150ecc61de93f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4706790984695884280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9037161698327657763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96ed41cad409d0c4dabc004303d96bdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterHealthPointsBar: {fileID: 5040525927877153163}
-  characterFocusPointsBar: {fileID: 0}
-  characterStaminaPointsBar: {fileID: 0}
-  aiCharacterHealthPointsBar: {fileID: 5040525927877153163}
-  aiCharacterFocusPointsBar: {fileID: 0}
-  aiCharacterStaminaPointsBar: {fileID: 0}
 --- !u!143 &1792327951604300885
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7016,7 +7031,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!1 &9066349885079355035
 GameObject:
   m_ObjectHideFlags: 0

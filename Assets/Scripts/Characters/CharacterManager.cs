@@ -15,6 +15,7 @@ namespace NT
         [HideInInspector] public CharacterStatusManager characterStatusManager;
         [HideInInspector] public CharacterDamageReceiverManager characterDamageReceiverManager;
         [HideInInspector] public CharacterGUIManager characterGUIManager;
+        [HideInInspector] public CharacterEffectsManager characterEffectsManager;
 
         [Header("Character Team I.D")]
         public TeamID characterTeamID;
@@ -49,6 +50,7 @@ namespace NT
             characterStatusManager = GetComponent<CharacterStatusManager>();
             characterDamageReceiverManager = GetComponent<CharacterDamageReceiverManager>();
             characterGUIManager = GetComponent<CharacterGUIManager>();
+            characterEffectsManager = GetComponent<CharacterEffectsManager>();
         }
 
         protected virtual void Start()

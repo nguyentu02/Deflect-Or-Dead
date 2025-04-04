@@ -315,6 +315,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use Consumables"",
+                    ""type"": ""Button"",
+                    ""id"": ""98c637db-026b-4587-a969-9980a088256e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -832,6 +841,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ash Of War"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90580c37-3098-48ef-b43c-60c58c7ced62"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Consumables"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1444,6 +1464,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Deflect = m_Player.FindAction("Deflect", throwIfNotFound: true);
         m_Player_Walking = m_Player.FindAction("Walking", throwIfNotFound: true);
         m_Player_AshOfWar = m_Player.FindAction("Ash Of War", throwIfNotFound: true);
+        m_Player_UseConsumables = m_Player.FindAction("Use Consumables", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1562,6 +1583,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Deflect;
     private readonly InputAction m_Player_Walking;
     private readonly InputAction m_Player_AshOfWar;
+    private readonly InputAction m_Player_UseConsumables;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1674,6 +1696,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @AshOfWar => m_Wrapper.m_Player_AshOfWar;
         /// <summary>
+        /// Provides access to the underlying input action "Player/UseConsumables".
+        /// </summary>
+        public InputAction @UseConsumables => m_Wrapper.m_Player_UseConsumables;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1774,6 +1800,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @AshOfWar.started += instance.OnAshOfWar;
             @AshOfWar.performed += instance.OnAshOfWar;
             @AshOfWar.canceled += instance.OnAshOfWar;
+            @UseConsumables.started += instance.OnUseConsumables;
+            @UseConsumables.performed += instance.OnUseConsumables;
+            @UseConsumables.canceled += instance.OnUseConsumables;
         }
 
         /// <summary>
@@ -1860,6 +1889,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @AshOfWar.started -= instance.OnAshOfWar;
             @AshOfWar.performed -= instance.OnAshOfWar;
             @AshOfWar.canceled -= instance.OnAshOfWar;
+            @UseConsumables.started -= instance.OnUseConsumables;
+            @UseConsumables.performed -= instance.OnUseConsumables;
+            @UseConsumables.canceled -= instance.OnUseConsumables;
         }
 
         /// <summary>
@@ -2335,6 +2367,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAshOfWar(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Use Consumables" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseConsumables(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

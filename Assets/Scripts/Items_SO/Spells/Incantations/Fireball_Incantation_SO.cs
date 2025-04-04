@@ -29,7 +29,7 @@ namespace NT
                 (spellBeforeCastVFX, character.characterEquipmentManager.characterMainHand.transform);
             character.characterAnimationManager.CharacterPlayAnimation(spellAnimationName, true);
 
-            fireballBeforeCastVFX.transform.localPosition = new Vector3(0.118f, 0f, 0f);
+            fireballBeforeCastVFX.transform.localPosition = Vector3.zero;
             fireballBeforeCastVFX.transform.localRotation = Quaternion.identity;
             fireballBeforeCastVFX.transform.localScale = Vector3.one;
         }

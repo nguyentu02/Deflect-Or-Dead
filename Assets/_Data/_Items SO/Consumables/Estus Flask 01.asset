@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745f9d3b709743a49aa752d1bb120fa3, type: 3}
+  m_Name: Estus Flask 01
+  m_EditorClassIdentifier: 
+  itemModelPrefab: {fileID: 4115987456556023954, guid: 9f520b00b6cefff4ba8d0732d206aa9f, type: 3}
+  itemIcon: {fileID: 0}
+  itemName: Estus Flask
+  itemID: 0
+  maxConsumablesAmount: 5
+  currentConsumablesAmount: 5
+  usingConsumableAnimation: Potion_Drink
+  canMoveWhenUsing: 1
+  isEstusFlask: 1
+  hpRecoveryAmounts: 250
+  fpRecoveryAmounts: 250
+  hpRecoveryVFX: {fileID: 1278145519697286480, guid: 9395c1e7571f41946a5f8282f78452fd, type: 3}
+  fpRecoveryVFX: {fileID: 2098487571046858553, guid: ae3fc048a5a97674ba78eb9494eb9dab, type: 3}

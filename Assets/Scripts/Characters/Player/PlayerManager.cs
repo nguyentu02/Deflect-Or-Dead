@@ -15,6 +15,7 @@ namespace NT
         [HideInInspector] public PlayerInteractionManager playerInteractionManager;
         [HideInInspector] public PlayerInventoryManager playerInventoryManager;
         [HideInInspector] public PlayerGUIManager playerGUIManager;
+        [HideInInspector] public PlayerEffectsManager playerEffectsManager;
 
         [Header("Player Souls Collected")]
         public int playerSoulsCollected;
@@ -42,6 +43,7 @@ namespace NT
             playerInteractionManager = GetComponent<PlayerInteractionManager>();
             playerInventoryManager = GetComponent<PlayerInventoryManager>();
             playerGUIManager = GetComponent<PlayerGUIManager>();
+            playerEffectsManager = GetComponent<PlayerEffectsManager>();
 
             PlayerCameraManager.instance.player = this;
             PlayerInputManager.instance.player = this;

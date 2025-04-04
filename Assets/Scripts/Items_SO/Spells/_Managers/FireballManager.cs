@@ -29,6 +29,12 @@ namespace NT
 
             if (spellTarget != null)
                 transform.LookAt(spellTarget.transform);
+
+            //if (fireballRigidbody != null)
+            //{
+            //    Vector3 fireballVelocity = fireballRigidbody.linearVelocity;
+            //    fireballRigidbody.linearVelocity = transform.forward + fireballVelocity;
+            //}
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -67,7 +73,6 @@ namespace NT
                 StopCoroutine(destructionVFXCoroutine);
 
             destructionVFXCoroutine = StartCoroutine(WaitThenInstantiateVFX(timeToWait));
-            StartCoroutine(WaitThenInstantiateVFX(timeToWait));
         }
 
         private IEnumerator WaitThenInstantiateVFX(float timeToWait)

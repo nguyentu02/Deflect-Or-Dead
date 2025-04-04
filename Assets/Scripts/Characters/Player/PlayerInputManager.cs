@@ -25,6 +25,7 @@ namespace NT
         [SerializeField] private bool space_Hold_Input = false;
         [SerializeField] private bool leftShift_Input = false;
         [SerializeField] private bool x_Input = false;
+        [SerializeField] private bool r_Input = false;
 
         [SerializeField] private bool leftMouse_Input = false;
         [SerializeField] private bool leftMouse_Hold_Input = false;
@@ -81,6 +82,7 @@ namespace NT
                 inputActions.Player.Walking.canceled += i => x_Input = false;
 
                 //  PLAYER ACTIONS
+                inputActions.Player.UseConsumables.performed += i => r_Input = true;
                 inputActions.Player.Dodge.performed += i => space_Input = true;
                 inputActions.Player.Interact.performed += i => e_Input = true;
                 inputActions.Player.OpenOptions.performed += i => esc_Input = true;
@@ -128,6 +130,7 @@ namespace NT
             HandlePlayerChargeAttackInput();
             HandlePlayerAshOfWarInput();
             HandlePlayerSwitchWeaponInHandsInput();
+            HandlePlayerUsingConsumablesItemInput();
             HandlePlayerInteractInput();
             HandlePlayerOpenMenuOptionsInput();
             HandlePlayerLockOnTargetInput();
@@ -358,6 +361,16 @@ namespace NT
                 leftArrow_Input = false;
 
                 player.playerEquipmentManager.CharacterSwitchOffHandWeapon();
+            }
+        }
+
+        private void HandlePlayerUsingConsumablesItemInput()
+        {
+            if (r_Input)
+            {
+                r_Input = false;
+
+                player.playerEquipmentManager.CharacterAttemptToUseConsumables();
             }
         }
 

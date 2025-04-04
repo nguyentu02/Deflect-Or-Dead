@@ -26550,6 +26550,37 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.22130305, y: -0.05789408, z: 0.000000014901161}
     m_Extent: {x: 0.3015945, y: 0.1929022, z: 0.27307147}
   m_DirtyAABB: 0
+--- !u!1 &3438973502142596706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4045256175715947981}
+  m_Layer: 12
+  m_Name: Riposte Standing Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4045256175715947981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438973502142596706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3382723974091142277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3443858224348870202
 GameObject:
   m_ObjectHideFlags: 0
@@ -26661,6 +26692,7 @@ GameObject:
   - component: {fileID: 3338591726018054580}
   - component: {fileID: 4298279655952102294}
   - component: {fileID: 8306191859998869790}
+  - component: {fileID: 8700724318288866041}
   - component: {fileID: 6987597398943275917}
   - component: {fileID: 8226045373697985023}
   m_Layer: 12
@@ -26732,22 +26764,16 @@ MonoBehaviour:
   characterStatusManager: {fileID: 0}
   characterDamageReceiverManager: {fileID: 0}
   characterGUIManager: {fileID: 0}
+  characterEffectsManager: {fileID: 0}
   characterTeamID: 0
+  soulsRewardOnDeath: 50
   isDead: 0
+  isPerformingAction: 0
   isGrounded: 1
   canMove: 1
   canRotate: 1
-  isPerformingAction: 0
-  isInvulnerable: 0
   isRolling: 0
   isSprinting: 0
-  isChargingAttack: 0
-  canDoComboAttack: 0
-  isAttacking: 0
-  isLockedOn: 0
-  isTwoHanding: 0
-  isTwoHanding_MainWeapon: 0
-  isTwoHanding_OffWeapon: 0
   playerMovementManager: {fileID: 0}
   playerAnimationManager: {fileID: 0}
   playerEquipmentManager: {fileID: 0}
@@ -26757,6 +26783,8 @@ MonoBehaviour:
   playerInteractionManager: {fileID: 0}
   playerInventoryManager: {fileID: 0}
   playerGUIManager: {fileID: 0}
+  playerEffectsManager: {fileID: 0}
+  playerSoulsCollected: 0
 --- !u!114 &2945527708036880773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26792,10 +26820,12 @@ MonoBehaviour:
   fallStartYVelocity: -7
   gravityForce: -25
   groundCheckSphereRadius: 0.3
+  isWalking: 0
   walkingSpeed: 1.5
   runningSpeed: 4
   sprintingSpeed: 6
   rotationSpeed: 15
+  sprintingStaminaCost: 2
   rollDodgeStaminaCost: 15
   backstepDodgeStaminaCost: 12
 --- !u!114 &6980499618031144196
@@ -26814,6 +26844,7 @@ MonoBehaviour:
   currentTwoHandingWeapon: {fileID: 0}
   currentWeaponHoldInMainHand: {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
   currentWeaponHoldInOffHand: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  currentConsumableItem: {fileID: 0}
   currentSpellItem: {fileID: 11400000, guid: e81e868b4228e3f4fa96156eb15a35e3, type: 2}
   weaponsInMainHandQuickSlots:
   - {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
@@ -26824,6 +26855,9 @@ MonoBehaviour:
   currentWeaponInMainHandIndex: -1
   currentWeaponInOffHandIndex: -1
   characterMainHand: {fileID: 0}
+  characterOffHand: {fileID: 0}
+  characterOffHand_Shield: {fileID: 0}
+  characterBack: {fileID: 0}
   mainHandWeaponDamageCollider: {fileID: 0}
   offHandWeaponDamageCollider: {fileID: 0}
 --- !u!114 &357423779565019154
@@ -26839,22 +26873,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTargetCharacter: {fileID: 0}
-  lockOnTransform: {fileID: 0}
-  DEBUG_BackstabLayer:
+  lockOnTransform: {fileID: 4497598845146733535}
+  DEBUG_critical_Layer:
     serializedVersion: 2
-    m_Bits: 2097152
+    m_Bits: 4096
   DEBUG_CriticalAttackRayStartPosition: {fileID: 5096144661856658079}
-  DEBUG_BackstabStandingPosition: {fileID: 0}
+  DEBUG_BackstabStandingPosition: {fileID: 2937047649905014862}
+  DEBUG_RiposteStandingPosition: {fileID: 4045256175715947981}
   DEBUG_PendingCriticalDamage: 0
+  DEBUG_dotValue: 0
+  isLockedOn: 0
+  isStanceBreak: 0
   isUsingMainHand: 0
   isUsingOffHand: 0
+  isTwoHanding: 0
+  isTwoHanding_MainWeapon: 0
+  isTwoHanding_OffWeapon: 0
+  isDefense: 0
+  isDeflect: 0
+  isParrying: 0
+  isAttacking: 0
+  isInvulnerable: 0
+  isChargingAttack: 0
+  canDoComboAttack: 0
+  isCanBeBackstabbed: 1
+  isCanBeRiposted: 0
   isRiposting: 0
   isBackstabbing: 0
-  isRiposted: 0
-  isBackstabbed: 0
+  isBeingRiposted: 0
+  isBeingBackstabbed: 0
+  isFullyChargeFireBall: 0
+  DEBUG_isAlreadyHasOffHandWeapon: 0
   currentWeaponCharacterUsingForAttack: {fileID: 0}
   attackType: 0
   lastAttackAimationCharacterPerformed: 
+  DEBUG_maxTimeDeflectPossibleBeforeBeingDefense: 0.23
+  DEBUG_deflectTimeCount: 0
 --- !u!114 &4195595077197861392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26867,6 +26921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c6b315de29840408dff11230cb0086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterMaxStance: 80
+  characterCurrentStance: 80
   characterVigor: 15
   characterMaxHealth: 0
   characterCurrentHealth: 0
@@ -26876,6 +26932,11 @@ MonoBehaviour:
   characterEndurance: 12
   characterMaxStamina: 0
   characterCurrentStamina: 0
+  characterPhysicalDamageAbsorption: 0
+  characterMagicDamageAbsorption: 0
+  characterFireDamageAbsorption: 0
+  characterHolyDamageAbsorption: 0
+  characterLightningDamageAbsorption: 0
   staminaRegenAmount: 20
   staminaRegenDelay: 2
   staminaRegenTimer: 0
@@ -26936,6 +26997,18 @@ MonoBehaviour:
   characterHealthPointsBar: {fileID: 0}
   characterFocusPointsBar: {fileID: 0}
   characterStaminaPointsBar: {fileID: 0}
+--- !u!114 &8700724318288866041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3473833606363845319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4084da30f64917429aff186642cd029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &6987597398943275917
 CharacterController:
   m_ObjectHideFlags: 0
@@ -26987,7 +27060,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &3476941479145158498
 GameObject:
   m_ObjectHideFlags: 0
@@ -56443,6 +56516,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.27963388, y: -0.018419705, z: -0.005842708}
     m_Extent: {x: 0.25125688, y: 0.2555031, z: 0.117876366}
   m_DirtyAABB: 0
+--- !u!1 &7341369897770204781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2937047649905014862}
+  m_Layer: 12
+  m_Name: Backstab Standing Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2937047649905014862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7341369897770204781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3382723974091142277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7342916295606781993
 GameObject:
   m_ObjectHideFlags: 0
@@ -61758,6 +61862,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5096144661856658079}
+  - {fileID: 2937047649905014862}
+  - {fileID: 4045256175715947981}
   m_Father: {fileID: 8430489685818020566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7998690397922324097

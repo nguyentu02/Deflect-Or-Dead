@@ -15,11 +15,11 @@ namespace NT
         private WeaponItem_SO DEBUG_StoreWeaponInMainHand;
         private WeaponItem_SO DEBUG_StoreWeaponInOffHand;
 
+        [Header("Character Current Consumables Item")]
+        public ConsumableItem_SO currentConsumableItem;
+
         [Header("Character Current Spell Item")]
         public SpellItem_SO currentSpellItem;
-
-        //  DEBUG FIREBALL DELAY CASTING TIME WITH COROUTINE
-        private Coroutine DEBUG_Fireball_Coroutine;
 
         [Header("Character Has Store Weapons In Quick Slots")]
         public WeaponItem_SO[] weaponsInMainHandQuickSlots;
@@ -59,6 +59,14 @@ namespace NT
 
             //  LOAD WEAPON INTO LEFT HAND
             WhichCharacterHandWeWantToLoadWeaponIn(currentWeaponHoldInOffHand, false);
+        }
+
+        public virtual void CharacterAttemptToUseConsumables()
+        {
+            if (currentConsumableItem == null)
+                return;
+
+            currentConsumableItem.AttemptToUseConsumableItem(character);
         }
 
         public virtual void CharacterTryToPerformCastASpell()

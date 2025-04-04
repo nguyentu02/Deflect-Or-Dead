@@ -66,10 +66,10 @@ namespace NT
 
         public virtual void CharacterPlayAnimation
             (string animationName, bool isPerformingAction, 
-            bool canMove = false, bool canRotate = false)
+            bool canMove = false, bool canRotate = false, bool isApplyRootMotion = true)
         {
             character.characterAnimator.CrossFade(animationName, 0.2f);
-            character.characterAnimator.applyRootMotion = isPerformingAction;
+            character.characterAnimator.applyRootMotion = isApplyRootMotion;
             character.isPerformingAction = isPerformingAction;
             character.canMove = canMove;
             character.canRotate = canRotate;
@@ -77,10 +77,10 @@ namespace NT
 
         public virtual void CharacterPlayAttackAnimation
             (string animationName, WeaponItem_SO weapon, CharacterAttackType attackType, bool isAttacking, 
-            bool isPerformingAction, bool canMove = false, bool canRotate = false)
+            bool isPerformingAction, bool canMove = false, bool canRotate = false, bool isApplyRootMotion = true)
         {
             character.characterAnimator.CrossFade(animationName, 0.2f);
-            character.characterAnimator.applyRootMotion = isPerformingAction;
+            character.characterAnimator.applyRootMotion = isApplyRootMotion;
             character.characterCombatManager.currentWeaponCharacterUsingForAttack = weapon;
             character.characterCombatManager.attackType = attackType;
             character.characterCombatManager.isAttacking = isAttacking;

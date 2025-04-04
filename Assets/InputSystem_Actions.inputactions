@@ -229,6 +229,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Use Consumables",
+                    "type": "Button",
+                    "id": "98c637db-026b-4587-a969-9980a088256e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -746,6 +755,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ash Of War",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90580c37-3098-48ef-b43c-60c58c7ced62",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Consumables",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

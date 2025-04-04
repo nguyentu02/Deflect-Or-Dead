@@ -398,6 +398,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 620ea4ddb9419684caecf13e0c819504, type: 2}
     - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: currentConsumableItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 275b48145ced76c40a7ae81db701ae2d, type: 2}
+    - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: 'weaponsInOffHandQuickSlots.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
@@ -427,7 +431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8226045373697985023, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_CollisionDetection
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8306191859998869790, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: characterFocusPointsBar
@@ -484,6 +488,10 @@ PrefabInstance:
     - target: {fileID: 8603036377450849328, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: m_Layer
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700724318288866041, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: DEBUG_delayTimeBeforeRecoveryResources
+      value: 0.77
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -829,6 +837,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5180738852443870647, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180738852443870647, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180738852443870647, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5412946632734399065, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -900,6 +920,10 @@ PrefabInstance:
     - target: {fileID: 9037161698327657763, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_Name
       value: Bot_Character_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037161698327657763, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1097,6 +1121,18 @@ PrefabInstance:
       propertyPath: characterTeamID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5180738852443870647, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180738852443870647, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5180738852443870647, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5412946632734399065, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -1168,6 +1204,10 @@ PrefabInstance:
     - target: {fileID: 9037161698327657763, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
       propertyPath: m_Name
       value: Bot_Character_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037161698327657763, guid: d00c7d932bdeeca46b494fcc6c079172, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
