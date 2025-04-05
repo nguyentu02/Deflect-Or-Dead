@@ -134,7 +134,7 @@ namespace NT
             {
                 targetsDirection = characterCombatManager.currentTargetCharacter.transform.position - transform.position;
                 distanceToTarget = Vector3.Distance(characterCombatManager.currentTargetCharacter.transform.position, transform.position);
-                viewableAngles = Vector3.Angle(targetsDirection, transform.forward);
+                viewableAngles = Vector3.SignedAngle(targetsDirection, transform.forward, Vector3.up);
             }
         }
     }

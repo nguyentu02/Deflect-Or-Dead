@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace NT
 {
@@ -45,8 +46,7 @@ namespace NT
             //  ROTATE WITH NAVMESH AGENT ROTATION
             //HandleEnemyRotateTowardsTarget();
 
-            //  ROTATE MANNUALY, WITH SIMPLE CODE
-            aiCharacter.DEBUG_EnemyManuallyRotateTowardsTarget();
+            ProcessAICharacterRotateTowardsTargetViaAnimation(aiCharacter);
 
             DecideCirclingBehaviorOfEnemyWhenStrafesTargetCharacter();
 
@@ -67,6 +67,46 @@ namespace NT
 
                 randomizeStrafesValue = randomizeHorizontalValue;
             }
+        }
+
+        private void ProcessAICharacterRotateTowardsTargetViaAnimation(AICharacterManager aiCharacter)
+        {
+            if (aiCharacter.isPerformingAction)
+            {
+                aiCharacter.aiCharaterAnimationManager.ProcessCharacterMovementAnimation(0f, 0f, false);
+
+                //  WHEN TURNING TO FIND A TARGET CHARACTER,
+                //  WE WANT TO RESET ALL COMBAT FLAG FOR A NEW ATTACK AFTER THIS
+                ResetStateFlagsBeforeChangesState();
+                return;
+            }
+
+            Vector3 targetsDirection = 
+                aiCharacter.characterCombatManager.currentTargetCharacter.transform.position - 
+                aiCharacter.transform.position;
+
+            float viewableSignedAngles = Vector3.SignedAngle
+                (targetsDirection, aiCharacter.transform.forward, Vector3.up);
+
+            if (viewableSignedAngles >= 100 && viewableSignedAngles <= 180)
+            {
+                aiCharacter.aiCharaterAnimationManager.CharacterPlayAnimation("Protector_TurnL_180_Root", true);
+            }
+            else if (viewableSignedAngles <= -100 && viewableSignedAngles >= -180)
+            {
+                aiCharacter.aiCharaterAnimationManager.CharacterPlayAnimation("Protector_TurnR_180_Root", true);
+            }
+            else if (viewableSignedAngles >= 45 && viewableSignedAngles <= 100)
+            {
+                aiCharacter.aiCharaterAnimationManager.CharacterPlayAnimation("Protector_TurnL_90_Root", true);
+            }
+            else if (viewableSignedAngles <= -45 && viewableSignedAngles >= 100)
+            {
+                aiCharacter.aiCharaterAnimationManager.CharacterPlayAnimation("Protector_TurnR_90_Root", true);
+            }
+
+            //  ROTATE MANNUALY, WITH SIMPLE CODE
+            aiCharacter.DEBUG_EnemyManuallyRotateTowardsTarget();
         }
 
         public override void ResetStateFlagsBeforeChangesState()

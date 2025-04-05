@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6cb441ed73e9f4b9694c38391aab65, type: 3}
+  m_Name: Male_Greaves 02
+  m_EditorClassIdentifier: 
+  itemModelPrefab: {fileID: 0}
+  itemIcon: {fileID: 0}
+  itemName: Greaves 02
+  itemID: 0
+  armorPhysicalAbsorption: 2.5
+  armorMagicAbsorption: 0
+  armorFireAbsorption: 0
+  armorHolyAbsorption: 0
+  armorLightningAbsorption: 0
+  hips_Name: Chr_Hips_Male_02
+  legL_Name: Chr_LegRight_Male_16
+  legR_Name: Chr_LegLeft_Male_16

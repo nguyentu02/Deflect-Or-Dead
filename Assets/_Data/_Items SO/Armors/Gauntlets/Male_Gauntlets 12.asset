@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ce51fe3b92ac445b28fc0181f098f8, type: 3}
+  m_Name: Male_Gauntlets 12
+  m_EditorClassIdentifier: 
+  itemModelPrefab: {fileID: 0}
+  itemIcon: {fileID: 0}
+  itemName: Gauntlets 12
+  itemID: 0
+  armorPhysicalAbsorption: 2.5
+  armorMagicAbsorption: 0
+  armorFireAbsorption: 0
+  armorHolyAbsorption: 0
+  armorLightningAbsorption: 0
+  lowerArmL_Name: Chr_ArmLowerLeft_Male_16
+  lowerArmR_Name: Chr_ArmLowerRight_Male_16
+  gauntletsL_Name: Chr_HandLeft_Male_12
+  gauntletsR_Name: Chr_HandRight_Male_12

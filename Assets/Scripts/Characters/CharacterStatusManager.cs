@@ -39,6 +39,33 @@ namespace NT
         public float characterHolyDamageAbsorption;
         public float characterLightningDamageAbsorption;
 
+        //  DEBUG ABSORPTIONS BONUS WHEN EQUIPMENT ARMORS
+        [Header("Character Bonus Absorptions When Equipped Armors")]
+        public float characterPhysicalDamageAbsorptionOfHelmet;
+        public float characterPhysicalDamageAbsorptionOfChestplate;
+        public float characterPhysicalDamageAbsorptionOfGauntlets;
+        public float characterPhysicalDamageAbsorptionOfGreaves;
+
+        public float characterMagicDamageAbsorptionOfHelmet;
+        public float characterMagicDamageAbsorptionOfChestplate;
+        public float characterMagicDamageAbsorptionOfGauntlets;
+        public float characterMagicDamageAbsorptionOfGreaves;
+
+        public float characterFireDamageAbsorptionOfHelmet;
+        public float characterFireDamageAbsorptionOfChestplate;
+        public float characterFireDamageAbsorptionOfGauntlets;
+        public float characterFireDamageAbsorptionOfGreaves;
+
+        public float characterHolyDamageAbsorptionOfHelmet;
+        public float characterHolyDamageAbsorptionOfChestplate;
+        public float characterHolyDamageAbsorptionOfGauntlets;
+        public float characterHolyDamageAbsorptionOfGreaves;
+
+        public float characterLightningDamageAbsorptionOfHelmet;
+        public float characterLightningDamageAbsorptionOfChestplate;
+        public float characterLightningDamageAbsorptionOfGauntlets;
+        public float characterLightningDamageAbsorptionOfGreaves;
+
         protected virtual void Awake()
         {
             character = GetComponent<CharacterManager>();

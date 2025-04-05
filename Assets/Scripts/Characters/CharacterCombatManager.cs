@@ -436,7 +436,7 @@ namespace NT
         public virtual void PendingCriticalDamageViaVictimCriticalAnimation()
         {
             character.characterDamageReceiverManager.CharacterDamageReceiver
-                (DEBUG_PendingCriticalDamage, "", false, true);
+                (DEBUG_PendingCriticalDamage, 0, 0, 0, 0, "", false, true);
             DEBUG_PendingCriticalDamage = 0f;
         }
 

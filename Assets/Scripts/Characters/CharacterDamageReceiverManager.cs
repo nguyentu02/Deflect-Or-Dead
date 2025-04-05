@@ -17,7 +17,11 @@ namespace NT
         }
 
         public virtual void CharacterDamageReceiver
-            (float damageReceiver, 
+            (float physicalDamage, 
+            float magicDamage, 
+            float fireDamage, 
+            float holyDamage, 
+            float lightningDamage, 
             string damageAnimation = "core_main_hit_reaction_medium_f_01", 
             bool isHasDamageAnimtion = false, bool isHasNewDeadAnimation = false)
         {
@@ -27,7 +31,57 @@ namespace NT
             if (character.isDead)
                 return;
 
-            character.characterStatusManager.characterCurrentHealth -= damageReceiver;
+            float totalPhysicalDamageAbsorption;
+            float totalMagicDamageAbsorption;
+            float totalFireDamageAbsorption;
+            float totalHolyDamageAbsorption;
+            float totalLightningDamageAbsorption;
+
+            totalPhysicalDamageAbsorption = 1 -
+                (1 - character.characterStatusManager.characterPhysicalDamageAbsorptionOfHelmet / 100) *
+                (1 - character.characterStatusManager.characterPhysicalDamageAbsorptionOfChestplate / 100) *
+                (1 - character.characterStatusManager.characterPhysicalDamageAbsorptionOfGauntlets / 100) *
+                (1 - character.characterStatusManager.characterPhysicalDamageAbsorptionOfGreaves / 100);
+
+            physicalDamage -= (physicalDamage * totalPhysicalDamageAbsorption);
+
+            totalMagicDamageAbsorption = 1 -
+                (1 - character.characterStatusManager.characterMagicDamageAbsorptionOfHelmet / 100) *
+                (1 - character.characterStatusManager.characterMagicDamageAbsorptionOfChestplate / 100) *
+                (1 - character.characterStatusManager.characterMagicDamageAbsorptionOfGauntlets / 100) *
+                (1 - character.characterStatusManager.characterMagicDamageAbsorptionOfGreaves / 100);
+
+            magicDamage -= (magicDamage * totalMagicDamageAbsorption);
+
+            totalFireDamageAbsorption = 1 -
+                (1 - character.characterStatusManager.characterFireDamageAbsorptionOfHelmet / 100) *
+                (1 - character.characterStatusManager.characterFireDamageAbsorptionOfChestplate / 100) *
+                (1 - character.characterStatusManager.characterFireDamageAbsorptionOfGauntlets / 100) *
+                (1 - character.characterStatusManager.characterFireDamageAbsorptionOfGreaves / 100);
+
+            fireDamage -= (fireDamage * totalFireDamageAbsorption);
+
+            totalHolyDamageAbsorption = 1 -
+                (1 - character.characterStatusManager.characterHolyDamageAbsorptionOfHelmet / 100) *
+                (1 - character.characterStatusManager.characterHolyDamageAbsorptionOfChestplate / 100) *
+                (1 - character.characterStatusManager.characterHolyDamageAbsorptionOfGauntlets / 100) *
+                (1 - character.characterStatusManager.characterHolyDamageAbsorptionOfGreaves / 100);
+
+            holyDamage -= (holyDamage * totalHolyDamageAbsorption);
+
+            totalLightningDamageAbsorption = 1 -
+                (1 - character.characterStatusManager.characterLightningDamageAbsorptionOfHelmet / 100) *
+                (1 - character.characterStatusManager.characterLightningDamageAbsorptionOfChestplate / 100) *
+                (1 - character.characterStatusManager.characterLightningDamageAbsorptionOfGauntlets / 100) *
+                (1 - character.characterStatusManager.characterLightningDamageAbsorptionOfGreaves / 100);
+
+            lightningDamage -= (lightningDamage * totalLightningDamageAbsorption);
+
+            float finalDamages = physicalDamage + magicDamage + fireDamage + holyDamage + lightningDamage;
+
+            Debug.Log("Total Damage is: " + finalDamages);
+
+            character.characterStatusManager.characterCurrentHealth -= finalDamages;
 
             //  JUST DEBUG FOR PLAYTEST NOW, WILL REFACTOR LATER
             if (isHasDamageAnimtion)

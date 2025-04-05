@@ -6,12 +6,31 @@ namespace NT
     {
         private CharacterManager character;
 
+        //  UNARMED/HAND WEAPON
         public WeaponItem_SO unarmed_No_Weapon;
+
+        //  CHARACTER DEBUG MODELS CHANGER SCRIPTS
+        [SerializeField] protected CharacterModelsChanger helmetModelChanger;
+        [SerializeField] protected CharacterModelsChanger chestplateModelChanger;
+
+        [SerializeField] protected CharacterModelsChanger upperArmModelChanger_L;
+        [SerializeField] protected CharacterModelsChanger lowerArmModelChanger_L;
+        [SerializeField] protected CharacterModelsChanger gauntletsModelChanegr_L;
+
+        [SerializeField] protected CharacterModelsChanger upperArmModelChanger_R;
+        [SerializeField] protected CharacterModelsChanger lowerArmModelChanger_R;
+        [SerializeField] protected CharacterModelsChanger gauntletsModelChanegr_R;
+
+        [SerializeField] protected CharacterModelsChanger hipsModelChanger;
+
+        [SerializeField] protected CharacterModelsChanger greavesModelChanger_L;
+        [SerializeField] protected CharacterModelsChanger greavesModelChanger_R;
 
         [Header("Character Current Weapon Hold In Hands")]
         public WeaponItem_SO currentTwoHandingWeapon;
         public WeaponItem_SO currentWeaponHoldInMainHand;
         public WeaponItem_SO currentWeaponHoldInOffHand;
+
         private WeaponItem_SO DEBUG_StoreWeaponInMainHand;
         private WeaponItem_SO DEBUG_StoreWeaponInOffHand;
 
@@ -27,6 +46,25 @@ namespace NT
 
         public int currentWeaponInMainHandIndex = 0;
         public int currentWeaponInOffHandIndex = 0;
+
+        [Header("Character Current Armors Equipped")]
+        public Head_Armor_SO currentHelmetEquipped;
+        public Body_Armor_SO currentChestplateEquipped;
+        public Hand_Armor_SO currentGauntletsEquipped;
+        public Leg_Armor_SO currentGreavesEquipped;
+
+        [Header("Character Default Naked (Not Equip Anything)")]
+        [SerializeField] protected GameObject nakedHeadGameObject;
+        [SerializeField] protected GameObject nakedBodyGameObject;
+        [SerializeField] protected GameObject nakedUpperArmLGameObject;
+        [SerializeField] protected GameObject nakedLowerArmLGameObject;
+        [SerializeField] protected GameObject nakedHandLGameObject;
+        [SerializeField] protected GameObject nakedUpperArmRGameObject;
+        [SerializeField] protected GameObject nakedLowerArmRGameObject;
+        [SerializeField] protected GameObject nakedHandRGameObject;
+        [SerializeField] protected GameObject nakedHipsGameObject;
+        [SerializeField] protected GameObject nakedLegLGameObject;
+        [SerializeField] protected GameObject nakedLegRGameObject;
 
         [Header("Character Equipment Hand Slots")]
         public WeaponInstantiateTransformWhenEquipped characterMainHand;

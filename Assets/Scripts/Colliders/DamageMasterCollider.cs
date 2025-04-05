@@ -97,6 +97,13 @@ namespace NT
 
                 CalculateDamageAfterAddedToCharacterDamaged(characterDamaged);
             }
+
+            if (other.tag == "Illusionary Wall")
+            {
+                IllusionaryWallInteract illusionaryWall = other.GetComponent<IllusionaryWallInteract>();
+
+                illusionaryWall.wallHasBeenHit = true;
+            }
         }
 
         protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager characterDamaged)
@@ -106,13 +113,9 @@ namespace NT
 
             charactersDamaged.Add(characterDamaged);
 
-            DEBUG_finalDamage = weaponPhysicalDamage + weaponMagicDamage +
-                weaponFireDamage + weaponHolyDamage + weaponLightningDamage;
-
-            Debug.Log(DEBUG_finalDamage);
-
             characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
-                (DEBUG_finalDamage, "core_main_hit_reaction_medium_f_01", true, false);
+                (weaponPhysicalDamage, weaponMagicDamage, weaponFireDamage, weaponHolyDamage, weaponLightningDamage, 
+                "core_main_hit_reaction_medium_f_01", true, false);
         }
 
         protected virtual void CheckForDeflect
@@ -181,15 +184,13 @@ namespace NT
             holyDamageAfterBlocked -= Mathf.RoundToInt(weaponHolyDamage *
                 (characterDamaged.characterStatusManager.characterHolyDamageAbsorption / 100));
 
-            DEBUG_finalDamage =
-                physicalDamageAfterBlocked +
-                magicDamageAfterBlocked +
-                fireDamageAfterBlocked +
-                lightningDamageAfterBlocked +
-                holyDamageAfterBlocked;
-
             characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
-                (DEBUG_finalDamage, "shield_off_guard_block_ping_01", true, false);
+                (physicalDamageAfterBlocked, 
+                magicDamageAfterBlocked, 
+                fireDamageAfterBlocked, 
+                holyDamageAfterBlocked , 
+                lightningDamageAfterBlocked, 
+                "shield_off_guard_block_ping_01", true, false);
         }
 
         public virtual void EnableDamageCollider()
