@@ -26739,7 +26739,7 @@ GameObject:
   - component: {fileID: 8226045373697985023}
   m_Layer: 12
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27005,6 +27005,26 @@ MonoBehaviour:
   characterFireDamageAbsorption: 0
   characterHolyDamageAbsorption: 0
   characterLightningDamageAbsorption: 0
+  characterPhysicalDamageAbsorptionOfHelmet: 0
+  characterPhysicalDamageAbsorptionOfChestplate: 0
+  characterPhysicalDamageAbsorptionOfGauntlets: 0
+  characterPhysicalDamageAbsorptionOfGreaves: 0
+  characterMagicDamageAbsorptionOfHelmet: 0
+  characterMagicDamageAbsorptionOfChestplate: 0
+  characterMagicDamageAbsorptionOfGauntlets: 0
+  characterMagicDamageAbsorptionOfGreaves: 0
+  characterFireDamageAbsorptionOfHelmet: 0
+  characterFireDamageAbsorptionOfChestplate: 0
+  characterFireDamageAbsorptionOfGauntlets: 0
+  characterFireDamageAbsorptionOfGreaves: 0
+  characterHolyDamageAbsorptionOfHelmet: 0
+  characterHolyDamageAbsorptionOfChestplate: 0
+  characterHolyDamageAbsorptionOfGauntlets: 0
+  characterHolyDamageAbsorptionOfGreaves: 0
+  characterLightningDamageAbsorptionOfHelmet: 0
+  characterLightningDamageAbsorptionOfChestplate: 0
+  characterLightningDamageAbsorptionOfGauntlets: 0
+  characterLightningDamageAbsorptionOfGreaves: 0
   staminaRegenAmount: 20
   staminaRegenDelay: 2
   staminaRegenTimer: 0

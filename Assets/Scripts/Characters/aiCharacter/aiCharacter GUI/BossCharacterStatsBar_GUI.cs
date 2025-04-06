@@ -11,6 +11,13 @@ namespace NT
         protected override void Awake()
         {
             base.Awake();
+
+            EnableBossHealthBarToPlayer_GUI();
+        }
+
+        public override void SetCurrentStatusPointsOfCharacter_GUI(float currentStatusValue)
+        {
+            slider.value = currentStatusValue;
         }
 
         public void EnableBossHealthBarToPlayer_GUI()

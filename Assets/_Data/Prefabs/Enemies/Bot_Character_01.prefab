@@ -6675,9 +6675,9 @@ GameObject:
   - component: {fileID: 1138591295909360818}
   - component: {fileID: 5302920484631591365}
   - component: {fileID: 4706790984695884280}
+  - component: {fileID: 1560908537120793983}
   - component: {fileID: 8323322585137435708}
   - component: {fileID: 2370059124425676205}
-  - component: {fileID: 5533030697813561235}
   - component: {fileID: 4385215437377972088}
   - component: {fileID: 1792327951604300885}
   - component: {fileID: 7311585282790628572}
@@ -6783,6 +6783,7 @@ MonoBehaviour:
   aiCharacterCombatManager: {fileID: 0}
   aiCharacterGUIManager: {fileID: 0}
   aiCharacterDamageReceiverManager: {fileID: 0}
+  aiCharacterStatusManager: {fileID: 0}
   aiCurrentState: {fileID: 0}
   aiAmbushState: {fileID: 0}
   aiIdleState: {fileID: 0}
@@ -6886,6 +6887,54 @@ MonoBehaviour:
   aiCharacterHealthPointsBar: {fileID: 5040525927877153163}
   aiCharacterFocusPointsBar: {fileID: 0}
   aiCharacterStaminaPointsBar: {fileID: 0}
+--- !u!114 &1560908537120793983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037161698327657763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb5c8c2eca3a80144be24688805a7b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterMaxStance: 80
+  characterCurrentStance: 80
+  characterVigor: 15
+  characterMaxHealth: 0
+  characterCurrentHealth: 0
+  characterMind: 10
+  characterMaxFocusPoints: 0
+  characterCurrentFocusPoints: 0
+  characterEndurance: 12
+  characterMaxStamina: 0
+  characterCurrentStamina: 0
+  characterPhysicalDamageAbsorption: 0
+  characterMagicDamageAbsorption: 0
+  characterFireDamageAbsorption: 0
+  characterHolyDamageAbsorption: 0
+  characterLightningDamageAbsorption: 0
+  characterPhysicalDamageAbsorptionOfHelmet: 0
+  characterPhysicalDamageAbsorptionOfChestplate: 0
+  characterPhysicalDamageAbsorptionOfGauntlets: 0
+  characterPhysicalDamageAbsorptionOfGreaves: 0
+  characterMagicDamageAbsorptionOfHelmet: 0
+  characterMagicDamageAbsorptionOfChestplate: 0
+  characterMagicDamageAbsorptionOfGauntlets: 0
+  characterMagicDamageAbsorptionOfGreaves: 0
+  characterFireDamageAbsorptionOfHelmet: 0
+  characterFireDamageAbsorptionOfChestplate: 0
+  characterFireDamageAbsorptionOfGauntlets: 0
+  characterFireDamageAbsorptionOfGreaves: 0
+  characterHolyDamageAbsorptionOfHelmet: 0
+  characterHolyDamageAbsorptionOfChestplate: 0
+  characterHolyDamageAbsorptionOfGauntlets: 0
+  characterHolyDamageAbsorptionOfGreaves: 0
+  characterLightningDamageAbsorptionOfHelmet: 0
+  characterLightningDamageAbsorptionOfChestplate: 0
+  characterLightningDamageAbsorptionOfGauntlets: 0
+  characterLightningDamageAbsorptionOfGreaves: 0
 --- !u!114 &8323322585137435708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6899,6 +6948,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unarmed_No_Weapon: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  helmetModelChanger: {fileID: 0}
+  chestplateModelChanger: {fileID: 0}
+  upperArmModelChanger_L: {fileID: 0}
+  lowerArmModelChanger_L: {fileID: 0}
+  gauntletsModelChanegr_L: {fileID: 0}
+  upperArmModelChanger_R: {fileID: 0}
+  lowerArmModelChanger_R: {fileID: 0}
+  gauntletsModelChanegr_R: {fileID: 0}
+  hipsModelChanger: {fileID: 0}
+  greavesModelChanger_L: {fileID: 0}
+  greavesModelChanger_R: {fileID: 0}
   currentTwoHandingWeapon: {fileID: 0}
   currentWeaponHoldInMainHand: {fileID: 0}
   currentWeaponHoldInOffHand: {fileID: 0}
@@ -6912,6 +6972,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
   currentWeaponInMainHandIndex: 0
   currentWeaponInOffHandIndex: 0
+  currentHelmetEquipped: {fileID: 0}
+  currentChestplateEquipped: {fileID: 0}
+  currentGauntletsEquipped: {fileID: 0}
+  currentGreavesEquipped: {fileID: 0}
+  nakedHeadGameObject: {fileID: 0}
+  nakedBodyGameObject: {fileID: 0}
+  nakedUpperArmLGameObject: {fileID: 0}
+  nakedLowerArmLGameObject: {fileID: 0}
+  nakedHandLGameObject: {fileID: 0}
+  nakedUpperArmRGameObject: {fileID: 0}
+  nakedLowerArmRGameObject: {fileID: 0}
+  nakedHandRGameObject: {fileID: 0}
+  nakedHipsGameObject: {fileID: 0}
+  nakedLegLGameObject: {fileID: 0}
+  nakedLegRGameObject: {fileID: 0}
   characterMainHand: {fileID: 0}
   characterOffHand: {fileID: 0}
   characterOffHand_Shield: {fileID: 0}
@@ -6940,34 +7015,6 @@ MonoBehaviour:
   fallStartYVelocity: -7
   gravityForce: -25
   groundCheckSphereRadius: 1
---- !u!114 &5533030697813561235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9037161698327657763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078be0e40a2c40f4799c2e4ebce051f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterMaxStance: 80
-  characterCurrentStance: 80
-  characterVigor: 15
-  characterMaxHealth: 0
-  characterCurrentHealth: 0
-  characterMind: 10
-  characterMaxFocusPoints: 0
-  characterCurrentFocusPoints: 0
-  characterEndurance: 12
-  characterMaxStamina: 0
-  characterCurrentStamina: 0
-  characterPhysicalDamageAbsorption: 0
-  characterMagicDamageAbsorption: 0
-  characterFireDamageAbsorption: 0
-  characterHolyDamageAbsorption: 0
-  characterLightningDamageAbsorption: 0
 --- !u!114 &4385215437377972088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6980,6 +7027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8292ed64f575024e8cb38f855b3c21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_FlaskModelInstantiatedInCharacterHand: {fileID: 0}
+  DEBUG_delayTimeBeforeRecoveryResources: 0.4
 --- !u!143 &1792327951604300885
 CharacterController:
   m_ObjectHideFlags: 0

@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace NT
 {
-    public class BossCombatManager : AICharacterCombatManager
+    public class AICharacterStatusManager : CharacterStatusManager
     {
-        private BossManager bossCharacter;
+        private AICharacterManager aiCharacter;
 
         protected override void Awake()
         {
             base.Awake();
 
-            bossCharacter = GetComponent<BossManager>();
+            aiCharacter = GetComponent<AICharacterManager>();
         }
 
         protected override void Start()

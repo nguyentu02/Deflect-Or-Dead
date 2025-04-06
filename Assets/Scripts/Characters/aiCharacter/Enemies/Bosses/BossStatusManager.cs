@@ -1,16 +1,21 @@
 using UnityEngine;
 
-public class BossStatusManager : MonoBehaviour
+namespace NT
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class BossStatusManager : AICharacterStatusManager
     {
-        
-    }
+        private BossManager bossCharacter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected override void Awake()
+        {
+            base.Awake();
+
+            bossCharacter = GetComponent<BossManager>();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+        }
     }
 }

@@ -56,6 +56,14 @@ namespace NT
         CriticalAttack02,
     }
 
+    public enum EnemyType
+    {
+        Creep,
+        Normal,
+        Advanced,
+        TheBoss,
+    }
+
     public enum DEBUG_ItemInteractType
     {
         isItem,

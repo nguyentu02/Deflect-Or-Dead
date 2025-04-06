@@ -11,6 +11,10 @@ namespace NT
         [HideInInspector] public AICharacterCombatManager aiCharacterCombatManager;
         [HideInInspector] public AICharacterGUIManager aiCharacterGUIManager;
         [HideInInspector] public AICharacterDamageReceiverManager aiCharacterDamageReceiverManager;
+        [HideInInspector] public AICharacterStatusManager aiCharacterStatusManager;
+
+        [Header("AI Enemy Character Type")]
+        public EnemyType enemyType;
 
         [Header("Enemy Current State")]
         public AISate aiCurrentState;
@@ -43,6 +47,7 @@ namespace NT
             aiCharacterCombatManager = GetComponent<AICharacterCombatManager>();
             aiCharacterGUIManager = GetComponent<AICharacterGUIManager>();
             aiCharacterDamageReceiverManager = GetComponent<AICharacterDamageReceiverManager>();
+            aiCharacterStatusManager = GetComponent<AICharacterStatusManager>();
 
             //  ENEMY STATE MACHINE COMPONENTS
             aiAmbushState = GetComponentInChildren<AIAmbushState>();
@@ -66,6 +71,9 @@ namespace NT
             HandleEnemyCharacterStates();
 
             DEBUG_HandleCoolDownUntilEnemyCanAttackTargetAgain();
+
+            if (enemyType == EnemyType.TheBoss)
+                return;
 
             aiCharacterGUIManager.DEBUG_ShowUpAICharacterHealthBarOnHeadForPlayerSee_GUI();
         }
