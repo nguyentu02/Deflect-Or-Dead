@@ -7,8 +7,11 @@ namespace NT
         private CharacterManager character;
 
         [Header("Character Stance Points")]
-        public int characterMaxStance = 80;
-        public int characterCurrentStance = 80;
+        public float characterCurrentStance;
+        public float characterArmorPoiseBonus;
+        public float characterWeaponAttackPoiseBonus;
+        public float stanceResetTime = 15f;
+        public float resetStanceTimer = 0f;
 
         [Header("Character Status")]
         //  VIGOR
@@ -79,7 +82,7 @@ namespace NT
         public virtual void SetMaximumCharacterStatsWhenStart()
         {
             //  STANCE
-            characterCurrentStance = characterMaxStance;
+            characterCurrentStance = characterArmorPoiseBonus;
 
             //  CHARACTER HEALTH
             characterMaxHealth = GetMaximumHealthBasedOnVigor();
@@ -134,6 +137,18 @@ namespace NT
 
             if (characterCurrentFocusPoints <= 0f)
                 characterCurrentFocusPoints = 0f;
+        }
+
+        public virtual void HandleStanceResetAfterTime()
+        {
+            if (resetStanceTimer > 0f)
+            {
+                resetStanceTimer -= Time.deltaTime;
+            }
+            else
+            {
+                characterCurrentStance = characterArmorPoiseBonus;
+            }
         }
     }
 }

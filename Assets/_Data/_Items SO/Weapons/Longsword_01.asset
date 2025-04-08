@@ -19,11 +19,19 @@ MonoBehaviour:
   weaponAnimator: {fileID: 22100000, guid: a86a702b2e5e1684d9627a5153b695c9, type: 2}
   weaponClass: 2
   weaponType: 0
+  weaponAshOfWar: {fileID: 0}
+  weaponPoiseDamage: 36
+  weaponPoiseBonusWhenAttack: 20
   weaponPhysicalDamage: 130
   weaponMagicDamage: 0
   weaponFireDamage: 0
   weaponHolyDamage: 0
   weaponLightningDamage: 0
+  weaponPhysicalDamageAbsorption: 0
+  weaponMagicDamageAbsorption: 0
+  weaponFireDamageAbsorption: 0
+  weaponHolyDamageAbsorption: 0
+  weaponLightningDamageAbsorption: 0
   weaponCriticalDamageMultiplier: 100
   oh_Light_Attack_01: straight_sword_main_light_attack_01
   oh_Light_Attack_02: straight_sword_main_light_attack_02

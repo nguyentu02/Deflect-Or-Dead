@@ -5,10 +5,10 @@ namespace NT
     public class AIAttackTargetState : AISate
     {
         [Header("Enemy Attack Settings")]
-        public float enemyAttackRangeRadius = 3f;
-        public EnemyAction enemyCurrentAttackAction;
-        public EnemyAction[] enemyAttackActions;
-        private EnemyAttackAction DEBUG_StoreEnemyComboAttackAction;
+        public float aiCharacterAttackRangeRadius = 3f;
+        public EnemyAttackAction aiCharacterCurrentAttackAction;
+        public EnemyAttackAction[] aiCharacterAttackActions;
+        private EnemyAttackAction DEBUG_StoreAICharacterComboAttackAction;
 
         [Header("Enemy Combo Attack")]
         public bool isCanDoCombo = false;
@@ -16,9 +16,6 @@ namespace NT
 
         public override AISate SwitchToState(AICharacterManager aiCharacter)
         {
-            //  USE ENEMY ACTION SRCIPT AS ENEMY ATTACK ACTION SCRIPT
-            EnemyAttackAction enemyAttackAction = enemyCurrentAttackAction as EnemyAttackAction;
-
             if (aiCharacter.isPerformingAction)
             {
                 aiCharacter.aiCharaterAnimationManager.ProcessCharacterMovementAnimation(0f, 0f, false);
@@ -27,19 +24,19 @@ namespace NT
 
             aiCharacter.DEBUG_EnemyManuallyRotateTowardsTarget();
 
-            if (isCanDoCombo && DEBUG_StoreEnemyComboAttackAction != null)
+            if (isCanDoCombo && DEBUG_StoreAICharacterComboAttackAction != null)
             {
-                DEBUG_HandleEnemyAttackTargetWithCombo(aiCharacter, DEBUG_StoreEnemyComboAttackAction);
+                DEBUG_HandleEnemyAttackTargetWithCombo(aiCharacter, DEBUG_StoreAICharacterComboAttackAction);
                 return this;
             }
 
-            if (enemyCurrentAttackAction != null)
+            if (aiCharacterCurrentAttackAction != null)
             {
                 //  IF POSSIBLE, STADING AND ATTACK OUR TARGET
-                if (aiCharacter.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
-                    aiCharacter.viewableAngles >= enemyAttackAction.minimumAttackAngle)
+                if (aiCharacter.viewableAngles <= aiCharacterCurrentAttackAction.maximumAttackAngle &&
+                    aiCharacter.viewableAngles >= aiCharacterCurrentAttackAction.minimumAttackAngle)
                 {
-                    DEBUG_HandleEnemyAttackTargetIfPossible(aiCharacter, enemyAttackAction);
+                    DEBUG_HandleEnemyAttackTargetIfPossible(aiCharacter, aiCharacterCurrentAttackAction);
 
                     //  ROLL FOR CANDO COMBO ATTACK, IF CAN COMBO ATTACK, RETURN TOP AND PERFORM IT
                     if (RollForComboAttackChance())
@@ -48,7 +45,7 @@ namespace NT
                 //  IF SELECTED ATTACK IS NOT ABLE TO USE (BAD ANGLE, BAD DISTANCE) CHOOSE THE NEW ONE
                 else
                 {
-                    enemyCurrentAttackAction = null;
+                    aiCharacterCurrentAttackAction = null;
                     return aiCharacter.aiCombatStanceState;
                 }
             }
@@ -73,9 +70,9 @@ namespace NT
 
             int maxScore = 0;
 
-            for (int i = 0; i < enemyAttackActions.Length; i++)
+            for (int i = 0; i < aiCharacterAttackActions.Length; i++)
             {
-                EnemyAttackAction enemyAttackAction = enemyAttackActions[i] as EnemyAttackAction;
+                EnemyAttackAction enemyAttackAction = aiCharacterAttackActions[i];
 
                 if (aiCharacter.distanceToTarget <= enemyAttackAction.maximumDistanceNeededToAttack &&
                     aiCharacter.distanceToTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
@@ -91,9 +88,9 @@ namespace NT
             int randomScore = Random.Range(0, maxScore);
             int temporaryScore = 0;
 
-            for (int i = 0; i < enemyAttackActions.Length; i++)
+            for (int i = 0; i < aiCharacterAttackActions.Length; i++)
             {
-                EnemyAttackAction enemyAttackAction = enemyAttackActions[i] as EnemyAttackAction;
+                EnemyAttackAction enemyAttackAction = aiCharacterAttackActions[i];
 
                 if (aiCharacter.distanceToTarget <= enemyAttackAction.maximumDistanceNeededToAttack &&
                     aiCharacter.distanceToTarget >= enemyAttackAction.minimumDistanceNeededToAttack)
@@ -101,13 +98,13 @@ namespace NT
                     if (aiCharacter.viewableAngles <= enemyAttackAction.maximumAttackAngle &&
                         aiCharacter.viewableAngles >= enemyAttackAction.minimumAttackAngle)
                     {
-                        if (enemyCurrentAttackAction != null)
+                        if (aiCharacterCurrentAttackAction != null)
                             return;
 
                         temporaryScore += enemyAttackAction.attackScore;
 
                         if (temporaryScore > randomScore)
-                            enemyCurrentAttackAction = enemyAttackAction;
+                            aiCharacterCurrentAttackAction = enemyAttackAction;
                     }
                 }
             }
@@ -119,21 +116,21 @@ namespace NT
         {
             //  DEBUG STORE ACTION OF ENEMY
             if (currentAttack.isHasComboAttackAction)
-                DEBUG_StoreEnemyComboAttackAction = currentAttack.comboAttackAction;
+                DEBUG_StoreAICharacterComboAttackAction = currentAttack.comboAttackAction;
 
             aiCharacter.timeToNextAttack = currentAttack.timeToNextAttack;
-            enemyCurrentAttackAction.NPCPerformAnAction(aiCharacter);
-            enemyCurrentAttackAction = null;
+            aiCharacterCurrentAttackAction.NPCPerformAnAction(aiCharacter);
+            aiCharacterCurrentAttackAction = null;
         }
 
         private void DEBUG_HandleEnemyAttackTargetWithCombo
             (AICharacterManager aiCharacter, EnemyAttackAction currentAttack)
         {
             aiCharacter.timeToNextAttack = currentAttack.timeToNextAttack;
-            enemyCurrentAttackAction = currentAttack;
-            enemyCurrentAttackAction.NPCPerformAnAction(aiCharacter);
-            enemyCurrentAttackAction = null;
-            DEBUG_StoreEnemyComboAttackAction = null;
+            aiCharacterCurrentAttackAction = currentAttack;
+            aiCharacterCurrentAttackAction.NPCPerformAnAction(aiCharacter);
+            aiCharacterCurrentAttackAction = null;
+            DEBUG_StoreAICharacterComboAttackAction = null;
         }
 
         //  ROLLS FOR CHANCE FUNC

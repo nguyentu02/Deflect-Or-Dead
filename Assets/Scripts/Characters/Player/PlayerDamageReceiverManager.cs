@@ -19,17 +19,12 @@ namespace NT
         }
 
         public override void CharacterDamageReceiver
-            (float physicalDamage, 
-            float magicDamage, 
-            float fireDamage, 
-            float holyDamage, 
-            float lightningDamage, 
+            (float physicalDamage, float magicDamage, float fireDamage, float holyDamage, float lightningDamage, 
             string damageAnimation = "core_main_hit_reaction_medium_f_01", 
-            bool isHasDamageAnimtion = false, bool isHasNewDeadAnimation = false)
+            bool isHasDamageAnimtion = false, bool isHasNewDeadAnimation = false, bool isCanMoveWhileGetHit = false)
         {
-            base.CharacterDamageReceiver
-                (physicalDamage, magicDamage, fireDamage, holyDamage, lightningDamage, 
-                damageAnimation, isHasDamageAnimtion, isHasNewDeadAnimation);
+            base.CharacterDamageReceiver(physicalDamage, magicDamage, fireDamage, holyDamage, lightningDamage, 
+                damageAnimation, isHasDamageAnimtion, isHasNewDeadAnimation, isCanMoveWhileGetHit);
 
             if (player.playerGUIManager.characterHealthPointsBar != null)
                 player.playerGUIManager.characterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI

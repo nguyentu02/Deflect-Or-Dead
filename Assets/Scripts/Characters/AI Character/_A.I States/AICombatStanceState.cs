@@ -25,7 +25,7 @@ namespace NT
                 return this;
 
             //  CHECK IF IN RANGE ATTACK, SWITCH TO STATE ATTACK
-            if (aiCharacter.distanceToTarget <= aiCharacter.aiAttackTargetState.enemyAttackRangeRadius)
+            if (aiCharacter.distanceToTarget <= aiCharacter.aiAttackTargetState.aiCharacterAttackRangeRadius)
             {
                 ResetStateFlagsBeforeChangesState();
                 return aiCharacter.aiAttackTargetState;

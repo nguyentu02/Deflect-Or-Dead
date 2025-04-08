@@ -24,9 +24,12 @@ namespace NT
             {
                 for (int i = 0; i < bossCharacters.Count; i++)
                 {
-                    if (bossCharacters[i] == null)
+                    if (bossCharacters[i] == null || 
+                        //  DEBUG MAKE SURE DON'T NULL WHEN TESTING GAME
+                        !bossCharacters[i].gameObject.activeInHierarchy)
                         continue;
 
+                    bossCharacters[i].isRest = false;
                     bossCharacters[i].bossGUIManager.ShowUpTheBossHealthBarAfterPlayerPassThroughTheFogWall_GUI();
                 }
             }

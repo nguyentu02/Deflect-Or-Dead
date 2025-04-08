@@ -9,6 +9,10 @@ namespace NT
 
         [SerializeField] protected Collider damageCollider;
 
+        [Header("Weapon Break Stance/Stance")]
+        public float weaponPoiseDamage;
+        public float weaponPoiseBonusWhenAttack;
+
         [Header("Weapon Damages")]
         public float weaponPhysicalDamage;
         public float weaponMagicDamage;
@@ -108,14 +112,49 @@ namespace NT
 
         protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager characterDamaged)
         {
+            BossManager bossCharacter = characterDamaged as BossManager;
+
             if (charactersDamaged.Contains(characterDamaged))
                 return;
 
             charactersDamaged.Add(characterDamaged);
 
-            characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
-                (weaponPhysicalDamage, weaponMagicDamage, weaponFireDamage, weaponHolyDamage, weaponLightningDamage, 
-                "core_main_hit_reaction_medium_f_01", true, false);
+            //  POISE DAMAGES
+            characterDamaged.characterStatusManager.resetStanceTimer = characterDamaged.characterStatusManager.stanceResetTime;
+            characterDamaged.characterStatusManager.characterCurrentStance -= weaponPoiseDamage;
+
+            if (bossCharacter != null)
+            {
+                if (characterDamaged.characterStatusManager.characterCurrentStance > weaponPoiseDamage)
+                {
+                    characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
+                        (weaponPhysicalDamage, weaponMagicDamage, weaponFireDamage, weaponHolyDamage, weaponLightningDamage,
+                        "core_main_hit_reaction_medium_f_01");
+                }
+                else
+                {
+                    characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
+                        (weaponPhysicalDamage, weaponMagicDamage, weaponFireDamage, weaponHolyDamage, weaponLightningDamage,
+                        "core_main_hit_reaction_medium_f_01");
+                    //  BREAK STANCE, MAKE WHO CHARACTER IS BEING DEFLECT CAN BE RIPOSTE
+                    characterDamaged.characterCombatManager.CharacterStanceBreaking("Break_Stance_01", true);
+                }
+            }
+            else
+            {
+                if (characterDamaged.characterStatusManager.characterCurrentStance > weaponPoiseDamage)
+                {
+                    characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
+                        (weaponPhysicalDamage, weaponMagicDamage, weaponFireDamage, weaponHolyDamage, weaponLightningDamage,
+                        "core_main_hit_reaction_ping_f_01", true, false, true);
+                }
+                else
+                {
+                    characterDamaged.characterDamageReceiverManager.CharacterDamageReceiver
+                        (weaponPhysicalDamage, weaponMagicDamage, weaponFireDamage, weaponHolyDamage, weaponLightningDamage,
+                        "core_main_hit_reaction_medium_f_01", true);
+                }
+            }
         }
 
         protected virtual void CheckForDeflect
@@ -123,6 +162,11 @@ namespace NT
         {
             characterBeingDeflected.characterAnimationManager.CharacterPlayAnimation
                 ("GhostSamurai_DefenseR_Rebound_Root", true);
+
+            //  JUST DEBUG FOR PLAYTEST DEFLECT SYSTEM
+            characterBeingDeflected.characterStatusManager.resetStanceTimer = 
+                characterBeingDeflected.characterStatusManager.stanceResetTime;
+            characterBeingDeflected.characterStatusManager.characterCurrentStance -= (weaponPoiseDamage * 2f);
 
             //  DEBUG FOR CHOOSE ANIMATION DELFECT OF CHARACTER DEFLECTING
             int randomScore = Random.Range(0, 100);
@@ -136,15 +180,8 @@ namespace NT
 
             //  JUST DEBUG FOR NOW, DEDUCT 40 STANCE POINT PER DEFLECT (VIA ANIMATION EVENT)
             if (characterBeingDeflected.characterStatusManager.characterCurrentStance <= 0)
-            {
                 //  BREAK STANCE, MAKE WHO CHARACTER IS BEING DEFLECT CAN BE RIPOSTE
-                characterBeingDeflected.characterCombatManager.isStanceBreak = true;
-                characterBeingDeflected.characterCombatManager.EnableIsCanBeRiposted();
-
-                //  RESET CHARACTER STANCE TO MAX AFTER BREAK
-                characterBeingDeflected.characterStatusManager.characterCurrentStance = 
-                    characterBeingDeflected.characterStatusManager.characterMaxStance;
-            }
+                characterBeingDeflected.characterCombatManager.CharacterStanceBreaking("", false);
 
             DisableDamageCollider();
         }
@@ -190,7 +227,7 @@ namespace NT
                 fireDamageAfterBlocked, 
                 holyDamageAfterBlocked , 
                 lightningDamageAfterBlocked, 
-                "shield_off_guard_block_ping_01", true, false);
+                "shield_off_guard_block_ping_01", true, false, true);
         }
 
         public virtual void EnableDamageCollider()

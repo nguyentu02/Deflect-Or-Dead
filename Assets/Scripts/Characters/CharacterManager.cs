@@ -68,6 +68,7 @@ namespace NT
 
             //  DEBUG KEEP STATUS VALUE ALWAYS POSITIVE
             characterStatusManager.DEBUG_TrackingStatusPointsAndGetThemNeverNegativeValue();
+            characterStatusManager.HandleStanceResetAfterTime();
 
             //  DEBUG FOR DEFENSE SYSTEM
             characterCombatManager.DEBUG_TrackingIfCharacterAlreadyHasWeaponInOffHand();

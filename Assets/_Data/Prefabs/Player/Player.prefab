@@ -26989,8 +26989,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c6b315de29840408dff11230cb0086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterMaxStance: 80
   characterCurrentStance: 80
+  characterArmorPoiseBonus: 80
+  characterWeaponAttackPoiseBonus: 0
+  stanceResetTime: 8
+  resetStanceTimer: 0
   characterVigor: 15
   characterMaxHealth: 0
   characterCurrentHealth: 0

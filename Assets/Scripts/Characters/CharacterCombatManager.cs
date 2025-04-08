@@ -432,6 +432,19 @@ namespace NT
                 (character.characterStatusManager.characterCurrentStamina);
         }
 
+        public virtual void CharacterStanceBreaking(string stanceBreakAnimation, bool isHasStanceBreakAnimation)
+        {
+            isStanceBreak = true;
+            EnableIsCanBeRiposted();
+
+            if (isHasStanceBreakAnimation)
+                character.characterAnimationManager.CharacterPlayAnimation(stanceBreakAnimation, true);
+
+            //  RESET CHARACTER STANCE TO MAX AFTER BREAK
+            character.characterStatusManager.characterCurrentStance =
+                character.characterStatusManager.characterArmorPoiseBonus;
+        }
+
         //  ANIMATION EVENTS
         public virtual void PendingCriticalDamageViaVictimCriticalAnimation()
         {
@@ -478,6 +491,18 @@ namespace NT
         public virtual void DisableIsParrying()
         {
             isParrying = false;
+        }
+
+        public virtual void GrantPoiseOfCharacterWhileCharacterIsAttacking()
+        {
+            character.characterStatusManager.characterCurrentStance += 
+                character.characterCombatManager.currentWeaponCharacterUsingForAttack.weaponPoiseBonusWhenAttack;
+        }
+
+        public virtual void ResetCharacterPoiseBonusOfWeaponAfterAttacking()
+        {
+            character.characterStatusManager.characterCurrentStance = 
+                character.characterStatusManager.characterArmorPoiseBonus;
         }
 
         //  DEBUG FUNC

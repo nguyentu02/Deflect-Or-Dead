@@ -6784,6 +6784,7 @@ MonoBehaviour:
   aiCharacterGUIManager: {fileID: 0}
   aiCharacterDamageReceiverManager: {fileID: 0}
   aiCharacterStatusManager: {fileID: 0}
+  enemyType: 0
   aiCurrentState: {fileID: 0}
   aiAmbushState: {fileID: 0}
   aiIdleState: {fileID: 0}
@@ -6899,8 +6900,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb5c8c2eca3a80144be24688805a7b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterMaxStance: 80
   characterCurrentStance: 80
+  characterArmorPoiseBonus: 80
+  characterWeaponAttackPoiseBonus: 0
+  stanceResetTime: 8
+  resetStanceTimer: 0
   characterVigor: 15
   characterMaxHealth: 0
   characterCurrentHealth: 0
@@ -7190,9 +7194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f088df06f4fe146a86459a7ad59c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAttackRangeRadius: 3
-  enemyCurrentAttackAction: {fileID: 0}
-  enemyAttackActions:
+  aiCharacterAttackRangeRadius: 3
+  aiCharacterCurrentAttackAction: {fileID: 0}
+  aiCharacterAttackActions:
   - {fileID: 11400000, guid: d64f2a77fd494604c80d8c61bb420e82, type: 2}
   - {fileID: 11400000, guid: f9925a3766768b7478f925041181c0e3, type: 2}
   isCanDoCombo: 0

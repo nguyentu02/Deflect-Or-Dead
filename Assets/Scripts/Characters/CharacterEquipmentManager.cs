@@ -339,7 +339,8 @@ namespace NT
                 GetComponentInChildren<DamageMasterCollider>();
 
             //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
-            SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem(mainHandWeaponDamageCollider);
+            SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem
+                (currentWeaponHoldInMainHand, mainHandWeaponDamageCollider);
         }
 
         protected virtual void LoadDamageColliderOfCharacterOffHandWeapon()
@@ -354,32 +355,39 @@ namespace NT
                     GetComponentInChildren<DamageMasterCollider>();
 
             //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
-            SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(offHandWeaponDamageCollider);
+            SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem
+                (currentWeaponHoldInOffHand, offHandWeaponDamageCollider);
 
             //  DEBUG LOAD ABSORPTION JUST APPLY WITH OFF HAND WEAPON
             SetDamageAbsorptionsForCharacterInCaseDefense(offHandWeaponDamageCollider, false);
         }
 
-        private void SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
+        private void SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem
+            (WeaponItem_SO weapon, DamageMasterCollider damageCollider)
         {
             damageCollider.characterCausingDamage = character;
 
-            damageCollider.weaponPhysicalDamage = currentWeaponHoldInMainHand.weaponPhysicalDamage;
-            damageCollider.weaponMagicDamage = currentWeaponHoldInMainHand.weaponMagicDamage;
-            damageCollider.weaponFireDamage = currentWeaponHoldInMainHand.weaponFireDamage;
-            damageCollider.weaponHolyDamage = currentWeaponHoldInMainHand.weaponHolyDamage;
-            damageCollider.weaponLightningDamage = currentWeaponHoldInMainHand.weaponLightningDamage;
+            damageCollider.weaponPoiseDamage = weapon.weaponPoiseDamage;
+
+            damageCollider.weaponPhysicalDamage = weapon.weaponPhysicalDamage;
+            damageCollider.weaponMagicDamage = weapon.weaponMagicDamage;
+            damageCollider.weaponFireDamage = weapon.weaponFireDamage;
+            damageCollider.weaponHolyDamage = weapon.weaponHolyDamage;
+            damageCollider.weaponLightningDamage = weapon.weaponLightningDamage;
         }
 
-        private void SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem(DamageMasterCollider damageCollider)
+        private void SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem
+            (WeaponItem_SO weapon, DamageMasterCollider damageCollider)
         {
             damageCollider.characterCausingDamage = character;
 
-            damageCollider.weaponPhysicalDamage = currentWeaponHoldInOffHand.weaponPhysicalDamage;
-            damageCollider.weaponMagicDamage = currentWeaponHoldInOffHand.weaponMagicDamage;
-            damageCollider.weaponFireDamage = currentWeaponHoldInOffHand.weaponFireDamage;
-            damageCollider.weaponHolyDamage = currentWeaponHoldInOffHand.weaponHolyDamage;
-            damageCollider.weaponLightningDamage = currentWeaponHoldInOffHand.weaponLightningDamage;
+            damageCollider.weaponPoiseDamage = weapon.weaponPoiseDamage;
+
+            damageCollider.weaponPhysicalDamage = weapon.weaponPhysicalDamage;
+            damageCollider.weaponMagicDamage = weapon.weaponMagicDamage;
+            damageCollider.weaponFireDamage = weapon.weaponFireDamage;
+            damageCollider.weaponHolyDamage = weapon.weaponHolyDamage;
+            damageCollider.weaponLightningDamage = weapon.weaponLightningDamage;
         }
 
         //  JUST DEBUG FOR NOW,

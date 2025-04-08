@@ -14,6 +14,10 @@ namespace NT
         [Header("Weapon Ash Of War")]
         public AshOfWarItem_SO weaponAshOfWar;
 
+        [Header("Weapon Break Stance/Stance")]
+        public float weaponPoiseDamage;
+        public float weaponPoiseBonusWhenAttack;
+
         [Header("Weapon Damages")]
         public float weaponPhysicalDamage;
         public float weaponMagicDamage;

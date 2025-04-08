@@ -17,13 +17,15 @@ namespace NT
         }
 
         public virtual void CharacterDamageReceiver
-            (float physicalDamage, 
-            float magicDamage, 
-            float fireDamage, 
-            float holyDamage, 
-            float lightningDamage, 
-            string damageAnimation = "core_main_hit_reaction_medium_f_01", 
-            bool isHasDamageAnimtion = false, bool isHasNewDeadAnimation = false)
+            (float physicalDamage,
+            float magicDamage,
+            float fireDamage,
+            float holyDamage,
+            float lightningDamage,
+            string damageAnimation = "core_main_hit_reaction_medium_f_01",
+            bool isHasDamageAnimtion = false,
+            bool isHasNewDeadAnimation = false,
+            bool isCanMoveWhileGetHit = false)
         {
             if (character.characterCombatManager.isInvulnerable)
                 return;
@@ -85,7 +87,13 @@ namespace NT
 
             //  JUST DEBUG FOR PLAYTEST NOW, WILL REFACTOR LATER
             if (isHasDamageAnimtion)
-                character.characterAnimationManager.CharacterPlayAnimation(damageAnimation, true);
+            {
+                if (isCanMoveWhileGetHit)
+                    character.characterAnimationManager.CharacterPlayAnimation(damageAnimation, false, true, true);
+                else
+                    character.characterAnimationManager.CharacterPlayAnimation(damageAnimation, true);
+            }
+
 
             if (character.characterStatusManager.characterCurrentHealth <= 0f)
             {

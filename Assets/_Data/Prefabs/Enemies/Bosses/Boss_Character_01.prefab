@@ -911,6 +911,13 @@ MonoBehaviour:
   bossCombatManager: {fileID: 0}
   bossStatusManager: {fileID: 0}
   bossGUIManager: {fileID: 0}
+  isDefeated: 0
+  isSecondPhase: 0
+  isRest: 0
+  bossAttackTargetState: {fileID: 0}
+  DEBUG_bossSecondPhaseVFX: {fileID: 0}
+  DEBUG_bossModelFirstPhaseGameObject: {fileID: 0}
+  DEBUG_bossModelSecondPhaseGameOobject: {fileID: 0}
 --- !u!114 &1720901545538870228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,9 +979,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593160a1e9209f94292637dcbb63fa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterMaxStance: 80
-  characterCurrentStance: 80
-  characterVigor: 15
+  characterCurrentStance: 120
+  characterArmorPoiseBonus: 120
+  characterWeaponAttackPoiseBonus: 0
+  stanceResetTime: 8
+  resetStanceTimer: 0
+  characterVigor: 99
   characterMaxHealth: 0
   characterCurrentHealth: 0
   characterMind: 10
@@ -2307,11 +2317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f088df06f4fe146a86459a7ad59c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAttackRangeRadius: 3
-  enemyCurrentAttackAction: {fileID: 0}
-  enemyAttackActions:
-  - {fileID: 11400000, guid: d64f2a77fd494604c80d8c61bb420e82, type: 2}
-  - {fileID: 11400000, guid: f9925a3766768b7478f925041181c0e3, type: 2}
+  aiCharacterAttackRangeRadius: 3
+  aiCharacterCurrentAttackAction: {fileID: 0}
+  aiCharacterAttackActions: []
   isCanDoCombo: 0
   chanceToPerformComboAttack: 25
 --- !u!1 &2708457483222453741

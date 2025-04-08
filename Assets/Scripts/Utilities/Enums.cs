@@ -69,5 +69,6 @@ namespace NT
         isItem,
         isKeyItem,
         isChest,
+        isFogWall,
     }
 }
