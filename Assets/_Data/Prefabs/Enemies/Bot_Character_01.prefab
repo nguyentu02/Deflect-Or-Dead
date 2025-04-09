@@ -7031,8 +7031,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8292ed64f575024e8cb38f855b3c21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterBloodSplatVFX: {fileID: 1026642433091512, guid: 448ded3addd9ca949b2243a8bbd0250d, type: 3}
+  characterDelfectImpactVFX: {fileID: 1652400581503036, guid: 2d9121f99c9d3cf4bbf5695b1fea0d32, type: 3}
   DEBUG_FlaskModelInstantiatedInCharacterHand: {fileID: 0}
   DEBUG_delayTimeBeforeRecoveryResources: 0.4
+  mainHandWeaponVFX: {fileID: 0}
+  offHandWeaponVFX: {fileID: 0}
 --- !u!143 &1792327951604300885
 CharacterController:
   m_ObjectHideFlags: 0

@@ -337,6 +337,8 @@ namespace NT
         {
             mainHandWeaponDamageCollider = characterMainHand.weaponPrefabInstantiatedInThisHand.
                 GetComponentInChildren<DamageMasterCollider>();
+            character.characterEffectsManager.mainHandWeaponVFX = characterMainHand.weaponPrefabInstantiatedInThisHand.
+                GetComponentInChildren<WeaponVFX>();
 
             //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
             SetDamageForMainHandWeaponDamageColliderBasedOnWeaponItem
@@ -347,12 +349,22 @@ namespace NT
         {
             //  DEBUG GET COMPONENT OF SHIELD, IF NOT SHIELD, JUST GET NORMAL
             if (currentWeaponHoldInOffHand.weaponClass != WeaponClass.MediumShield)
+            {
                 offHandWeaponDamageCollider = characterOffHand.weaponPrefabInstantiatedInThisHand.
                     GetComponentInChildren<DamageMasterCollider>();
+
+                character.characterEffectsManager.offHandWeaponVFX = characterOffHand.weaponPrefabInstantiatedInThisHand.
+                    GetComponentInChildren<WeaponVFX>();
+            }
             //  OTHERWISE, WE GET COMPONENT IN SHIELD SLOT WE WAS INSTANTIATE A SHIELD
             else
+            {
                 offHandWeaponDamageCollider = characterOffHand_Shield.weaponPrefabInstantiatedInThisHand.
                     GetComponentInChildren<DamageMasterCollider>();
+
+                character.characterEffectsManager.offHandWeaponVFX = characterOffHand.weaponPrefabInstantiatedInThisHand.
+                    GetComponentInChildren<WeaponVFX>();
+            }
 
             //  LOAD DAMAGE TO WEAPON AFTER GET COMPONENT
             SetDamageForOffHandWeaponDamageColliderBasedOnWeaponItem

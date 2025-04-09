@@ -32,6 +32,8 @@ namespace NT
 
         private List<CharacterManager> charactersDamaged = new List<CharacterManager>();
 
+        [SerializeField] private Vector3 contactPoint;
+
         protected virtual void Awake()
         {
             characterCausingDamage = GetComponentInParent<CharacterManager>(true);
@@ -47,7 +49,7 @@ namespace NT
 
         protected virtual void OnTriggerEnter(Collider other)
         {
-            CharacterManager characterDamaged = other.GetComponentInParent<CharacterManager>();
+            CharacterManager characterDamaged = other.gameObject.GetComponentInParent<CharacterManager>();
 
             //  DEBUG DAMAGE COLLIDER
             if (characterDamaged != null)
@@ -99,7 +101,9 @@ namespace NT
 
                 //  CHECK FOR CAN'T DEAL ANY DAMAGE
 
-                CalculateDamageAfterAddedToCharacterDamaged(characterDamaged);
+                //  DEALT DAMAGES AFTER ALL CHECK
+
+                CalculateDamageAfterAddedToCharacterDamaged(characterDamaged, other);
             }
 
             if (other.tag == "Illusionary Wall")
@@ -110,7 +114,7 @@ namespace NT
             }
         }
 
-        protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager characterDamaged)
+        protected virtual void CalculateDamageAfterAddedToCharacterDamaged(CharacterManager characterDamaged, Collider other)
         {
             BossManager bossCharacter = characterDamaged as BossManager;
 
@@ -155,11 +159,17 @@ namespace NT
                         "core_main_hit_reaction_medium_f_01", true);
                 }
             }
+
+            //  PLAY BLOODSPLAT VFX
+            contactPoint = characterDamaged.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+            characterDamaged.characterEffectsManager.CharacterPlayBloodSplatVFX(contactPoint);
         }
 
         protected virtual void CheckForDeflect
             (CharacterManager characterBeingDeflected, CharacterManager characterDamaged)
         {
+            characterBeingDeflected.characterEffectsManager.CharacterPlayWeaponVFX(true);
+            characterDamaged.characterEffectsManager.CharacterPlayDeflectImpactVFX(contactPoint);
             characterBeingDeflected.characterAnimationManager.CharacterPlayAnimation
                 ("GhostSamurai_DefenseR_Rebound_Root", true);
 

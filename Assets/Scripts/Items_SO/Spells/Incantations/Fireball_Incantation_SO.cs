@@ -40,17 +40,16 @@ namespace NT
 
             Destroy(fireballBeforeCastVFX);
 
-            //  DEBUG TESTING, WHEN INSTANTIATE, FIREBALL UNDERGROUND, IT'S WEIRD !!!!
-            if (character.characterEquipmentManager.characterMainHand == null)
-                return;
-
             GameObject fireballAlreadyCastVFX = Instantiate
-                (spellAlreadyCastVFX, character.characterEquipmentManager.characterMainHand.transform);
-
+                (spellAlreadyCastVFX, 
+                character.characterEquipmentManager.characterMainHand.transform.position, 
+                PlayerCameraManager.instance.playerCameraPivotTransform.rotation);
             Rigidbody fireballRigidbody = fireballAlreadyCastVFX.GetComponent<Rigidbody>();
 
             FireballManager fireballManager = fireballAlreadyCastVFX.GetComponent<FireballManager>();
             fireballManager.InitializeFireball(character, fireballFireDamage, 1f);
+
+            fireballAlreadyCastVFX.transform.parent = null;
 
             if (character.characterCombatManager.isLockedOn)
             {
@@ -64,16 +63,10 @@ namespace NT
                 fireballAlreadyCastVFX.transform.forward = forwardDirection;
             }
 
-            //  DEBUG TESTING, WHEN INSTANTIATE, FIREBALL UNDERGROUND, IT'S WEIRD !!!!
-            fireballAlreadyCastVFX.transform.position =
-                character.characterEquipmentManager.characterMainHand.transform.position;
-
             Vector3 upwardVelocity = fireballAlreadyCastVFX.transform.up * fireballUpwardVelocity;
             Vector3 forwardVelocity = fireballAlreadyCastVFX.transform.forward * fireballForwardVelocity;
             Vector3 totalVelocity = upwardVelocity + forwardVelocity;
             fireballRigidbody.linearVelocity = totalVelocity;
-
-            fireballAlreadyCastVFX.transform.parent = null;
         }
 
         public override void SuccesfullyCastFullChargeASpell(CharacterManager character)

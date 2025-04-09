@@ -448,6 +448,9 @@ namespace NT
         //  ANIMATION EVENTS
         public virtual void PendingCriticalDamageViaVictimCriticalAnimation()
         {
+            Vector3 bloodSplatPosition = character.transform.position + Vector3.up * 1f;
+            character.characterEffectsManager.CharacterPlayBloodSplatVFX(bloodSplatPosition);
+
             character.characterDamageReceiverManager.CharacterDamageReceiver
                 (DEBUG_PendingCriticalDamage, 0, 0, 0, 0, "", false, true);
             DEBUG_PendingCriticalDamage = 0f;

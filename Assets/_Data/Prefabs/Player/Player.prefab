@@ -15314,7 +15314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponInstantiateSlot: 2
+  weaponInstantiateSlot: 3
   weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1 &2071609219431894679
 GameObject:
@@ -17319,6 +17319,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.10231008, y: -0.027794452, z: 0.01841643}
     m_Extent: {x: 0.12261973, y: 0.06450361, z: 0.103778094}
   m_DirtyAABB: 0
+--- !u!1 &2242710637903944281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6940990326634545254}
+  m_Layer: 12
+  m_Name: Riposte Standing Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6940990326634545254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2242710637903944281}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3382723974091142277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2255915991281024363
 GameObject:
   m_ObjectHideFlags: 0
@@ -22919,6 +22950,52 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.095706664, y: 0.020735001, z: -0.019283134}
     m_Extent: {x: 0.12922052, y: 0.07473026, z: 0.10464592}
   m_DirtyAABB: 0
+--- !u!1 &2944814618284816524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 956599914589731281}
+  - component: {fileID: 965488300639643974}
+  m_Layer: 12
+  m_Name: Hand_L (Shield Weapon)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956599914589731281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944814618284816524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.05326705, y: -0.1925765, z: -0.9735615, w: 0.11070203}
+  m_LocalPosition: {x: 0.0030617793, y: 0.012625391, z: 0.0263493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3369386070823584522}
+  m_LocalEulerAnglesHint: {x: -21.295, y: -9.037, z: -165.323}
+--- !u!114 &965488300639643974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944814618284816524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18227c6e58909646bb4115aae6326fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInstantiateSlot: 2
+  weaponPrefabInstantiatedInThisHand: {fileID: 0}
 --- !u!1 &2945437999953815066
 GameObject:
   m_ObjectHideFlags: 0
@@ -26867,7 +26944,7 @@ MonoBehaviour:
   runningSpeed: 4
   sprintingSpeed: 6
   rotationSpeed: 15
-  sprintingStaminaCost: 2
+  sprintingStaminaCost: 12
   rollDodgeStaminaCost: 15
   backstepDodgeStaminaCost: 12
 --- !u!114 &6980499618031144196
@@ -26897,20 +26974,20 @@ MonoBehaviour:
   currentTwoHandingWeapon: {fileID: 0}
   currentWeaponHoldInMainHand: {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
   currentWeaponHoldInOffHand: {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
-  currentConsumableItem: {fileID: 0}
-  currentSpellItem: {fileID: 11400000, guid: e81e868b4228e3f4fa96156eb15a35e3, type: 2}
+  currentConsumableItem: {fileID: 11400000, guid: 275b48145ced76c40a7ae81db701ae2d, type: 2}
+  currentSpellItem: {fileID: 11400000, guid: 620ea4ddb9419684caecf13e0c819504, type: 2}
   weaponsInMainHandQuickSlots:
   - {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
-  - {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
+  - {fileID: 11400000, guid: 2e2f33da59eba184bae23cb3349a0f70, type: 2}
   weaponsInOffHandQuickSlots:
-  - {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
-  - {fileID: 11400000, guid: 976dd2adcf7733d44930d31999541e97, type: 2}
+  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
+  - {fileID: 11400000, guid: 5282d6d468b94864987514aecb130e76, type: 2}
   currentWeaponInMainHandIndex: -1
   currentWeaponInOffHandIndex: -1
-  currentHelmetEquipped: {fileID: 0}
-  currentChestplateEquipped: {fileID: 0}
-  currentGauntletsEquipped: {fileID: 0}
-  currentGreavesEquipped: {fileID: 0}
+  currentHelmetEquipped: {fileID: 11400000, guid: 5741c64381823894d90f81014b08538f, type: 2}
+  currentChestplateEquipped: {fileID: 11400000, guid: 16e27815ff9d9644781d7d440e33d3e9, type: 2}
+  currentGauntletsEquipped: {fileID: 11400000, guid: 4cdce906b0fcd344c84b51445d404c7e, type: 2}
+  currentGreavesEquipped: {fileID: 11400000, guid: 24c280b81fd66544f95d10e6659613d3, type: 2}
   nakedHeadGameObject: {fileID: 4886857296933229039}
   nakedBodyGameObject: {fileID: 7235705407342935666}
   nakedUpperArmLGameObject: {fileID: 1723344833156785288}
@@ -26946,8 +27023,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   DEBUG_CriticalAttackRayStartPosition: {fileID: 5096144661856658079}
-  DEBUG_BackstabStandingPosition: {fileID: 2937047649905014862}
-  DEBUG_RiposteStandingPosition: {fileID: 4045256175715947981}
+  DEBUG_BackstabStandingPosition: {fileID: 8838314392726333398}
+  DEBUG_RiposteStandingPosition: {fileID: 6940990326634545254}
   DEBUG_PendingCriticalDamage: 0
   DEBUG_dotValue: 0
   isLockedOn: 0
@@ -26975,7 +27052,7 @@ MonoBehaviour:
   currentWeaponCharacterUsingForAttack: {fileID: 0}
   attackType: 0
   lastAttackAimationCharacterPerformed: 
-  DEBUG_maxTimeDeflectPossibleBeforeBeingDefense: 0.23
+  DEBUG_maxTimeDeflectPossibleBeforeBeingDefense: 0.33
   DEBUG_deflectTimeCount: 0
 --- !u!114 &4195595077197861392
 MonoBehaviour:
@@ -26994,13 +27071,13 @@ MonoBehaviour:
   characterWeaponAttackPoiseBonus: 0
   stanceResetTime: 8
   resetStanceTimer: 0
-  characterVigor: 15
+  characterVigor: 99
   characterMaxHealth: 0
   characterCurrentHealth: 0
-  characterMind: 10
+  characterMind: 99
   characterMaxFocusPoints: 0
   characterCurrentFocusPoints: 0
-  characterEndurance: 12
+  characterEndurance: 99
   characterMaxStamina: 0
   characterCurrentStamina: 0
   characterPhysicalDamageAbsorption: 0
@@ -27028,7 +27105,7 @@ MonoBehaviour:
   characterLightningDamageAbsorptionOfChestplate: 0
   characterLightningDamageAbsorptionOfGauntlets: 0
   characterLightningDamageAbsorptionOfGreaves: 0
-  staminaRegenAmount: 20
+  staminaRegenAmount: 100
   staminaRegenDelay: 2
   staminaRegenTimer: 0
 --- !u!114 &9153115663414364529
@@ -27100,8 +27177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4084da30f64917429aff186642cd029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterBloodSplatVFX: {fileID: 1026642433091512, guid: 448ded3addd9ca949b2243a8bbd0250d, type: 3}
+  characterDelfectImpactVFX: {fileID: 1652400581503036, guid: 2d9121f99c9d3cf4bbf5695b1fea0d32, type: 3}
   DEBUG_FlaskModelInstantiatedInCharacterHand: {fileID: 0}
-  DEBUG_delayTimeBeforeRecoveryResources: 0.4
+  DEBUG_delayTimeBeforeRecoveryResources: 0.77
+  mainHandWeaponVFX: {fileID: 0}
+  offHandWeaponVFX: {fileID: 0}
 --- !u!143 &6987597398943275917
 CharacterController:
   m_ObjectHideFlags: 0
@@ -28160,7 +28241,7 @@ GameObject:
   - component: {fileID: 5985176465544198567}
   - component: {fileID: 4331956840324671554}
   m_Layer: 12
-  m_Name: Hand_L (Instantiate Weapon In This GameOject)
+  m_Name: Hand_L (Melee Weapon)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37690,6 +37771,37 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.27909338, y: 0.05600669, z: -0.0016972721}
     m_Extent: {x: 0.2504263, y: 0.14423892, z: 0.10085284}
   m_DirtyAABB: 0
+--- !u!1 &4873029385111754620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8838314392726333398}
+  m_Layer: 12
+  m_Name: BackStab Standing Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8838314392726333398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873029385111754620}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3382723974091142277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4880341102358676947
 GameObject:
   m_ObjectHideFlags: 0
@@ -62069,6 +62181,8 @@ Transform:
   - {fileID: 5096144661856658079}
   - {fileID: 2937047649905014862}
   - {fileID: 4045256175715947981}
+  - {fileID: 8838314392726333398}
+  - {fileID: 6940990326634545254}
   m_Father: {fileID: 8430489685818020566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7998690397922324097
@@ -66791,6 +66905,7 @@ Transform:
   - {fileID: 1461350176556387877}
   - {fileID: 3685727689919761183}
   - {fileID: 5985176465544198567}
+  - {fileID: 956599914589731281}
   m_Father: {fileID: 2419425155486697481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8477457899172742724

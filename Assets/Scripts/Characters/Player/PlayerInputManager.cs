@@ -197,6 +197,7 @@ namespace NT
             player.playerMovementManager.isWalking = x_Input;
         }
 
+        //  ATTACKING INPUTS
         private void HandlePlayerLightAttackInput()
         {
             //  DEBUG ATTACK INPUT
@@ -259,6 +260,8 @@ namespace NT
                             break;
                     }
                 }
+
+                player.playerEffectsManager.CharacterPlayWeaponVFX(true);
             }
         }
 
@@ -324,6 +327,8 @@ namespace NT
                             break;
                     }
                 }
+
+                player.playerEffectsManager.CharacterPlayWeaponVFX(true);
             }
         }
 

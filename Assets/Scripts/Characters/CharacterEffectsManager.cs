@@ -7,12 +7,22 @@ namespace NT
     {
         private CharacterManager character;
 
+        [Header("Character Damages VFXs")]
+        [SerializeField] GameObject characterBloodSplatVFX;
+
         //  DEBUG TESTING...
+        [Header("DEBUG_Character Deflect VFXs")]
+        [SerializeField] GameObject characterDelfectImpactVFX;
+
         [Header("DEBUG_Tesing Var")]
         public GameObject DEBUG_FlaskModelInstantiatedInCharacterHand;
         [SerializeField] float DEBUG_delayTimeBeforeRecoveryResources = 0.4f;
         private Coroutine delayFlaskRecoveryCoroutine;
         private Coroutine delayBringBackWeaponCoroutine;
+
+        [Header("DEBUG_Weapon VFXs Var")]
+        public WeaponVFX mainHandWeaponVFX;
+        public WeaponVFX offHandWeaponVFX;
 
         protected virtual void Awake()
         {
@@ -74,6 +84,37 @@ namespace NT
             Destroy(DEBUG_FlaskModelInstantiatedInCharacterHand);
             character.characterEquipmentManager.WhichCharacterHandWeWantToLoadWeaponIn
                 (character.characterEquipmentManager.currentWeaponHoldInMainHand, true);
+        }
+
+        //  DEBUG TESTING PLAY VFX
+        public virtual void CharacterPlayWeaponVFX(bool isMainHand)
+        {
+            if (isMainHand)
+            {
+                if (mainHandWeaponVFX == null)
+                    return;
+
+                mainHandWeaponVFX.PlayWeaponTrailVFX();
+            }
+            else
+            {
+                if (offHandWeaponVFX == null)
+                    return;
+
+                offHandWeaponVFX.PlayWeaponTrailVFX();
+            }
+        }
+
+        public virtual void CharacterPlayBloodSplatVFX(Vector3 bloodSplatInstantiateTransform)
+        {
+            GameObject bloodSplat = Instantiate
+                (characterBloodSplatVFX, bloodSplatInstantiateTransform, Quaternion.identity);
+        }
+
+        public virtual void CharacterPlayDeflectImpactVFX(Vector3 deflectImpactInstantiateTransform)
+        {
+            GameObject bloodSplat = Instantiate
+                (characterDelfectImpactVFX, deflectImpactInstantiateTransform, Quaternion.identity);
         }
     }
 }

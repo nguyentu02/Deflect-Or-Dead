@@ -30,7 +30,7 @@ namespace NT
                 if (characterCausingDamage.characterTeamID == characterDamaged.characterTeamID)
                     return;
 
-                CalculateDamageAfterAddedToCharacterDamaged(characterDamaged);
+                CalculateDamageAfterAddedToCharacterDamaged(characterDamaged, other);
             }
 
             fireballManager.WaitThenInstantiateSpellDestructionVFX(0.04f);

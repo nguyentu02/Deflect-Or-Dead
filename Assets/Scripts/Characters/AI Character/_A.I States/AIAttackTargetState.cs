@@ -118,6 +118,7 @@ namespace NT
             if (currentAttack.isHasComboAttackAction)
                 DEBUG_StoreAICharacterComboAttackAction = currentAttack.comboAttackAction;
 
+            aiCharacter.characterEffectsManager.CharacterPlayWeaponVFX(true);
             aiCharacter.timeToNextAttack = currentAttack.timeToNextAttack;
             aiCharacterCurrentAttackAction.NPCPerformAnAction(aiCharacter);
             aiCharacterCurrentAttackAction = null;
@@ -126,6 +127,7 @@ namespace NT
         private void DEBUG_HandleEnemyAttackTargetWithCombo
             (AICharacterManager aiCharacter, EnemyAttackAction currentAttack)
         {
+            aiCharacter.characterEffectsManager.CharacterPlayWeaponVFX(true);
             aiCharacter.timeToNextAttack = currentAttack.timeToNextAttack;
             aiCharacterCurrentAttackAction = currentAttack;
             aiCharacterCurrentAttackAction.NPCPerformAnAction(aiCharacter);
