@@ -106,6 +106,25 @@ namespace NT
             }
         }
 
+        public virtual void CharacterFullBuildupDamageReceiver(float buildupDamage)
+        {
+            if (character.characterCombatManager.isInvulnerable)
+                return;
+
+            if (character.isDead)
+                return;
+
+            character.characterStatusManager.characterCurrentHealth -= buildupDamage;
+
+            if (character.characterStatusManager.characterCurrentHealth <= 0f)
+            {
+                character.isDead = true;
+
+                character.characterStatusManager.characterCurrentHealth = 0f;
+                character.characterAnimationManager.CharacterPlayAnimation("straight_sword_main_death_01", true);
+            }
+        }
+
         public virtual void CharacterGiveAwardedOnDeath(int soulsReward)
         {
 

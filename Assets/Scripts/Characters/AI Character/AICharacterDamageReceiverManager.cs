@@ -25,5 +25,14 @@ namespace NT
                 aiCharacter.aiCharacterGUIManager.aiCharacterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
                     (aiCharacter.characterStatusManager.characterCurrentHealth);
         }
+
+        public override void CharacterFullBuildupDamageReceiver(float buildupDamage)
+        {
+            base.CharacterFullBuildupDamageReceiver(buildupDamage);
+
+            if (aiCharacter.aiCharacterGUIManager.aiCharacterHealthPointsBar != null)
+                aiCharacter.aiCharacterGUIManager.aiCharacterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    (aiCharacter.characterStatusManager.characterCurrentHealth);
+        }
     }
 }

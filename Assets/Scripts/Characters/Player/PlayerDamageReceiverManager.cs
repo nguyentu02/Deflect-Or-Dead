@@ -31,6 +31,15 @@ namespace NT
                     (player.playerStatusManager.characterCurrentHealth);
         }
 
+        public override void CharacterFullBuildupDamageReceiver(float buildupDamage)
+        {
+            base.CharacterFullBuildupDamageReceiver(buildupDamage);
+
+            if (player.playerGUIManager.characterHealthPointsBar != null)
+                player.playerGUIManager.characterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI
+                    (player.playerStatusManager.characterCurrentHealth);
+        }
+
         public override void CharacterGiveAwardedOnDeath(int soulsReward)
         {
             player.playerSoulsCollected += soulsReward;

@@ -10,6 +10,17 @@ namespace NT
         [Header("Character Damages VFXs")]
         [SerializeField] GameObject characterBloodSplatVFX;
 
+        [Header("Character Buildups Var")]
+        //  POISON VAR
+        public bool isPoisoned = false;
+        public float poisonCurrentBuildup;
+
+        //  SETTINGS BUILDUP VALUES
+        public float maximumBuildupValue = 100f;
+        [SerializeField] float defaultBuildupValue = 100f;
+        [SerializeField] float buildupTimeTickDamages = 1f;
+        private float buildupDamagesTimeCount;
+
         //  DEBUG TESTING...
         [Header("DEBUG_Character Deflect VFXs")]
         [SerializeField] GameObject characterDelfectImpactVFX;
@@ -65,6 +76,58 @@ namespace NT
                 GameObject recoveryVFX = Instantiate(recoveryFpVFX, characterUsing.transform);
 
                 DelayBringBackWeaponOfCharacter();
+            }
+        }
+
+        //  BUILDUPS
+        public virtual void HandleCharacterAllBuildups()
+        {
+            if (character.isDead)
+                return;
+
+            HandleCharacterPoisonBuildup();
+            HandleCharacterAlreadyIsPoisoned();
+        }
+
+        protected virtual void HandleCharacterPoisonBuildup()
+        {
+            if (isPoisoned)
+                return;
+
+            if (poisonCurrentBuildup > 0f && poisonCurrentBuildup < 100f)
+            {
+                poisonCurrentBuildup -= 1f * Time.deltaTime;
+            }
+            else if (poisonCurrentBuildup >= 100f)
+            {
+                isPoisoned = true;
+                poisonCurrentBuildup = 0f;
+            }
+        }
+
+        protected virtual void HandleCharacterAlreadyIsPoisoned()
+        {
+            if (!isPoisoned)
+                return;
+
+            if (maximumBuildupValue > 0)
+            {
+                maximumBuildupValue -= 1f * Time.deltaTime;
+
+                //  DEBUG TESTING POISONED DAMAGE 1% HEALTH PER SECONDS
+                buildupDamagesTimeCount += Time.deltaTime;
+
+                if (buildupDamagesTimeCount > buildupTimeTickDamages)
+                {
+                    float poisonDamage = character.characterStatusManager.characterMaxHealth * 0.01f;
+                    character.characterDamageReceiverManager.CharacterFullBuildupDamageReceiver(poisonDamage);
+                    buildupDamagesTimeCount = 0f;
+                }
+            }
+            else
+            {
+                isPoisoned = false;
+                maximumBuildupValue = defaultBuildupValue;
             }
         }
 

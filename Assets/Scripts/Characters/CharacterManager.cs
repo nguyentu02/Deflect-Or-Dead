@@ -76,7 +76,7 @@ namespace NT
 
         protected virtual void FixedUpdate()
         {
-
+            characterEffectsManager.HandleCharacterAllBuildups();
         }
 
         protected virtual void LateUpdate()
