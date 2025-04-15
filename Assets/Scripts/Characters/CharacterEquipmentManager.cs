@@ -133,7 +133,8 @@ namespace NT
 
         public virtual void GetCharacterEquipmentSlotAtStart()
         {
-            WeaponInstantiateTransformWhenEquipped[] equipmentSlots = GetComponentsInChildren<WeaponInstantiateTransformWhenEquipped>();
+            WeaponInstantiateTransformWhenEquipped[] equipmentSlots = 
+                GetComponentsInChildren<WeaponInstantiateTransformWhenEquipped>();
 
             foreach (var equipmentSlot in equipmentSlots)
             {

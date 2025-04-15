@@ -23,9 +23,9 @@ namespace NT
             fireballRigidbody = GetComponent<Rigidbody>();
         }
 
-        protected override void Update()
+        protected override void LateUpdate()
         {
-            base.Update();
+            base.LateUpdate();
 
             if (spellTarget != null)
                 transform.LookAt(spellTarget.transform);

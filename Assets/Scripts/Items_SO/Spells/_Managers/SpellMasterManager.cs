@@ -17,7 +17,7 @@ namespace NT
 
         }
 
-        protected virtual void Update()
+        protected virtual void LateUpdate()
         {
 
         }

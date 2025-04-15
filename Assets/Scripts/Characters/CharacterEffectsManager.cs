@@ -10,10 +10,39 @@ namespace NT
         [Header("Character Damages VFXs")]
         [SerializeField] GameObject characterBloodSplatVFX;
 
-        [Header("Character Buildups Var")]
+        [Header("Character Buildups/Full Buildups VFX Var")]
         //  POISON VAR
         public bool isPoisoned = false;
         public float poisonCurrentBuildup;
+        public float poisonAmountBuildup = 100f;
+        [SerializeField] GameObject characterPoisonedVFX;
+        //  USED FOR CONSUMABLE/INCANTATION/SORCERY CLEANSE,
+        //  IF CLEANSE, WE CAN DESTROY IS POISONED VFX RIGHT NOW.
+        private GameObject DEBUG_StoreCharacterPoisonedVFX;
+
+        //  ROT VAR
+        public bool isRottened = false;
+        public float rotCurrentBuildup;
+        public float rotAmountBuildup = 100f;
+        [SerializeField] GameObject characterRottenedVFX;
+        //  USED FOR CONSUMABLE/INCANTATION/SORCERY CLEANSE,
+        //  IF CLEANSE, WE CAN DESTROY IS ROTTENED VFX RIGHT NOW.
+        private GameObject DEBUG_StoreCharacterRottenedVFX;
+
+        //  FROST VAR
+        public bool isFrosted = false;
+        [SerializeField] bool isAlreadyDamageByFrostEffect = false;
+        public float frostCurrentBuildup;
+        public float frostAmountBuildup = 100f;
+        [SerializeField] GameObject characterFrostedVFX;
+        //  USED FOR CONSUMABLE/INCANTATION/SORCERY CLEANSE,
+        //  IF CLEANSE, WE CAN DESTROY IS FROSTED VFX RIGHT NOW.
+        private GameObject DEBUG_StoreCharacterFrostedVFX;
+
+        //  BLEED VAR
+        public float bleedCurrentBuildup;
+        public float bleedAmountBuildup = 100f;
+        [SerializeField] GameObject characterBleededVFX;
 
         //  SETTINGS BUILDUP VALUES
         public float maximumBuildupValue = 100f;
@@ -80,6 +109,7 @@ namespace NT
         }
 
         //  BUILDUPS
+        //  POISON
         public virtual void HandleCharacterAllBuildups()
         {
             if (character.isDead)
@@ -87,10 +117,20 @@ namespace NT
 
             HandleCharacterPoisonBuildup();
             HandleCharacterAlreadyIsPoisoned();
+
+            HandleCharacterRotBuildup();
+            HandleCharacterAlreadyIsRottened();
+
+            HandleCharacterFrostBuildup();
+            HandleCharacterAlreadyIsFrosted();
+
+            HandleCharacterBleedBuildup();
         }
 
         protected virtual void HandleCharacterPoisonBuildup()
         {
+            character.characterGUIManager.ShowUpPoisonBuildupForPlayer_GUI();
+
             if (isPoisoned)
                 return;
 
@@ -102,35 +142,213 @@ namespace NT
             {
                 isPoisoned = true;
                 poisonCurrentBuildup = 0f;
+
+                if (characterPoisonedVFX != null)
+                {
+                    if (character.characterCombatManager.lockOnTransform != null)
+                    {
+                        DEBUG_StoreCharacterPoisonedVFX = Instantiate
+                            (characterPoisonedVFX, character.characterCombatManager.lockOnTransform);
+                    }
+                    else
+                    {
+                        Vector3 poisonPositionVFX = character.transform.position + Vector3.up * 1f;
+
+                        DEBUG_StoreCharacterPoisonedVFX = Instantiate
+                            (characterPoisonedVFX, poisonPositionVFX, Quaternion.identity);
+                    }
+                }
             }
         }
 
         protected virtual void HandleCharacterAlreadyIsPoisoned()
         {
+            character.characterGUIManager.ShowUpPoisonAmountBuildupIfPlayerIsPoisoned_GUI();
+
             if (!isPoisoned)
                 return;
 
-            if (maximumBuildupValue > 0)
+            if (poisonAmountBuildup > 0)
             {
-                maximumBuildupValue -= 1f * Time.deltaTime;
+                poisonAmountBuildup -= 1f * Time.deltaTime;
 
                 //  DEBUG TESTING POISONED DAMAGE 1% HEALTH PER SECONDS
                 buildupDamagesTimeCount += Time.deltaTime;
 
                 if (buildupDamagesTimeCount > buildupTimeTickDamages)
                 {
-                    float poisonDamage = character.characterStatusManager.characterMaxHealth * 0.01f;
-                    character.characterDamageReceiverManager.CharacterFullBuildupDamageReceiver(poisonDamage);
+                    float damage = character.characterStatusManager.characterMaxHealth * 0.01f;
+                    character.characterDamageReceiverManager.CharacterFullBuildupDamageReceiver(damage, false);
                     buildupDamagesTimeCount = 0f;
                 }
             }
             else
             {
                 isPoisoned = false;
-                maximumBuildupValue = defaultBuildupValue;
+                poisonAmountBuildup = defaultBuildupValue;
             }
         }
 
+        //  ROT
+        protected virtual void HandleCharacterRotBuildup()
+        {
+            character.characterGUIManager.ShowUpRotBuildupForPlayer_GUI();
+
+            if (isRottened)
+                return;
+
+            if (rotCurrentBuildup > 0f && rotCurrentBuildup < 100f)
+            {
+                rotCurrentBuildup -= 1f * Time.deltaTime;
+            }
+            else if (rotCurrentBuildup >= 100f)
+            {
+                isRottened = true;
+                rotCurrentBuildup = 0f;
+
+                if (characterRottenedVFX != null)
+                {
+                    if (character.characterCombatManager.lockOnTransform != null)
+                    {
+                        DEBUG_StoreCharacterRottenedVFX = Instantiate
+                            (characterRottenedVFX, character.characterCombatManager.lockOnTransform);
+                    }
+                    else
+                    {
+                        Vector3 rotPositionVFX = character.transform.position + Vector3.up * 1f;
+
+                        DEBUG_StoreCharacterRottenedVFX = Instantiate
+                            (characterRottenedVFX, rotPositionVFX, Quaternion.identity);
+                    }
+                }
+            }
+        }
+
+        protected virtual void HandleCharacterAlreadyIsRottened()
+        {
+            character.characterGUIManager.ShowUpRotAmountBuildupIfPlayerIsRottened_GUI();
+
+            if (!isRottened)
+                return;
+
+            if (rotAmountBuildup > 0)
+            {
+                rotAmountBuildup -= 1f * Time.deltaTime;
+
+                //  DEBUG TESTING POISONED DAMAGE 1% HEALTH PER SECONDS
+                buildupDamagesTimeCount += Time.deltaTime;
+
+                if (buildupDamagesTimeCount > buildupTimeTickDamages)
+                {
+                    float damage = character.characterStatusManager.characterMaxHealth * 0.035f;
+                    character.characterDamageReceiverManager.CharacterFullBuildupDamageReceiver(damage, false);
+                    buildupDamagesTimeCount = 0f;
+                }
+            }
+            else
+            {
+                isRottened = false;
+                rotAmountBuildup = defaultBuildupValue;
+            }
+        }
+
+        //  FROST
+        protected virtual void HandleCharacterFrostBuildup()
+        {
+            character.characterGUIManager.ShowUpFrostBuildupForPlayer_GUI();
+
+            if (isFrosted)
+                return;
+
+            if (frostCurrentBuildup > 0f && frostCurrentBuildup < 100f)
+            {
+                frostCurrentBuildup -= 1f * Time.deltaTime;
+            }
+            else if (frostCurrentBuildup >= 100f)
+            {
+                isFrosted = true;
+                frostCurrentBuildup = 0f;
+
+                if (characterFrostedVFX != null)
+                {
+                    if (character.characterCombatManager.lockOnTransform != null)
+                    {
+                        DEBUG_StoreCharacterFrostedVFX = Instantiate
+                            (characterFrostedVFX, character.characterCombatManager.lockOnTransform);
+                    }
+                    else
+                    {
+                        Vector3 frostPositionVFX = character.transform.position + Vector3.up * 1f;
+
+                        DEBUG_StoreCharacterFrostedVFX = Instantiate
+                            (characterFrostedVFX, frostPositionVFX, Quaternion.identity);
+                    }
+                }
+            }
+        }
+
+        protected virtual void HandleCharacterAlreadyIsFrosted()
+        {
+            character.characterGUIManager.ShowUpFrostAmountBuildupIfPlayerIsFrosted_GUI();
+
+            if (!isFrosted)
+                return;
+
+            if (frostAmountBuildup > 0)
+            {
+                frostAmountBuildup -= 1f * Time.deltaTime;
+
+                if (!isAlreadyDamageByFrostEffect)
+                {
+                    isAlreadyDamageByFrostEffect = true;
+
+                    float damage = character.characterStatusManager.characterMaxHealth * 0.1f + 30f;
+                    character.characterDamageReceiverManager.CharacterFullBuildupDamageReceiver(damage, true);
+                }
+            }
+            else
+            {
+                isFrosted = false;
+                isAlreadyDamageByFrostEffect = false;
+                frostAmountBuildup = defaultBuildupValue;
+            }
+        }
+
+        //  BLEED
+        protected virtual void HandleCharacterBleedBuildup()
+        {
+            character.characterGUIManager.ShowUpBleedBuildupForPlayer_GUI();
+
+            if (bleedCurrentBuildup > 0f && bleedCurrentBuildup < 100f)
+            {
+                bleedCurrentBuildup -= 1f * Time.deltaTime;
+            }
+            else if (bleedCurrentBuildup >= 100f)
+            {
+                bleedCurrentBuildup = 0f;
+
+                float damage = character.characterStatusManager.characterMaxHealth * 0.15f + 50f;
+                character.characterDamageReceiverManager.CharacterFullBuildupDamageReceiver(damage, true);
+
+                if (characterBleededVFX != null)
+                {
+                    if (character.characterCombatManager.lockOnTransform != null)
+                    {
+                        GameObject characterBleedVFX = Instantiate
+                            (characterBleededVFX, character.characterCombatManager.lockOnTransform.position, Quaternion.identity);
+                    }
+                    else
+                    {
+                        Vector3 bleedPositionVFX = character.transform.position + Vector3.up * 1f;
+
+                        GameObject characterBleedVFX = Instantiate
+                            (characterBleededVFX, bleedPositionVFX, Quaternion.identity);
+                    }
+                }
+            }
+        }
+
+        //
         private void DelayBringBackWeaponOfCharacter()
         {
             if (delayBringBackWeaponCoroutine != null)

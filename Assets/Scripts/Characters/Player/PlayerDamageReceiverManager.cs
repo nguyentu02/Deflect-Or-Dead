@@ -31,9 +31,9 @@ namespace NT
                     (player.playerStatusManager.characterCurrentHealth);
         }
 
-        public override void CharacterFullBuildupDamageReceiver(float buildupDamage)
+        public override void CharacterFullBuildupDamageReceiver(float buildupDamage, bool hasDamagedAnimation)
         {
-            base.CharacterFullBuildupDamageReceiver(buildupDamage);
+            base.CharacterFullBuildupDamageReceiver(buildupDamage, hasDamagedAnimation);
 
             if (player.playerGUIManager.characterHealthPointsBar != null)
                 player.playerGUIManager.characterHealthPointsBar.SetCurrentStatusPointsOfCharacter_GUI

@@ -106,7 +106,7 @@ namespace NT
             }
         }
 
-        public virtual void CharacterFullBuildupDamageReceiver(float buildupDamage)
+        public virtual void CharacterFullBuildupDamageReceiver(float buildupDamage, bool hasDamagedAnimation)
         {
             if (character.characterCombatManager.isInvulnerable)
                 return;
@@ -115,6 +115,9 @@ namespace NT
                 return;
 
             character.characterStatusManager.characterCurrentHealth -= buildupDamage;
+
+            if (hasDamagedAnimation)
+                character.characterAnimationManager.CharacterPlayAnimation("core_main_hit_reaction_medium_f_01", true);
 
             if (character.characterStatusManager.characterCurrentHealth <= 0f)
             {

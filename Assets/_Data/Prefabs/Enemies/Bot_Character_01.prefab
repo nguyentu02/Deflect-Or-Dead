@@ -6885,6 +6885,13 @@ MonoBehaviour:
   characterHealthPointsBar: {fileID: 5040525927877153163}
   characterFocusPointsBar: {fileID: 0}
   characterStaminaPointsBar: {fileID: 0}
+  poisonBuildupBar: {fileID: 0}
+  poisonAmountBuildupBar: {fileID: 0}
+  rotBuildupBar: {fileID: 0}
+  rotAmountBuildupBar: {fileID: 0}
+  frostBuildupBar: {fileID: 0}
+  frostAmountBuildupBar: {fileID: 0}
+  bleedBuildupBar: {fileID: 0}
   aiCharacterHealthPointsBar: {fileID: 5040525927877153163}
   aiCharacterFocusPointsBar: {fileID: 0}
   aiCharacterStaminaPointsBar: {fileID: 0}
@@ -6905,7 +6912,7 @@ MonoBehaviour:
   characterWeaponAttackPoiseBonus: 0
   stanceResetTime: 8
   resetStanceTimer: 0
-  characterVigor: 15
+  characterVigor: 99
   characterMaxHealth: 0
   characterCurrentHealth: 0
   characterMind: 10
@@ -7031,7 +7038,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8292ed64f575024e8cb38f855b3c21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterBloodSplatVFX: {fileID: 1026642433091512, guid: 448ded3addd9ca949b2243a8bbd0250d, type: 3}
+  characterBloodSplatVFX: {fileID: 1489431029902184, guid: 1d3c52bcb8a5045409537fc3eea75488, type: 3}
+  isPoisoned: 0
+  poisonCurrentBuildup: 0
+  poisonAmountBuildup: 100
+  characterPoisonedVFX: {fileID: 1471001059461388, guid: 9e20d98e92651a645a34c4b93f4f35e4, type: 3}
+  isRottened: 0
+  rotCurrentBuildup: 0
+  rotAmountBuildup: 100
+  characterRottenedVFX: {fileID: 1471001059461388, guid: 129913542e1d47842aecc13b49ec1b21, type: 3}
+  isFrosted: 0
+  isAlreadyDamageByFrostEffect: 0
+  frostCurrentBuildup: 0
+  frostAmountBuildup: 100
+  characterFrostedVFX: {fileID: 1471001059461388, guid: aa1a78221e6eb7547bb3f738e881658d, type: 3}
+  bleedCurrentBuildup: 0
+  bleedAmountBuildup: 100
+  characterBleededVFX: {fileID: 1489431029902184, guid: 1d3c52bcb8a5045409537fc3eea75488, type: 3}
+  maximumBuildupValue: 100
+  defaultBuildupValue: 100
+  buildupTimeTickDamages: 1
   characterDelfectImpactVFX: {fileID: 1652400581503036, guid: 2d9121f99c9d3cf4bbf5695b1fea0d32, type: 3}
   DEBUG_FlaskModelInstantiatedInCharacterHand: {fileID: 0}
   DEBUG_delayTimeBeforeRecoveryResources: 0.4
