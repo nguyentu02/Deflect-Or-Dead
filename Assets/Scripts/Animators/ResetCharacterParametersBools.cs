@@ -26,6 +26,8 @@ namespace NT
             character.characterCombatManager.isBeingBackstabbed = false;
             character.characterCombatManager.isBeingRiposted = false;
             character.characterCombatManager.isCanBeBackstabbed = true;
+            character.characterCombatManager.isLightAttack = false;
+            character.characterCombatManager.isHeavyAttack = false;
             character.characterCombatManager.DisableIsCanBeRiposte();
             character.characterCombatManager.DisableCanDoComboAttack();
         }

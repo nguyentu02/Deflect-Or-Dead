@@ -8,6 +8,9 @@ namespace NT
         [Header("Ash Of War Animation")]
         public string ashOfWarAnimation;
 
+        [Header("Ash Of War Type")]
+        public WeaponAshOfWarType ashOfWarType;
+
         public virtual void CharacterPlayingAshOfWar(CharacterManager characterWhoPlay)
         {
             characterWhoPlay.characterAnimationManager.CharacterPlayAnimation(ashOfWarAnimation, true);

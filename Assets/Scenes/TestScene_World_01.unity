@@ -825,6 +825,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6980499618031144196, guid: 0db0342eda68189469d9124a085e0926, type: 3}
+      propertyPath: 'weaponsInMainHandQuickSlots.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 99f15f4094e80f742b367e7e899bfc72, type: 2}
     - target: {fileID: 8306191859998869790, guid: 0db0342eda68189469d9124a085e0926, type: 3}
       propertyPath: rotBuildupBar
       value: 

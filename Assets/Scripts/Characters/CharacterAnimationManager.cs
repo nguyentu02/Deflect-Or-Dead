@@ -96,10 +96,13 @@ namespace NT
             character.characterAnimator.SetBool("isGrounded", character.isGrounded);
             character.characterAnimator.SetBool("isPerformingAction", character.isPerformingAction);
             character.characterAnimator.SetBool("isChargingAttack", character.characterCombatManager.isChargingAttack);
+            character.characterAnimator.SetBool("isChargingAshOfWar", character.characterCombatManager.isChargingAshOfWar);
             character.characterAnimator.SetBool("canDoComboAttack", character.characterCombatManager.canDoComboAttack);
             character.characterAnimator.SetBool("isTwoHandingWeapon", character.characterCombatManager.isTwoHanding);
             character.characterAnimator.SetBool("isDefense", character.characterCombatManager.isDefense);
             character.characterAnimator.SetBool("isStanceBreak", character.characterCombatManager.isStanceBreak);
+            character.characterAnimator.SetBool("isLightAttack", character.characterCombatManager.isLightAttack);
+            character.characterAnimator.SetBool("isHeavyAttack", character.characterCombatManager.isHeavyAttack);
 
             //  FLOATS
             character.characterAnimator.SetFloat("inAirTimer", character.characterMovementManager.inAirTimer);

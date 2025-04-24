@@ -27,10 +27,11 @@ namespace NT
         [SerializeField] private bool x_Input = false;
         [SerializeField] private bool r_Input = false;
 
-        [SerializeField] private bool leftMouse_Input = false;
-        [SerializeField] private bool leftMouse_Hold_Input = false;
+        public bool leftMouse_Input = false;
+        public bool leftMouse_Hold_Input = false;
         [SerializeField] private bool leftMouse_Hold_For_Charge_Attack = false;
         [SerializeField] private bool f_Input = false;
+        [SerializeField] private bool f_Hold_Input = false;
 
         [SerializeField] private bool rightArrow_Input = false;
         [SerializeField] private bool leftArrow_Input = false;
@@ -105,6 +106,8 @@ namespace NT
                 inputActions.Player.HeavyAttack.performed += i => leftMouse_Hold_Input = true;
                 inputActions.Player.ChargeAttack.performed += i => leftMouse_Hold_For_Charge_Attack = true;
                 inputActions.Player.ChargeAttack.canceled += i => leftMouse_Hold_For_Charge_Attack = false;
+                inputActions.Player.HoldAshOfWar.performed += i => f_Hold_Input = true;
+                inputActions.Player.HoldAshOfWar.canceled += i => f_Hold_Input = false;
 
                 inputActions.Player.SwitchRightWeapon.performed += i => rightArrow_Input = true;
                 inputActions.Player.SwitchLeftWeapon.performed += i => leftArrow_Input = true;
@@ -128,6 +131,7 @@ namespace NT
             HandlePlayerLightAttackInput();
             HandlePlayerHeavyAttackInput();
             HandlePlayerChargeAttackInput();
+            HandlePlayerChargeAshOfWarInput();
             HandlePlayerAshOfWarInput();
             HandlePlayerSwitchWeaponInHandsInput();
             HandlePlayerUsingConsumablesItemInput();
@@ -146,7 +150,8 @@ namespace NT
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal_Input) + Mathf.Abs(vertical_Input));
 
             //  DEBUG TEST FOR CASE WALKING MOVEMENT
-            if (moveAmount != 0 && player.playerMovementManager.isWalking)
+            if (moveAmount != 0 && player.playerMovementManager.isWalking ||
+                moveAmount != 0 && player.playerCombatManager.isChargingAshOfWar)
                 moveAmount = 0.5f;
 
             if (player.playerCombatManager.isLockedOn && player.playerMovementManager.isWalking)
@@ -221,6 +226,23 @@ namespace NT
                 }
                 else
                 {
+                    if (f_Hold_Input)
+                    {
+                        switch (player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar.ashOfWarType)
+                        {
+                            case WeaponAshOfWarType.Parry:
+                                break;
+                            case WeaponAshOfWarType.TransientMoonlight:
+                                TransientMoonlight_AshOfWar_SO transientMoonlight =
+                                    player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar as TransientMoonlight_AshOfWar_SO;
+
+                                transientMoonlight.CharacterPlayingLightAttackTransientMoonlight(player);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     if (player.isPerformingAction)
                         return;
 
@@ -288,6 +310,23 @@ namespace NT
                 }
                 else
                 {
+                    if (f_Hold_Input)
+                    {
+                        switch (player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar.ashOfWarType)
+                        {
+                            case WeaponAshOfWarType.Parry:
+                                break;
+                            case WeaponAshOfWarType.TransientMoonlight:
+                                TransientMoonlight_AshOfWar_SO transientMoonlight =
+                                    player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar as TransientMoonlight_AshOfWar_SO;
+
+                                transientMoonlight.CharacterPlayingHeavyAttackTransientMoonlight(player);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     if (player.isPerformingAction)
                         return;
 
@@ -340,6 +379,14 @@ namespace NT
             player.playerCombatManager.isChargingAttack = leftMouse_Hold_For_Charge_Attack;
         }
 
+        private void HandlePlayerChargeAshOfWarInput()
+        {
+            if (!player.isPerformingAction)
+                return;
+
+            player.playerCombatManager.isChargingAshOfWar = f_Hold_Input;
+        }
+
         //  DEBUG NOW FOR ASH OF WAR SYSTEM
         private void HandlePlayerAshOfWarInput()
         {
@@ -347,8 +394,19 @@ namespace NT
             {
                 f_Input = false;
 
-                if (player.playerEquipmentManager.currentWeaponHoldInOffHand.weaponAshOfWar != null)
-                    player.playerEquipmentManager.currentWeaponHoldInOffHand.weaponAshOfWar.CharacterPlayingAshOfWar(player);
+                switch (player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar.ashOfWarType)
+                {
+                    case WeaponAshOfWarType.Parry:
+                        player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar.
+                            CharacterPlayingAshOfWar(player);
+                        break;
+                    case WeaponAshOfWarType.TransientMoonlight:
+                        player.playerEquipmentManager.currentWeaponHoldInMainHand.weaponAshOfWar.
+                            CharacterPlayingAshOfWar(player);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

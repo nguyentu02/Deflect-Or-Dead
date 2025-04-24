@@ -38,6 +38,9 @@ namespace NT
         public bool isAttacking = false;
         public bool isInvulnerable = false;
         public bool isChargingAttack = false;
+        public bool isChargingAshOfWar = false;
+        public bool isLightAttack = false;
+        public bool isHeavyAttack = false;
         public bool canDoComboAttack = false;
 
         //  CRITICAL BOOLS CHECK

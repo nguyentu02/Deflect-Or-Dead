@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d905738b073f74e8d5a51ffbbb2eb3, type: 3}
+  m_Name: Transient_Moonlight_01
+  m_EditorClassIdentifier: 
+  itemModelPrefab: {fileID: 0}
+  itemIcon: {fileID: 0}
+  itemName: Transient Moonlight
+  itemID: 0
+  ashOfWarAnimation: GhostSamurai_APose_Unarm_1_Root
+  ashOfWarType: 1
+  moonlightUpwardVelocity: 0
+  moonlightForwardVelocity: 20
+  moonlightLightVFX: {fileID: 7315911613698911679, guid: 7da8d6afd3da1524da6803b5f763d70b, type: 3}
+  moonlightHeavyVFX: {fileID: 5018002314627136952, guid: 6fd15fea3506b0d4cbc728e01b853ae9, type: 3}

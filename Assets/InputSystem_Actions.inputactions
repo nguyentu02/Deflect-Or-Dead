@@ -231,6 +231,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Hold Ash Of War",
+                    "type": "Button",
+                    "id": "8d137cf6-5232-43f8-bd86-1aff66a2d12f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.2)",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Use Consumables",
                     "type": "Button",
                     "id": "98c637db-026b-4587-a969-9980a088256e",
@@ -755,6 +764,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ash Of War",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9e6a389-ab9a-421e-a037-dc68b97b16f0",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold Ash Of War",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

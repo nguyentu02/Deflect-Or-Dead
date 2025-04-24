@@ -31,6 +31,12 @@ namespace NT
         Staff
     }
 
+    public enum WeaponAshOfWarType
+    {
+        Parry,
+        TransientMoonlight,
+    }
+
     public enum WeaponClass
     {
         Unarmed,
